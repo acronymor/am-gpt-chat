@@ -1,7 +1,9 @@
-export default function Home() {
+import Home from "@/app/api/unit/page";
+
+export default function App() {
     return (
         <main>
-            <h1>Hello World</h1>
+            <Home/>
         </main>
     );
 }
