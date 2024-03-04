@@ -1,6 +1,6 @@
 import chat_style from "@/app/api/unit/chat.module.scss"
 import RenameIcon from "@/app/icons/rename.svg"
-import ExportIcon from "@/app/icons/export.svg"
+import ShareIcon from "@/app/icons/share.svg"
 import MaxIcon from "@/app/icons/max.svg"
 import MinIcon from "@/app/icons/min.svg"
 import SendWhiteIcon from "@/app/icons/send-white.svg";
@@ -10,6 +10,7 @@ import PromptIcon from "@/app/icons/prompt.svg";
 import MaskIcon from "@/app/icons/mask.svg";
 import BreakIcon from "@/app/icons/break.svg";
 import RobotIcon from "@/app/icons/robot.svg";
+import {IconButton} from "@/app/api/unit/button";
 
 export function Chat() {
     return (
@@ -24,10 +25,18 @@ export function Chat() {
                     </div>
                 </div>
                 <div className={"window-actions"}>
-                    <div className={"window-action-button"}><RenameIcon/></div>
-                    <div className={"window-action-button"}><ExportIcon/></div>
-                    <div className={"window-action-button"}><MaxIcon/></div>
-                    <div className={"window-action-button"}><MinIcon/></div>
+                    <div className={"window-action-button"}>
+                        <IconButton icon={<RenameIcon/>}/>
+                    </div>
+                    <div className={"window-action-button"}>
+                        <IconButton icon={<ShareIcon/>}/>
+                    </div>
+                    <div className={"window-action-button"}>
+                        <IconButton icon={<MaxIcon/>}/>
+                    </div>
+                    <div className={"window-action-button"}>
+                        <IconButton icon={<MinIcon/>}/>
+                    </div>
                 </div>
             </div>
 
@@ -52,7 +61,11 @@ export function Chat() {
                         placeholder="Ctrl + Enter to send, / to search prompts, :to use commands"
                         rows={8}
                     />
-                    <div className={chat_style["chat-input-send"]}><SendWhiteIcon/></div>
+                    <IconButton
+                        className={chat_style["chat-input-send"]}
+                        icon={<SendWhiteIcon/>}
+                        text={"Send"}
+                    />
                 </div>
             </div>
         </div>

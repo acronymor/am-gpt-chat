@@ -5,6 +5,7 @@ import PluginIcon from "@/app/icons/plugin.svg"
 import SettingsIcon from "@/app/icons/settings.svg";
 import GithubIcon from "@/app/icons/github.svg";
 import AddIcon from "@/app/icons/add.svg";
+import {IconButton} from "@/app/api/unit/button";
 
 export function Sidebar(props: { className?: string }) {
     return (
@@ -16,8 +17,16 @@ export function Sidebar(props: { className?: string }) {
             </div>
 
             <div className={sidebar_style["sidebar-header-bar"]}>
-                <div className={sidebar_style["sidebar-bar-button"]}><MaskIcon/></div>
-                <div className={sidebar_style["sidebar-bar-button"]}><PluginIcon/></div>
+                <IconButton
+                    className={sidebar_style["sidebar-bar-button"]}
+                    icon={<MaskIcon/>}
+                    text={"面具"}
+                />
+                <IconButton
+                    className={sidebar_style["sidebar-bar-button"]}
+                    icon={<PluginIcon/>}
+                    text={"插件"}
+                />
             </div>
 
             <div className={sidebar_style["sidebar-body"]}>
@@ -26,9 +35,22 @@ export function Sidebar(props: { className?: string }) {
 
             <div className={sidebar_style["sidebar-tail"]}>
                 <div className={sidebar_style["sidebar-actions"]}>
-                    <div className={sidebar_style["sidebar-action"]}><SettingsIcon/></div>
-                    <div className={sidebar_style["sidebar-action"]}><GithubIcon/></div>
-                    <div className={sidebar_style["sidebar-action"]}><AddIcon/></div>
+                    <div className={sidebar_style["sidebar-action"]}>
+                        <IconButton icon={<SettingsIcon/>}/>
+                    </div>
+
+                    <div className={sidebar_style["sidebar-action"]}>
+                        <IconButton icon={<GithubIcon/>}/>
+                    </div>
+
+                </div>
+                <div>
+                    <div className={sidebar_style["sidebar-action"]}>
+                        <IconButton
+                            icon={<AddIcon/>}
+                            text={"新的聊天"}
+                        />
+                    </div>
                 </div>
             </div>
         </div>
