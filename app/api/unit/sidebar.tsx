@@ -1,4 +1,5 @@
 import sidebar_style from "@/app/api/unit/sidebar.module.scss"
+import ChatGptIcon from "@/app/icons/chatgpt.svg"
 
 export function Sidebar(props: { className?: string }) {
     return (
@@ -6,6 +7,7 @@ export function Sidebar(props: { className?: string }) {
             <div className={sidebar_style["sidebar-header"]}>
                 <div className={sidebar_style["sidebar-title"]}>NextChat</div>
                 <div className={sidebar_style["sidebar-sub-title"]}>Build your own AI assistant.</div>
+                <div className={sidebar_style["sidebar-logo"] + " no-dark"}><ChatGptIcon/></div>
             </div>
 
             <div className={sidebar_style["sidebar-header-bar"]}>
