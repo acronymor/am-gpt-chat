@@ -6,6 +6,7 @@ import SettingsIcon from "@/app/icons/settings.svg";
 import GithubIcon from "@/app/icons/github.svg";
 import AddIcon from "@/app/icons/add.svg";
 import {IconButton} from "@/app/api/unit/button";
+import {ChatList} from "@/app/api/unit/chat-list";
 
 export function Sidebar(props: { className?: string }) {
     return (
@@ -30,7 +31,7 @@ export function Sidebar(props: { className?: string }) {
             </div>
 
             <div className={sidebar_style["sidebar-body"]}>
-                <div>ChatList</div>
+                <ChatList/>
             </div>
 
             <div className={sidebar_style["sidebar-tail"]}>
