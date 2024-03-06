@@ -1,5 +1,5 @@
 import {useRef, useState} from "react";
-import chat_input_style from "@/app/api/unit/chat-input.module.scss"
+import chat_input_style from "@/app/api/unit/chat/[id]/chat-input.module.scss"
 
 export function IconChatAction(props: {
     icon?: JSX.Element

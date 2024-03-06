@@ -1,4 +1,4 @@
-import chat_input_style from "@/app/api/unit/chat-input.module.scss";
+import chat_input_style from "@/app/api/unit/chat/[id]/chat-input.module.scss";
 import SettingsIcon from "@/app/icons/settings.svg";
 import AutoIcon from "@/app/icons/auto.svg";
 import PromptIcon from "@/app/icons/prompt.svg";

@@ -1,3 +1,5 @@
+'use client'
+
 import sidebar_style from "@/app/api/unit/sidebar.module.scss"
 import ChatGptIcon from "@/app/icons/chatgpt.svg"
 import MaskIcon from "@/app/icons/mask.svg"
@@ -7,15 +9,18 @@ import GithubIcon from "@/app/icons/github.svg";
 import AddIcon from "@/app/icons/add.svg";
 import {IconButton} from "@/app/api/unit/button";
 import {ChatList} from "@/app/api/unit/chat-list";
+import Link from "next/link";
 
 export function Sidebar(props: { className?: string }) {
     return (
         <div className={sidebar_style["sidebar"]}>
+            <Link href={"/api/unit"}>
             <div className={sidebar_style["sidebar-header"]}>
                 <div className={sidebar_style["sidebar-title"]}>NextChat</div>
                 <div className={sidebar_style["sidebar-sub-title"]}>Build your own AI assistant.</div>
                 <div className={sidebar_style["sidebar-logo"] + " no-dark"}><ChatGptIcon/></div>
             </div>
+            </Link>
 
             <div className={sidebar_style["sidebar-header-bar"]}>
                 <IconButton

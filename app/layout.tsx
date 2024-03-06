@@ -1,6 +1,8 @@
 import type {Metadata, Viewport} from "next";
 import {Inter} from "next/font/google";
 import "@/app/styles/globals.scss"
+import {Sidebar} from "@/app/api/unit/sidebar";
+import style from "@/app/main.module.scss"
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -23,7 +25,12 @@ export const viewport: Viewport = {
 export default function RootLayout({children,}: Readonly<{ children: React.ReactNode; }>) {
     return (
         <html lang="en">
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+        <div className={style["container"]}>
+            <Sidebar/>
+            {children}
+        </div>
+        </body>
         </html>
     );
 }
