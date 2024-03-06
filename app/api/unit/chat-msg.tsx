@@ -17,37 +17,39 @@ export function ChatMsg(props: {
     role: string,
 }) {
     return (
-        <div className={chat_msg_style["chat-message-container"]}>
-            <div className={chat_msg_style["chat-message-header"]}>
-                <div className={chat_msg_style["chat-message-avatar"]}>
-                    <div className={chat_msg_style["chat-message-edit"]}>
-                        <IconButton
-                            icon={<EditIcon/>}
-                        />
+        <div className={props.role == "user" ? chat_msg_style["chat-message-user"] : chat_msg_style["chat-message"]}>
+            <div className={chat_msg_style["chat-message-container"]}>
+                <div className={chat_msg_style["chat-message-header"]}>
+                    <div className={chat_msg_style["chat-message-avatar"]}>
+                        <div className={chat_msg_style["chat-message-edit"]}>
+                            <IconButton
+                                icon={<EditIcon/>}
+                            />
+                        </div>
+                        <div>
+                            {props.role == "user" ? <AvatarIcon/> : <BotIcon/>}
+                        </div>
                     </div>
-                    <div>
-                        {props.role == "user" ? <AvatarIcon/> : <BotIcon/>}
+                    <div className={chat_msg_style["chat-message-actions"]}>
+                        <div className={chat_input_style["chat-input-actions"]}>
+                            <IconChatAction icon={<ResetIcon/>} text={"Retry"}/>
+                            <IconChatAction icon={<DeleteIcon/>} text={"Delete"}/>
+                            <IconChatAction icon={<PinIcon/>} text={"Pin"}/>
+                            <IconChatAction icon={<CopyIcon/>} text={"Copy"}/>
+                        </div>
                     </div>
                 </div>
-                <div className={chat_msg_style["chat-message-actions"]}>
-                    <div className={chat_input_style["chat-input-actions"]}>
-                        <IconChatAction icon={<ResetIcon/>} text={"Retry"}/>
-                        <IconChatAction icon={<DeleteIcon/>} text={"Delete"}/>
-                        <IconChatAction icon={<PinIcon/>} text={"Pin"}/>
-                        <IconChatAction icon={<CopyIcon/>} text={"Copy"}/>
-                    </div>
+
+                <div className={chat_msg_style["chat-message-status"]}>
+                    Typing
                 </div>
-            </div>
 
-            <div className={chat_msg_style["chat-message-status"]}>
-                Typing
-            </div>
-
-            <div className={chat_msg_style["chat-message-item"]}>
-                Markdown Message
-            </div>
-            <div className={chat_msg_style["chat-message-action-date"]}>
-                88:88:88
+                <div className={chat_msg_style["chat-message-item"]}>
+                    {props.role == "user" ? "User" : "System"} Markdown Message
+                </div>
+                <div className={chat_msg_style["chat-message-action-date"]}>
+                    88:88:88
+                </div>
             </div>
         </div>
     )

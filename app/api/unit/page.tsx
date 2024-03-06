@@ -1,3 +1,5 @@
+'use client'
+
 import home_style from "@/app/api/unit/home.module.scss"
 
 import {Sidebar} from "@/app/api/unit/sidebar";
