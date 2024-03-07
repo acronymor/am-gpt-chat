@@ -4,13 +4,19 @@ import {ChatItem} from "@/app/api/unit/chat-item";
 import {IconLink} from "@/app/api/unit/link";
 import {useState} from "react";
 
-const links = [
-    {name: 'title1', href: `/api/unit/chat/1`},
-    {name: 'title2', href: '/api/unit/chat/2'},
-    {name: 'title3', href: '/api/unit/chat/3'},
+type MetaChatItem = {
+    name: string,
+    cnt: number,
+    href: string
+}
+
+const links: MetaChatItem[] = [
+    {name: 'titleA', cnt: 1001, href: '/api/unit/chat/1'},
+    {name: 'titleB', cnt: 1002, href: '/api/unit/chat/2'},
+    {name: 'titleC', cnt: 1003, href: '/api/unit/chat/3'},
 ]
 
-const reorder = (list: { name: string, href: string }[], startIndex: number, endIndex: number) => {
+const reorder = (list: MetaChatItem[], startIndex: number, endIndex: number) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
@@ -45,7 +51,7 @@ export function ChatList(props: { narrow?: boolean }) {
                                      {...provided.draggableProps}
                                      {...provided.dragHandleProps} >
                                     <IconLink key={chat.name} href={chat.href}>
-                                        <ChatItem title={chat.name}/>
+                                        <ChatItem title={chat.name} cnt={chat.cnt}/>
                                     </IconLink>
                                 </div>
                             )}

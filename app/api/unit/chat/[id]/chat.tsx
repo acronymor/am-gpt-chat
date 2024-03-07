@@ -4,7 +4,7 @@ import {ChatInput} from "@/app/api/unit/chat/[id]/chat-input";
 import chat_style from "@/app/api/unit/chat/[id]/chat.module.scss"
 
 export function Chat(props: {
-    id: number,
+    id: string,
 }) {
     console.log(props.id)
     return (

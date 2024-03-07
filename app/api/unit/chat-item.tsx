@@ -4,6 +4,7 @@ import DeleteIcon from "@/app/icons/delete.svg";
 
 export function ChatItem(props: {
     title: string,
+    cnt: number,
 }) {
     return (
         <div>
@@ -11,7 +12,7 @@ export function ChatItem(props: {
                 <div className={chat_item_style["chat-item-title"]}>{props.title}</div>
                 <div className={chat_item_style["chat-item-info"]}>
                     <div className={chat_item_style["chat-item-count"]}>
-                        888
+                        {props.cnt}
                     </div>
                     <div className={chat_item_style["chat-item-date"]}>99:99:99</div>
                 </div>
