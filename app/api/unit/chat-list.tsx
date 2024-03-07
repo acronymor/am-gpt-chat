@@ -1,5 +1,5 @@
 import {ChatItem} from "@/app/api/unit/chat-item";
-import Link from "next/link";
+import {IconLink} from "@/app/api/unit/link";
 
 const links = [
     {name: 'title1', href: `/api/unit/chat/1`},
@@ -12,9 +12,9 @@ export function ChatList(props: { narrow?: boolean }) {
         <div>
             {links.map((link) => {
                 return (
-                    <Link key={link.name} href={link.href}>
+                    <IconLink key={link.name} href={link.href}>
                         <ChatItem title={link.name}/>
-                    </Link>
+                    </IconLink>
                 )
             })}
         </div>
