@@ -1,8 +1,8 @@
-import {IconButton} from "@/app/api/lib/button";
-import {IconChatAction} from "@/app/api/unit/chat/[id]/chat-action";
+import {IconButton} from "@/app/ui/lib/button";
+import {IconChatAction} from "@/app/ui/unit/chat/[id]/chat-action";
 
-import chat_msg_style from "@/app/api/unit/chat/[id]/chat-msg.module.scss"
-import chat_input_style from "@/app/api/unit/chat/[id]/chat-input.module.scss"
+import chat_msg_style from "@/app/ui/unit/chat/[id]/chat-msg.module.scss"
+import chat_input_style from "@/app/ui/unit/chat/[id]/chat-input.module.scss"
 
 import EditIcon from "@/app/icons/rename.svg"
 import ResetIcon from "@/app/icons/reload.svg";

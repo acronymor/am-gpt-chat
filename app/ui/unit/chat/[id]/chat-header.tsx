@@ -1,4 +1,4 @@
-import {IconButton} from "@/app/api/lib/button";
+import {IconButton} from "@/app/ui/lib/button";
 import RenameIcon from "@/app/icons/rename.svg";
 import ShareIcon from "@/app/icons/share.svg";
 import MaxIcon from "@/app/icons/max.svg";

@@ -1,7 +1,7 @@
 import React from "react";
 
-import {IconButton} from "@/app/api/lib/button";
-import {List, ListItem} from "@/app/api/lib/list";
+import {IconButton} from "@/app/ui/lib/button";
+import {List, ListItem} from "@/app/ui/lib/list";
 
 export function Danger() {
     return (

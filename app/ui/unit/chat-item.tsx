@@ -1,4 +1,4 @@
-import chat_item_style from "@/app/api/unit/chat-item.module.scss"
+import chat_item_style from "@/app/ui/unit/chat-item.module.scss"
 import DeleteIcon from "@/app/icons/delete.svg";
 
 

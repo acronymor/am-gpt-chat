@@ -1,6 +1,6 @@
 import DownIcon from "@/app/icons/down.svg";
 
-import select_style from "@/app/api/lib/select.module.scss"
+import select_style from "@/app/ui/lib/select.module.scss"
 
 
 export function Select(

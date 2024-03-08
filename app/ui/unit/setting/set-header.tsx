@@ -1,4 +1,4 @@
-import {IconButton} from "@/app/api/lib/button";
+import {IconButton} from "@/app/ui/lib/button";
 import CloseIcon from "@/app/icons/close.svg";
 
 

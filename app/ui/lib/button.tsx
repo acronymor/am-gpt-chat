@@ -1,4 +1,4 @@
-import button_style from "@/app/api/lib/button.module.scss"
+import button_style from "@/app/ui/lib/button.module.scss"
 
 export function IconButton(props: {
     className?: string,

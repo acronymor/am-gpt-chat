@@ -1,7 +1,7 @@
 import React from "react";
 
-import {List, ListItem} from "@/app/api/lib/list";
-import {InputNumber, InputRange} from "@/app/api/lib/input";
+import {List, ListItem} from "@/app/ui/lib/list";
+import {InputNumber, InputRange} from "@/app/ui/lib/input";
 
 export function ChatGpt() {
     return (

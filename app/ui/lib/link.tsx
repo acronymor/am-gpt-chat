@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import link_style from "@/app/api/lib/link.module.scss"
+import link_style from "@/app/ui/lib/link.module.scss"
 
 
 export function IconLink(props: { href: string, children: React.ReactNode }) {

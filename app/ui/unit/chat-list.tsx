@@ -1,7 +1,7 @@
 import {DragDropContext, Draggable, Droppable, OnDragEndResponder,} from "@hello-pangea/dnd";
 
-import {ChatItem} from "@/app/api/unit/chat-item";
-import {IconLink} from "@/app/api/lib/link";
+import {ChatItem} from "@/app/ui/unit/chat-item";
+import {IconLink} from "@/app/ui/lib/link";
 import {useState} from "react";
 
 type MetaChatItem = {
@@ -11,9 +11,9 @@ type MetaChatItem = {
 }
 
 const links: MetaChatItem[] = [
-    {name: 'titleA', cnt: 1001, href: '/api/unit/chat/1'},
-    {name: 'titleB', cnt: 1002, href: '/api/unit/chat/2'},
-    {name: 'titleC', cnt: 1003, href: '/api/unit/chat/3'},
+    {name: 'titleA', cnt: 1001, href: '/ui/unit/chat/1'},
+    {name: 'titleB', cnt: 1002, href: '/ui/unit/chat/2'},
+    {name: 'titleC', cnt: 1003, href: '/ui/unit/chat/3'},
 ]
 
 const reorder = (list: MetaChatItem[], startIndex: number, endIndex: number) => {

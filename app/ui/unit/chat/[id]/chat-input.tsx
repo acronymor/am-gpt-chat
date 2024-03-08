@@ -1,11 +1,11 @@
-import chat_input_style from "@/app/api/unit/chat/[id]/chat-input.module.scss";
+import chat_input_style from "@/app/ui/unit/chat/[id]/chat-input.module.scss";
 import SettingsIcon from "@/app/icons/settings.svg";
 import AutoIcon from "@/app/icons/auto.svg";
 import PromptIcon from "@/app/icons/prompt.svg";
 import MaskIcon from "@/app/icons/mask.svg";
 import BreakIcon from "@/app/icons/break.svg";
 import RobotIcon from "@/app/icons/robot.svg";
-import {IconButton} from "@/app/api/lib/button";
+import {IconButton} from "@/app/ui/lib/button";
 import SendWhiteIcon from "@/app/icons/send-white.svg";
 
 export function ChatInput() {

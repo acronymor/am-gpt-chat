@@ -1,8 +1,8 @@
 import React from "react";
 
-import {List, ListItem} from "@/app/api/lib/list";
-import {IconButton} from "@/app/api/lib/button";
-import {Select} from "@/app/api/lib/select";
+import {List, ListItem} from "@/app/ui/lib/list";
+import {IconButton} from "@/app/ui/lib/button";
+import {Select} from "@/app/ui/lib/select";
 
 export function General() {
     return (

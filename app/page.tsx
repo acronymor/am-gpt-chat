@@ -1,9 +1,13 @@
-import Home from "@/app/api/unit/page";
+'use client'
+
+import {useEffect} from "react";
+import {useRouter} from "next/navigation";
+
+const links = {name: 'chat', href: "/ui/unit/chat"}
 
 export default function App() {
-    return (
-        <main>
-            <Home/>
-        </main>
-    );
+    const router = useRouter()
+    useEffect(() => {
+        router.push(links.href);
+    });
 }

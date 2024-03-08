@@ -1,4 +1,4 @@
-import chat_style from "@/app/api/unit/chat/[id]/chat.module.scss";
+import chat_style from "@/app/ui/unit/chat/[id]/chat.module.scss";
 
 export default function Page() {
     return (

@@ -2,8 +2,8 @@
 
 import React from "react";
 
-import {SetHeader} from "@/app/api/unit/setting/set-header";
-import {SetList} from "@/app/api/unit/setting/set-list";
+import {SetHeader} from "@/app/ui/unit/setting/set-header";
+import {SetList} from "@/app/ui/unit/setting/set-list";
 
 
 export default function Page() {

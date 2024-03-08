@@ -1,7 +1,7 @@
 import type {Metadata, Viewport} from "next";
 import {Inter} from "next/font/google";
 import "@/app/styles/globals.scss"
-import {Sidebar} from "@/app/api/unit/sidebar";
+import {Sidebar} from "@/app/ui/unit/sidebar";
 import style from "@/app/main.module.scss"
 
 const inter = Inter({subsets: ["latin"]});

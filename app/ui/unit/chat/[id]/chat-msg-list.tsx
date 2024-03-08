@@ -1,5 +1,5 @@
-import {ChatMsg} from "@/app/api/unit/chat/[id]/chat-msg";
-import chat_style from "@/app/api/unit/chat/[id]/chat.module.scss";
+import {ChatMsg} from "@/app/ui/unit/chat/[id]/chat-msg";
+import chat_style from "@/app/ui/unit/chat/[id]/chat.module.scss";
 
 
 export function ChatMsgList() {

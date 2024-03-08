@@ -3,7 +3,7 @@
 import {useEffect} from "react";
 import {useRouter} from "next/navigation";
 
-const links = {name: 'chat', href: "/api/unit/chat"}
+const links = {name: 'chat', href: "/ui/unit/chat"}
 
 export default function Home() {
     const router = useRouter()

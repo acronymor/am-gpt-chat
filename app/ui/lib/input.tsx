@@ -1,4 +1,4 @@
-import input_style from "@/app/api/lib/input.module.scss"
+import input_style from "@/app/ui/lib/input.module.scss"
 
 
 interface InputRangeProps {

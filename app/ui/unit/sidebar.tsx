@@ -2,11 +2,11 @@
 
 import React from "react";
 
-import {IconButton} from "@/app/api/lib/button";
-import {IconLink} from "@/app/api/lib/link";
-import {ChatList} from "@/app/api/unit/chat-list";
+import {IconButton} from "@/app/ui/lib/button";
+import {IconLink} from "@/app/ui/lib/link";
+import {ChatList} from "@/app/ui/unit/chat-list";
 
-import sidebar_style from "@/app/api/unit/sidebar.module.scss"
+import sidebar_style from "@/app/ui/unit/sidebar.module.scss"
 import ChatGptIcon from "@/app/icons/chatgpt.svg"
 import MaskIcon from "@/app/icons/mask.svg"
 import PluginIcon from "@/app/icons/plugin.svg"
@@ -17,7 +17,7 @@ import AddIcon from "@/app/icons/add.svg";
 export function Sidebar(props: { className?: string }) {
     return (
         <div className={sidebar_style["sidebar"]}>
-            <IconLink href={"/api/unit"}>
+            <IconLink href={"/ui/unit"}>
                 <div className={sidebar_style["sidebar-header"]}>
                     <div className={sidebar_style["sidebar-title"]}>NextChat</div>
                     <div className={sidebar_style["sidebar-sub-title"]}>Build your own AI assistant.</div>
@@ -45,7 +45,7 @@ export function Sidebar(props: { className?: string }) {
             <div className={sidebar_style["sidebar-tail"]}>
                 <div className={sidebar_style["sidebar-actions"]}>
                     <div className={sidebar_style["sidebar-action"]}>
-                        <IconLink href={"/api/unit/setting"}>
+                        <IconLink href={"/ui/unit/setting"}>
                             <IconButton icon={<SettingsIcon/>}/>
                         </IconLink>
                     </div>
