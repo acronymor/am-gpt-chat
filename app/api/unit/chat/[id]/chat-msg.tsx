@@ -1,8 +1,8 @@
+import {IconButton} from "@/app/api/lib/button";
+import {IconChatAction} from "@/app/api/unit/chat/[id]/chat-action";
+
 import chat_msg_style from "@/app/api/unit/chat/[id]/chat-msg.module.scss"
 import chat_input_style from "@/app/api/unit/chat/[id]/chat-input.module.scss"
-
-import {IconButton} from "@/app/api/unit/button";
-import {IconChatAction} from "@/app/api/unit/chat/[id]/chat-action";
 
 import EditIcon from "@/app/icons/rename.svg"
 import ResetIcon from "@/app/icons/reload.svg";
@@ -11,7 +11,6 @@ import PinIcon from "@/app/icons/pin.svg";
 import CopyIcon from "@/app/icons/copy.svg";
 import BotIcon from "@/app/icons/bot.svg"
 import AvatarIcon from "@/app/icons/avatar.svg"
-
 
 export function ChatMsg(props: {
     role: string,

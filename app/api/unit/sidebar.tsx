@@ -2,8 +2,8 @@
 
 import React from "react";
 
-import {IconButton} from "@/app/api/unit/button";
-import {IconLink} from "@/app/api/unit/link";
+import {IconButton} from "@/app/api/lib/button";
+import {IconLink} from "@/app/api/lib/link";
 import {ChatList} from "@/app/api/unit/chat-list";
 
 import sidebar_style from "@/app/api/unit/sidebar.module.scss"
@@ -45,7 +45,9 @@ export function Sidebar(props: { className?: string }) {
             <div className={sidebar_style["sidebar-tail"]}>
                 <div className={sidebar_style["sidebar-actions"]}>
                     <div className={sidebar_style["sidebar-action"]}>
-                        <IconButton icon={<SettingsIcon/>}/>
+                        <IconLink href={"/api/unit/setting"}>
+                            <IconButton icon={<SettingsIcon/>}/>
+                        </IconLink>
                     </div>
 
                     <div className={sidebar_style["sidebar-action"]}>

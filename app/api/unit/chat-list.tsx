@@ -1,7 +1,7 @@
 import {DragDropContext, Draggable, Droppable, OnDragEndResponder,} from "@hello-pangea/dnd";
 
 import {ChatItem} from "@/app/api/unit/chat-item";
-import {IconLink} from "@/app/api/unit/link";
+import {IconLink} from "@/app/api/lib/link";
 import {useState} from "react";
 
 type MetaChatItem = {
