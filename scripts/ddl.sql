@@ -1,0 +1,8 @@
+CREATE TABLE t_setting
+(
+    ID          TEXT PRIMARY KEY NOT NULL,
+    CONTENT     TEXT             NOT NULL,
+    CREATE_TIME DATETIME,
+    UPDATE_TIME DATETIME,
+    NODE        TEXT
+);
