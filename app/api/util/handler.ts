@@ -1,4 +1,4 @@
-import {selectSettingByUserIdSql, selectUserIdByNameSql, updateSettingSql} from "@/app/api/util/sql";
+import {selectSettingByUserNameSql, updateSettingSql} from "@/app/api/util/sql";
 import {exec, selectOne} from "@/app/api/util/sqlite";
 
 export class SettingHandler {
@@ -14,9 +14,7 @@ export class SettingHandler {
                 console.debug(`select start, user=${this.user}`);
                 return this.user
             }).then((user) => {
-                return selectOne(selectUserIdByNameSql(user))
-            }).then((user) => {
-                return selectOne(selectSettingByUserIdSql(user["ID"]))
+                return selectOne(selectSettingByUserNameSql(user))
             }).catch((err) => {
                 console.error(err)
             }).finally(() => {
@@ -34,10 +32,8 @@ export class SettingHandler {
             .then(() => {
                 console.debug(`update start, user=${this.user}, content=${value}`);
                 return this.user
-            }).then((name) => {
-                return selectOne(selectUserIdByNameSql(name))
             }).then((user) => {
-                return selectOne(selectSettingByUserIdSql(user["ID"]))
+                return selectOne(selectSettingByUserNameSql(user));
             }).then((one) => {
                 return exec(updateSettingSql(one["ID"], value))
             }).catch((err) => {

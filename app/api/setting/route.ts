@@ -1,6 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
 import {ResponseResult} from "@/app/api/util/response";
-import {SettingHandler} from "@/app/api/setting/handler";
+import {SettingHandler} from "@/app/api/util/handler";
 
 async function handlePost(request: NextRequest) {
     let body = await request.json()

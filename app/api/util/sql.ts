@@ -1,13 +1,8 @@
-export const selectUserIdByNameSql = (name: string) => {
-    return `SELECT t.ID
-            FROM t_user t
-            WHERE t.NAME = '${name}'`;
-}
-
-export const selectSettingByUserIdSql = (userId: number) => {
-    return `SELECT t.ID, t.CONTENT
-            FROM t_setting t
-            WHERE t.USER_ID = '${userId}'`
+export const selectSettingByUserNameSql = (name: string) => {
+    return `SELECT p.ID, p.CONTENT
+            FROM t_setting AS p
+                     LEFT JOIN t_user AS q ON p.USER_ID = q.ID
+            WHERE q.NAME = '${name}';`
 }
 
 export const updateSettingSql = (id: number, content: string) => {
