@@ -8,9 +8,25 @@ const database = open({
     driver: sqlite3.Database
 })
 
-export async function exec(sql: string) {
+export async function selectAll(sql: string) {
     const res = database.then((db) => {
         return db.all(sql)
+    })
+
+    return res
+}
+
+export async function selectOne(sql: string) {
+    const res = database.then((db) => {
+        return db.get(sql)
+    })
+
+    return res
+}
+
+export async function exec(sql: string) {
+    const res = database.then((db) => {
+        return db.exec(sql)
     })
 
     return res
