@@ -6,9 +6,9 @@ interface InputRangeProps {
     title?: string;
     value: number | string;
     className?: string;
-    min: string;
-    max: string;
-    step: string;
+    min: number;
+    max: number;
+    step: number;
 }
 
 export function InputRange({onChange, title, value, className, min, max, step,}: InputRangeProps) {
@@ -28,7 +28,7 @@ export function InputRange({onChange, title, value, className, min, max, step,}:
     );
 }
 
-interface InputProps {
+interface InputNumberProps {
     onChange: React.ChangeEventHandler<HTMLInputElement>;
     title?: string;
     value: number | string;
@@ -37,7 +37,7 @@ interface InputProps {
     max: number;
 }
 
-export function InputNumber({onChange, title, value, className, min, max,}: InputProps) {
+export function InputNumber({onChange, title, value, className, min, max,}: InputNumberProps) {
     return (
         <input
             type="number"
@@ -50,3 +50,21 @@ export function InputNumber({onChange, title, value, className, min, max,}: Inpu
     );
 }
 
+interface InputTextProps {
+    onChange: React.ChangeEventHandler<HTMLInputElement>;
+    title?: string;
+    value: number | string;
+    className?: string;
+}
+
+
+export function InputText({onChange, title, value, className}: InputTextProps) {
+    return (
+        <input
+            type="text"
+            title={title}
+            value={value}
+            onChange={onChange}
+        />
+    );
+}
