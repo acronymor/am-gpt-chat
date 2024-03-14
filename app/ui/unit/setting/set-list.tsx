@@ -4,18 +4,19 @@ import {Danger} from "@/app/ui/unit/setting/danger";
 
 import set_style from "@/app/ui/unit/setting/set.module.scss"
 import {useEffect, useState} from "react";
+import {ChatGptConfig, LlmType} from "@/app/proto/llm";
 
 
 export function SetList() {
-    const [data, setData] = useState<any>()
+    const [data, setData] = useState<{[key in LlmType]?: any}>()
     useEffect(() => {
         fetch('/api/setting', {method: "GET", cache: "no-cache"})
             .then((res) => res.json())
             .then((data) => {
                 if (data["code"] == 200) {
-                    let cfg: { [key: string]: any } = {}
+                    let cfg: {[key in LlmType]?: any} = {}
                     for (let llm of data?.data?.llm) {
-                        cfg[llm?.model] = llm;
+                        cfg[llm?.model as LlmType.CHATGPT] = llm as ChatGptConfig;
                     }
                     setData(cfg)
                 } else {
