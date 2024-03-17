@@ -19,7 +19,8 @@
     "react-dom": "^18",
     "sass": "^1.71.1",
     "sqlite": "^5.1.1",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
