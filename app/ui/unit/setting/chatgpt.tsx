@@ -2,10 +2,11 @@ import React, {useEffect, useState} from "react";
 
 import {useDebouncedCallback} from 'use-debounce';
 
+import {ChatGptConfig} from "@/app/proto/setting";
 import {List, ListItem} from "@/app/ui/lib/list";
 import {InputNumber, InputRange, InputText} from "@/app/ui/lib/input";
 import {Select} from "@/app/ui/lib/select";
-import {ChatGptConfig} from "@/app/proto/llm";
+import {getSetting, setSetting} from "@/app/ui/util/fetch_util";
 
 const DEFAULT_CONFIG: ChatGptConfig = {
     openAIApiKey: "",
@@ -27,41 +28,19 @@ export function ChatGpt() {
     const [enabled, setEnabled] = useState<boolean>(true)
 
     useEffect(() => {
-        fetch('/api/setting?type=chatgpt', {
-            method: "GET",
-            headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
-            cache: "no-cache"
-        }).then((response) => response.json())
-            .then((response) => {
-                if (response.code == 200) {
-                    let data = response.data
-                    setState(data.config)
-                    setEnabled(data.isEnabled)
-                } else {
-                    throw new Error("Error Setting")
-                }
-            }).catch((e) => {
-            console.error(e)
+        getSetting("chatgpt", (response) => {
+            let data = response?.data
+            setState(data.config)
+            setEnabled(data.isEnabled)
         })
+
     }, []);
 
     const update = useDebouncedCallback((isEnabled: boolean, config: ChatGptConfig) => {
-        fetch('/api/setting', {
-            method: "POST",
-            headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
-            cache: "no-cache",
-            body: JSON.stringify({"chatgpt": {"isEnabled": isEnabled, "config": config}})
-        }).then((response) => response.json())
-            .then((response) => response.json())
-            .then((response) => {
-                if (response.code == 200) {
-                    console.debug(response.message)
-                } else {
-                    throw new Error("Error Setting")
-                }
-            }).catch((e) => {
-            console.error(e);
-        });
+        const body = {"chatgpt": {"isEnabled": isEnabled, "config": config}}
+        setSetting(body, (response) => {
+            console.log(response.data)
+        })
     }, 500);
 
     return (

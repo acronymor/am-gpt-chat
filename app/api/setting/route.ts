@@ -5,7 +5,13 @@ import {SettingHandler} from "@/app/api/util/handler";
 async function handlePost(request: NextRequest) {
     let body = await request.json()
     let handler = new SettingHandler("admin")
-    await handler.update(body)
+    let res = JSON.parse(await handler.select())
+
+    for (let key of Object.keys(body)) {
+        res[key] = body[key];
+    }
+
+    await handler.update(res)
     return NextResponse.json(ResponseResult.Ok(''))
 }
 

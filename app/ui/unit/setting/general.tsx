@@ -1,10 +1,37 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {useDebouncedCallback} from "use-debounce";
+
+import {GenericConfig, SubmitKey, Theme} from "@/app/proto/setting";
 
 import {List, ListItem} from "@/app/ui/lib/list";
 import {IconButton} from "@/app/ui/lib/button";
 import {Select} from "@/app/ui/lib/select";
+import {getSetting, setSetting} from "@/app/ui/util/fetch_util";
+
+const DEFAULT_CONFIG: GenericConfig = {
+    theme: Theme.Auto,
+    submitKey: SubmitKey.Enter
+}
+
 
 export function General() {
+    const [state, setState] = useState<GenericConfig>(DEFAULT_CONFIG)
+
+    useEffect(() => {
+        getSetting("generic", (response) => {
+            let data = response?.data
+            setState(data.config)
+        })
+
+    }, []);
+
+    const update = useDebouncedCallback((config: GenericConfig) => {
+        const body = {"generic": {"config": config}}
+        setSetting(body, (response) => {
+            console.log(response.data)
+        })
+    }, 500);
+
     return (
         <List>
             <ListItem title={"头像"}>
@@ -16,16 +43,35 @@ export function General() {
             </ListItem>
 
             <ListItem title={"发送键"}>
-                <Select>
-                    <option>Ctrl + Enter</option>
-                    <option>Enter</option>
+                <Select value={state.submitKey} onChange={(e) => {
+                    const config = {...state, submitKey: e.currentTarget.value as SubmitKey};
+                    setState(config);
+                    update(config)
+                }}>
+                    {
+                        Object.values(SubmitKey).map((v) => (
+                            <option value={v} key={v}>
+                                {v}
+                            </option>
+                        ))
+                    }
                 </Select>
             </ListItem>
 
             <ListItem title={"主题"}>
-                <Select>
-                    <option>亮色</option>
-                    <option>暗黑色</option>
+                <Select value={state.theme} onChange={(e) => {
+                    const config = {...state, theme: e.currentTarget.value as Theme};
+                    document.body.className = config.theme;
+                    setState(config);
+                    update(config)
+                }}>
+                    {
+                        Object.values(Theme).map((v) => (
+                            <option value={v} key={v}>
+                                {v}
+                            </option>
+                        ))
+                    }
                 </Select>
             </ListItem>
         </List>
