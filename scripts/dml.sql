@@ -7,4 +7,7 @@ VALUES ('职业顾问',
         '{ model: "gpt-3.5-turbo", temperature: 1, max_tokens: 2000, presence_penalty: 0, frequency_penalty: 0, sendMemory: true, historyMessageCount: 4, compressMessageLengthThreshold: 1000, }');
 
 INSERT INTO t_setting_default (CONTENT)
-VALUES ('{ "llm": [ { "model": "chatgpt", "isEnabled": true, "config": { "openAIApiKey": "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", "temperature": 0, "topP": 1, "timeout": 3000, "modelName": "gpt-3.5-turbo", "n": 1, "streaming": false, "configuration": { "baseURL": "http://localhost/v1", "organization": "acronymor" } } } ] }')
+VALUES ('{ "llm": [ { "model": "chatgpt", "isEnabled": true, "config": { "openAIApiKey": "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", "temperature": 0, "topP": 1, "timeout": 3000, "modelName": "gpt-3.5-turbo", "n": 1, "streaming": false, "configuration": { "baseURL": "http://localhost/v1", "organization": "acronymor" } } } ] }');
+
+INSERT INTO t_setting(USER_ID, CONTENT)
+VALUES (1, '{"chatgpt":{"isEnabled":true,"config":{"openAIApiKey":"","temperature":0.7,"topP":1,"timeout":3000,"modelName":"gpt-3.5-turbo","n":1,"streaming":false,"configuration":{"baseURL":"","organization":"acronymor"}}}}')

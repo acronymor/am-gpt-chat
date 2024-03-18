@@ -1,26 +1,23 @@
 'use client'
 
-import React, {useEffect} from "react";
+import React from "react";
+import set_style from "@/app/ui/unit/setting/set.module.scss";
 
 import {SetHeader} from "@/app/ui/unit/setting/set-header";
-import {SetList} from "@/app/ui/unit/setting/set-list";
-import {useAppConfigStore} from "@/app/store/setting";
+import {General} from "@/app/ui/unit/setting/general";
+import {ChatGpt} from "@/app/ui/unit/setting/chatgpt";
+import {Danger} from "@/app/ui/unit/setting/danger";
 
 
 export default function Page() {
-    const store = useAppConfigStore()
-    useEffect(() => {
-        store.init()
-    }, []);
-
-    useEffect(() => {
-        store.save(store.getAll());
-    }, [store.lastUpdateTime]);
-
     return (
         <div className={"window-content"}>
             <SetHeader/>
-            <SetList/>
+            <div className={set_style["settings"]}>
+                <General/>
+                <ChatGpt/>
+                <Danger/>
+            </div>
         </div>
     )
 }

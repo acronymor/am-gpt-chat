@@ -9,10 +9,12 @@ async function handlePost(request: NextRequest) {
     return NextResponse.json(ResponseResult.Ok(''))
 }
 
-async function handleGet() {
+async function handleGet(request: NextRequest) {
+    const params = request.nextUrl.searchParams
     let handler = new SettingHandler("admin")
-    let res = await handler.select()
-    return NextResponse.json(ResponseResult.Ok(JSON.parse(res)))
+    let res = JSON.parse(await handler.select())
+    const type = params.get("type") ?? "generic"
+    return NextResponse.json(ResponseResult.Ok(res[type]))
 }
 
 export const POST = handlePost;
