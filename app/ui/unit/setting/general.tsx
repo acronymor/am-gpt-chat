@@ -2,11 +2,12 @@ import React, {useEffect, useState} from "react";
 import {useDebouncedCallback} from "use-debounce";
 
 import {GenericConfig, SubmitKey, Theme} from "@/app/proto/setting";
+import {getSetting, setSetting} from "@/app/ui/util/fetch_util";
+import {useAppConfigStore} from "@/app/store/setting";
 
 import {List, ListItem} from "@/app/ui/lib/list";
 import {IconButton} from "@/app/ui/lib/button";
 import {Select} from "@/app/ui/lib/select";
-import {getSetting, setSetting} from "@/app/ui/util/fetch_util";
 
 const DEFAULT_CONFIG: GenericConfig = {
     theme: Theme.Auto,
@@ -16,6 +17,7 @@ const DEFAULT_CONFIG: GenericConfig = {
 
 export function General() {
     const [state, setState] = useState<GenericConfig>(DEFAULT_CONFIG)
+    const store = useAppConfigStore()
 
     useEffect(() => {
         getSetting("generic", (response) => {
@@ -45,6 +47,7 @@ export function General() {
             <ListItem title={"发送键"}>
                 <Select value={state.submitKey} onChange={(e) => {
                     const config = {...state, submitKey: e.currentTarget.value as SubmitKey};
+                    store.update((cfg) => cfg.submitKey = config.submitKey)
                     setState(config);
                     update(config)
                 }}>
@@ -62,6 +65,7 @@ export function General() {
                 <Select value={state.theme} onChange={(e) => {
                     const config = {...state, theme: e.currentTarget.value as Theme};
                     document.body.className = config.theme;
+                    store.update((cfg) => cfg.theme = config.theme)
                     setState(config);
                     update(config)
                 }}>

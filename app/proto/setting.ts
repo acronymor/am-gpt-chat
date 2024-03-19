@@ -4,7 +4,6 @@ export enum Theme {
     Light = "light",
 }
 
-
 export enum SubmitKey {
     Enter = "Enter",
     CtrlEnter = "Ctrl + Enter",
@@ -17,6 +16,11 @@ export enum SubmitKey {
 export type  GenericConfig = {
     theme: Theme
     submitKey: SubmitKey
+}
+
+export type AppConfig = {
+    theme: Theme,
+    submitKey: SubmitKey,
 }
 
 export enum LlmType {
