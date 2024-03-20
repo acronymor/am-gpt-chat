@@ -23,7 +23,7 @@ export default function RootLayout({children,}: Readonly<{ children: React.React
     const store = useAppConfigStore()
     useEffect(() => {
         store.get()
-    }, [store]);
+    }, []);
     return (
         <html lang="en">
         <body className={store.theme}>

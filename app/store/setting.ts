@@ -1,6 +1,7 @@
 import {createPersistStore} from "@/app/store/store";
 import {AppConfig, SubmitKey, Theme} from "@/app/proto/setting";
 import {getSetting} from "@/app/ui/util/fetch_util";
+import {StoreKey} from "@/app/constant";
 
 
 const createDefaultSetting = function (): AppConfig {
@@ -24,6 +25,6 @@ export const useAppConfigStore = createPersistStore(
         }
     }),
     {
-        name: "app-setting"
+        name: StoreKey.Config
     }
 )

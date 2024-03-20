@@ -4,15 +4,15 @@ import ShareIcon from "@/app/icons/share.svg";
 import MaxIcon from "@/app/icons/max.svg";
 import MinIcon from "@/app/icons/min.svg";
 
-export function ChatHeader() {
+export function ChatHeader(props: { title: string, cnt: number }) {
     return (
         <div className={"window-header"}>
             <div className={"window-header-title"}>
                 <div className={"window-header-main-title"}>
-                    New Conversation
+                    {props.title}
                 </div>
                 <div className={"window-header-sub-title"}>
-                    999 messages
+                    {props.cnt} messages
                 </div>
             </div>
             <div className={"window-actions"}>

@@ -17,7 +17,7 @@ import AddIcon from "@/app/icons/add.svg";
 export function Sidebar(props: { className?: string }) {
     return (
         <div className={sidebar_style["sidebar"]}>
-            <IconLink href={"/ui/unit"}>
+            <IconLink href={{pathname: "/ui/unit"}}>
                 <div className={sidebar_style["sidebar-header"]}>
                     <div className={sidebar_style["sidebar-title"]}>NextChat</div>
                     <div className={sidebar_style["sidebar-sub-title"]}>Build your own AI assistant.</div>
@@ -45,7 +45,7 @@ export function Sidebar(props: { className?: string }) {
             <div className={sidebar_style["sidebar-tail"]}>
                 <div className={sidebar_style["sidebar-actions"]}>
                     <div className={sidebar_style["sidebar-action"]}>
-                        <IconLink href={"/ui/unit/setting"}>
+                        <IconLink href={{pathname: "/ui/unit/setting"}}>
                             <IconButton icon={<SettingsIcon/>}/>
                         </IconLink>
                     </div>
