@@ -5,6 +5,7 @@ import React from "react";
 import {IconButton} from "@/app/ui/lib/button";
 import {IconLink} from "@/app/ui/lib/link";
 import {ChatList} from "@/app/ui/unit/chat-list";
+import {useChatStore} from "@/app/store/chat";
 
 import sidebar_style from "@/app/ui/unit/sidebar.module.scss"
 import ChatGptIcon from "@/app/icons/chatgpt.svg"
@@ -15,6 +16,7 @@ import GithubIcon from "@/app/icons/github.svg";
 import AddIcon from "@/app/icons/add.svg";
 
 export function Sidebar(props: { className?: string }) {
+    const store = useChatStore()
     return (
         <div className={sidebar_style["sidebar"]}>
             <IconLink href={{pathname: "/ui/unit"}}>
@@ -57,10 +59,15 @@ export function Sidebar(props: { className?: string }) {
                 </div>
                 <div>
                     <div className={sidebar_style["sidebar-action"]}>
-                        <IconButton
-                            icon={<AddIcon/>}
-                            text={"新的聊天"}
-                        />
+                        <IconLink href={{pathname: `/ui/unit/chat/${store.sessions.length}`}}>
+                            <IconButton
+                                icon={<AddIcon/>}
+                                text={"新的聊天"}
+                                onClick={() => {
+                                    store.newSession()
+                                }}
+                            />
+                        </IconLink>
                     </div>
                 </div>
             </div>

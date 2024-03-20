@@ -1,6 +1,7 @@
 import button_style from "@/app/ui/lib/button.module.scss"
 
 export function IconButton(props: {
+    onClick?: () => void,
     className?: string,
     icon?: JSX.Element
     title?: string
@@ -10,6 +11,7 @@ export function IconButton(props: {
         <button className={button_style["icon-button"] + " " + button_style["shadow"] + ` ${props.className} clickable`}
                 title={props.title}
                 role={"button"}
+                onClick={props.onClick}
         >
             {
                 props.icon && (
