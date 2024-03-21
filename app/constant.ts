@@ -1,5 +1,4 @@
 import {ChatGptConfig, MaskConfig} from "@/app/proto/setting";
-import {nanoid} from "nanoid";
 
 export const ROLES = ["system", "user", "assistant"] as const;
 export type MessageRole = (typeof ROLES)[number];
@@ -25,15 +24,15 @@ export const createEmptyChatGpt = () => ({
     }
 }) as ChatGptConfig
 
-export const createEmptyMask = () => ({
-    id: nanoid(),
+export const createEmptyMask = (id: string, date: number) => ({
+    id: id,
     avatar: "gpt-bot",
     name: "新的聊天",
     context: [],
     modelConfig: createEmptyChatGpt(),
     lang: "en",
     builtin: false,
-    createdAt: Date.now(),
+    createdAt: date,
 }) as MaskConfig
 
 export const DEFAULT_LLM_MODELS = [

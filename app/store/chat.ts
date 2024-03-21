@@ -24,9 +24,9 @@ export interface ChatSession {
     mask: MaskConfig;
 }
 
-function createEmptySession(): ChatSession {
+function createEmptySession(id: string, lastUpdate: number): ChatSession {
     return {
-        id: nanoid(),
+        id: id,
         topic: "新的聊天",
         memoryPrompt: "",
         messages: [],
@@ -35,15 +35,15 @@ function createEmptySession(): ChatSession {
             wordCount: 0,
             charCount: 0,
         },
-        lastUpdate: Date.now(),
+        lastUpdate: lastUpdate,
         lastSummarizeIndex: 0,
 
-        mask: createEmptyMask(),
+        mask: createEmptyMask(id, lastUpdate),
     };
 }
 
 const DEFAULT_CHAT_STATE = {
-    sessions: [createEmptySession()],
+    sessions: [createEmptySession("none", 0)],
     currentSessionIndex: 0,
 };
 
@@ -51,7 +51,7 @@ export const useChatStore = createPersistStore(
     DEFAULT_CHAT_STATE,
     (set, get) => ({
         newSession: (mask?: MaskConfig) => {
-            const session = createEmptySession();
+            const session = createEmptySession(nanoid(), Date.now());
             if (mask) {
                 session.topic = mask.name;
             }
@@ -79,7 +79,7 @@ export const useChatStore = createPersistStore(
 
             if (deletingLastSession) {
                 nextIndex = 0;
-                sessions.push(createEmptySession());
+                sessions.push(createEmptySession(nanoid(), Date.now()));
             }
 
             set(() => ({
