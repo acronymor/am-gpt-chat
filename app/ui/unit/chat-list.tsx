@@ -39,10 +39,7 @@ export function ChatList(props: { narrow?: boolean }) {
                                 <div ref={provided.innerRef}
                                      {...provided.draggableProps}
                                      {...provided.dragHandleProps} >
-                                    <IconLink key={chat.id} href={{
-                                        pathname: `/ui/unit/chat/${index}`,
-                                        query: {title: chat.topic, cnt: chat.messages.length}
-                                    }}>
+                                    <IconLink key={chat.id} href={{pathname: `/ui/unit/chat/${index}`}}>
                                         <ChatItem key={chat.id}
                                                   id={chat.id}
                                                   index={index}

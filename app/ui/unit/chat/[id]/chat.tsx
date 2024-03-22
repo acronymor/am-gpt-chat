@@ -4,13 +4,11 @@ import {ChatInput} from "@/app/ui/unit/chat/[id]/chat-input";
 import chat_style from "@/app/ui/unit/chat/[id]/chat.module.scss"
 
 export function Chat(props: {
-    id: string,
-    title: string,
-    cnt: number
+    id: number,
 }) {
     return (
         <div className={chat_style["chat"]}>
-            <ChatHeader title={props.title} cnt={props.cnt}/>
+            <ChatHeader id={props.id}/>
             <ChatMsgList/>
             <ChatInput/>
         </div>

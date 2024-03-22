@@ -7,24 +7,11 @@ import {List, ListItem} from "@/app/ui/lib/list";
 import {InputNumber, InputRange, InputText} from "@/app/ui/lib/input";
 import {Select} from "@/app/ui/lib/select";
 import {getSetting, setSetting} from "@/app/ui/util/fetch_util";
-
-const DEFAULT_CONFIG: ChatGptConfig = {
-    openAIApiKey: "",
-    temperature: 0,
-    topP: 1,
-    timeout: 3000,
-    modelName: "gpt-3.5-turbo",
-    n: 1,
-    streaming: false,
-    configuration: {
-        baseURL: "",
-        organization: "acronymor"
-    }
-}
+import {createEmptyChatGpt} from "@/app/constant";
 
 
 export function ChatGpt() {
-    const [state, setState] = useState<ChatGptConfig>(DEFAULT_CONFIG)
+    const [state, setState] = useState<ChatGptConfig>(createEmptyChatGpt())
     const [enabled, setEnabled] = useState<boolean>(true)
 
     useEffect(() => {
