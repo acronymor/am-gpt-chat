@@ -24,6 +24,16 @@ export interface ChatSession {
     mask: MaskConfig;
 }
 
+export function createMessage(override: Partial<ChatMessage>): ChatMessage {
+    return {
+        id: nanoid(),
+        date: new Date().toLocaleString(),
+        role: "user",
+        content: "",
+        ...override,
+    };
+}
+
 function createEmptySession(id: string, lastUpdate: number): ChatSession {
     return {
         id: id,
@@ -117,6 +127,37 @@ export const useChatStore = createPersistStore(
                 };
             });
         },
+
+        currentSession: (): ChatSession => {
+            let index = get().currentSessionIndex;
+            const sessions = get().sessions;
+
+            if (index < 0 || index >= sessions.length) {
+                index = Math.min(sessions.length - 1, Math.max(0, index));
+                set(() => ({currentSessionIndex: index}));
+            }
+
+            return sessions[index];
+        },
+
+        onInput: (content: string) => {
+            const session = get().sessions[get().currentSessionIndex]
+            const userContent: string = content
+
+            const userMessage: ChatMessage = createMessage({
+                role: "user",
+                content: userContent,
+            });
+
+            const botMessage: ChatMessage = createMessage({
+                role: "assistant",
+                streaming: true,
+            });
+
+            console.log(userMessage)
+            console.log("-=-------")
+            console.log(botMessage)
+        }
     }),
 
     {

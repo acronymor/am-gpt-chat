@@ -5,9 +5,10 @@ import ShareIcon from "@/app/icons/share.svg";
 import {useChatStore} from "@/app/store/chat";
 
 export function ChatHeader(props: { id: number }) {
-    const [sessions,] = useChatStore(
+    const [sessions, currentSession] = useChatStore(
         (state) => [
             state.sessions,
+            state.currentSession
         ],
     );
 
@@ -22,18 +23,18 @@ export function ChatHeader(props: { id: number }) {
                     {isEditing ? (
                         <input
                             type="text"
-                            defaultValue={sessions[props.id].topic}
+                            defaultValue={currentSession().topic}
                             onChangeCapture={(e) => {
                                 sessions[props.id].topic = e.currentTarget.value
                             }}
                             onBlur={() => setIsEditing(false)}
                         />
                     ) : (
-                        <span>{sessions[props.id].topic}</span>
+                        <span>{currentSession().topic}</span>
                     )}
                 </div>
                 <div className={"window-header-sub-title"}>
-                    {sessions[props.id].messages.length} messages
+                    {currentSession().messages.length} messages
                 </div>
             </div>
             <div className={"window-actions"}>
