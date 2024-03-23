@@ -3,12 +3,10 @@ import {ChatHeader} from "@/app/ui/unit/chat/[id]/chat-header";
 import {ChatInput} from "@/app/ui/unit/chat/[id]/chat-input";
 import chat_style from "@/app/ui/unit/chat/[id]/chat.module.scss"
 
-export function Chat(props: {
-    id: number,
-}) {
+export function Chat() {
     return (
         <div className={chat_style["chat"]}>
-            <ChatHeader id={props.id}/>
+            <ChatHeader/>
             <ChatMsgList/>
             <ChatInput/>
         </div>

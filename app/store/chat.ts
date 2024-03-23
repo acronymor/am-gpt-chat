@@ -140,23 +140,42 @@ export const useChatStore = createPersistStore(
             return sessions[index];
         },
 
-        onInput: (content: string) => {
-            const session = get().sessions[get().currentSessionIndex]
-            const userContent: string = content
+        changeSession: (session: ChatSession) => {
+            const index = get().currentSessionIndex
+            const newSessions = [...get().sessions];
+            newSessions[index] = session
 
+            set(() => ({
+                currentSessionIndex: index,
+                sessions: newSessions,
+            }))
+        },
+
+        onInput: (content: string) => {
             const userMessage: ChatMessage = createMessage({
                 role: "user",
-                content: userContent,
+                content: content,
             });
 
             const botMessage: ChatMessage = createMessage({
                 role: "assistant",
+                content: "pong",
                 streaming: true,
             });
 
-            console.log(userMessage)
-            console.log("-=-------")
-            console.log(botMessage)
+            const index = get().currentSessionIndex
+            const session = get().sessions[index]
+            session.messages.push(userMessage)
+
+            const newSession = [...get().sessions]
+            newSession[index] = session
+
+            session.messages.push(botMessage)
+
+            set(() => ({
+                currentSessionIndex: index,
+                sessions: newSession,
+            }))
         }
     }),
 

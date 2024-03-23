@@ -46,7 +46,7 @@ export function ChatList(props: { narrow?: boolean }) {
                                                   title={chat.topic}
                                                   selected={index === selectedIndex}
                                                   cnt={chat.messages.length}
-                                                  time={new Date(0).toLocaleTimeString()}
+                                                  time={new Date(chat.lastUpdate).toLocaleTimeString()}
                                                   onClick={() => {
                                                       selectSession(index)
                                                   }}

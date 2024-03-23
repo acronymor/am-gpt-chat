@@ -1,42 +1,69 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {IconButton} from "@/app/ui/lib/button";
 import RenameIcon from "@/app/icons/rename.svg";
 import ShareIcon from "@/app/icons/share.svg";
-import {useChatStore} from "@/app/store/chat";
+import {ChatSession, useChatStore} from "@/app/store/chat";
 
-export function ChatHeader(props: { id: number }) {
-    const [sessions, currentSession] = useChatStore(
+function HeaderTitle(props: { session: ChatSession, callback: (topic: string) => void }) {
+    const [isEditing, setIsEditing] = useState(false);
+
+    const [topic, setTopic] = useState("")
+    const [count, setCount] = useState(0)
+
+    useEffect(() => {
+        setTopic(props.session.topic)
+        setCount(props.session.messages.length)
+    }, [props.session.messages]);
+
+    return (
+        <div className={"window-header-title"}>
+            <div className={"window-header-main-title"} onDoubleClick={() => {
+                setIsEditing(true)
+            }}>
+                {isEditing ? (
+                    <input
+                        type="text"
+                        defaultValue={props.session.topic}
+                        onChangeCapture={(e) => {
+                            const topic = e.currentTarget.value
+                            props.callback(topic)
+                        }}
+                        onKeyDown={(e) => {
+                            if (e.key == "Enter") {
+                                setIsEditing(false)
+                            }
+                        }}
+                        onBlur={() => setIsEditing(false)}
+                    />
+                ) : (
+                    <span>{topic}</span>
+                )}
+            </div>
+            <div className={"window-header-sub-title"}>
+                {count} messages
+            </div>
+        </div>
+    )
+}
+
+export function ChatHeader() {
+    const [currentSession, changeSession] = useChatStore(
         (state) => [
-            state.sessions,
-            state.currentSession
+            state.currentSession,
+            state.changeSession
         ],
     );
 
-    const [isEditing, setIsEditing] = useState(false);
+    const updateTitle = (topic: string) => {
+        const tmp = currentSession()
+        tmp.topic = topic
+        tmp.lastUpdate = Date.now()
+        changeSession(tmp)
+    }
 
     return (
         <div className={"window-header"}>
-            <div className={"window-header-title"}>
-                <div className={"window-header-main-title"} onDoubleClick={() => {
-                    setIsEditing(true)
-                }}>
-                    {isEditing ? (
-                        <input
-                            type="text"
-                            defaultValue={currentSession().topic}
-                            onChangeCapture={(e) => {
-                                sessions[props.id].topic = e.currentTarget.value
-                            }}
-                            onBlur={() => setIsEditing(false)}
-                        />
-                    ) : (
-                        <span>{currentSession().topic}</span>
-                    )}
-                </div>
-                <div className={"window-header-sub-title"}>
-                    {currentSession().messages.length} messages
-                </div>
-            </div>
+            <HeaderTitle session={currentSession()} callback={updateTitle}/>
             <div className={"window-actions"}>
                 <div className={"window-action-button"}>
                     <IconButton icon={<RenameIcon/>}/>

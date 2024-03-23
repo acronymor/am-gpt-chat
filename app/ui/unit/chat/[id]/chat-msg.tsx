@@ -11,12 +11,14 @@ import PinIcon from "@/app/icons/pin.svg";
 import CopyIcon from "@/app/icons/copy.svg";
 import BotIcon from "@/app/icons/bot.svg"
 import AvatarIcon from "@/app/icons/avatar.svg"
+import {ChatMessage} from "@/app/proto/setting";
 
 export function ChatMsg(props: {
-    role: string,
+    chat: ChatMessage
 }) {
     return (
-        <div className={props.role == "user" ? chat_msg_style["chat-message-user"] : chat_msg_style["chat-message"]}>
+        <div
+            className={props.chat.role == "user" ? chat_msg_style["chat-message-user"] : chat_msg_style["chat-message"]}>
             <div className={chat_msg_style["chat-message-container"]}>
                 <div className={chat_msg_style["chat-message-header"]}>
                     <div className={chat_msg_style["chat-message-avatar"]}>
@@ -26,7 +28,7 @@ export function ChatMsg(props: {
                             />
                         </div>
                         <div>
-                            {props.role == "user" ? <AvatarIcon/> : <BotIcon/>}
+                            {props.chat.role == "user" ? <AvatarIcon/> : <BotIcon/>}
                         </div>
                     </div>
                     <div className={chat_msg_style["chat-message-actions"]}>
@@ -44,10 +46,10 @@ export function ChatMsg(props: {
                 </div>
 
                 <div className={chat_msg_style["chat-message-item"]}>
-                    {props.role == "user" ? "User" : "System"} Markdown Message
+                    {props.chat.content}
                 </div>
                 <div className={chat_msg_style["chat-message-action-date"]}>
-                    88:88:88
+                    {props.chat.date}
                 </div>
             </div>
         </div>
