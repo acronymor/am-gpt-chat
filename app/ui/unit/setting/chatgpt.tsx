@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 
 import {useDebouncedCallback} from 'use-debounce';
 
-import {ChatGptConfig} from "@/app/proto/setting";
+import {ChatGptConfig, SettingRequest} from "@/app/proto/setting";
 import {List, ListItem} from "@/app/ui/lib/list";
 import {InputNumber, InputRange, InputText} from "@/app/ui/lib/input";
 import {Select} from "@/app/ui/lib/select";
@@ -15,19 +15,17 @@ export function ChatGpt() {
     const [enabled, setEnabled] = useState<boolean>(true)
 
     useEffect(() => {
-        getSetting("chatgpt", (response) => {
-            let data = response?.data
-            setState(data.config)
-            setEnabled(data.isEnabled)
-        })
+        async function go() {
+            const data = await getSetting<any>("chatgpt")
+            setEnabled(data?.isEnabled)
+            setState(data?.config)
+        }
 
+        go().catch(console.error)
     }, []);
 
-    const update = useDebouncedCallback((isEnabled: boolean, config: ChatGptConfig) => {
-        const body = {"chatgpt": {"isEnabled": isEnabled, "config": config}}
-        setSetting(body, (response) => {
-            console.log(response.data)
-        })
+    const update = useDebouncedCallback(async (isEnabled: boolean, config: ChatGptConfig) => {
+        await setSetting({chatgpt: {isEnabled: isEnabled, config: config}} as SettingRequest)
     }, 500);
 
     return (

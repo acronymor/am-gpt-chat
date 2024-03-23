@@ -22,7 +22,11 @@ export const viewport: Viewport = {
 export default function RootLayout({children,}: Readonly<{ children: React.ReactNode; }>) {
     const store = useAppConfigStore()
     useEffect(() => {
-        store.get()
+        async function go() {
+            await store.get()
+        }
+
+        go().catch(console.error)
     }, []);
     return (
         <html lang="en">

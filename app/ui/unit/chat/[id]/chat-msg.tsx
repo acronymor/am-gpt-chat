@@ -11,7 +11,7 @@ import PinIcon from "@/app/icons/pin.svg";
 import CopyIcon from "@/app/icons/copy.svg";
 import BotIcon from "@/app/icons/bot.svg"
 import AvatarIcon from "@/app/icons/avatar.svg"
-import {ChatMessage} from "@/app/proto/setting";
+import {ChatMessage} from "@/app/proto/chat";
 
 export function ChatMsg(props: {
     chat: ChatMessage

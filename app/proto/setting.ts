@@ -1,5 +1,3 @@
-import {MessageRole, ModelType} from "@/app/constant";
-
 export enum Theme {
     Auto = "auto",
     Dark = "dark",
@@ -29,18 +27,6 @@ export enum LlmType {
     CHATGPT = "chatgpt"
 }
 
-export interface RequestMessage {
-    role: MessageRole;
-    content: string;
-}
-
-export type ChatMessage = RequestMessage & {
-    date: string;
-    streaming?: boolean;
-    isError?: boolean;
-    id: string;
-    model?: ModelType;
-};
 
 export type ChatGptConfig = {
     openAIApiKey: string,
@@ -60,11 +46,16 @@ export type MaskConfig = {
     id: string;
     createdAt: number;
     avatar: string;
-    name: string;
     hideContext?: boolean;
-    context: ChatMessage[];
     syncGlobalConfig?: boolean;
-    modelConfig: ChatGptConfig;
     lang: string;
     builtin: boolean;
 };
+
+export type SettingRequest = {
+    generic?: GenericConfig,
+    chatgpt?: {
+        isEnabled: boolean,
+        config: ChatGptConfig
+    },
+}

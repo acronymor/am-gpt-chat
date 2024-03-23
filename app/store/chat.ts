@@ -1,7 +1,9 @@
 import {nanoid} from "nanoid";
-import {ChatMessage, MaskConfig} from "@/app/proto/setting";
 import {createEmptyMask, StoreKey} from "@/app/constant";
 import {createPersistStore} from "@/app/store/store";
+import {ChatGptApi} from "@/app/ui/util/openai";
+import {MaskConfig} from "@/app/proto/setting";
+import {ChatMessage} from "@/app/proto/chat";
 
 export interface ChatStat {
     tokenCount: number;
@@ -57,13 +59,14 @@ const DEFAULT_CHAT_STATE = {
     currentSessionIndex: 0,
 };
 
+const client = new ChatGptApi()
+
 export const useChatStore = createPersistStore(
     DEFAULT_CHAT_STATE,
     (set, get) => ({
         newSession: (mask?: MaskConfig) => {
             const session = createEmptySession(nanoid(), Date.now());
             if (mask) {
-                session.topic = mask.name;
             }
 
             set((state) => ({
@@ -149,6 +152,7 @@ export const useChatStore = createPersistStore(
                 currentSessionIndex: index,
                 sessions: newSessions,
             }))
+            get().markUpdate()
         },
 
         onInput: (content: string) => {
@@ -169,13 +173,30 @@ export const useChatStore = createPersistStore(
 
             const newSession = [...get().sessions]
             newSession[index] = session
+            get().markUpdate()
 
-            session.messages.push(botMessage)
+            return client.chat({
+                options: {
+                    messages: session.messages,
+                    config: session.mask
+                },
 
-            set(() => ({
-                currentSessionIndex: index,
-                sessions: newSession,
-            }))
+                onController(controller: AbortController): void {
+                    console.log(controller)
+                },
+
+                onError(err: Error): void {
+                    console.error(err)
+                },
+
+                onFinish(message: string): void {
+                    console.error(message)
+                },
+
+                onUpdate(message: string, chunk: string): void {
+                    console.log(message)
+                },
+            })
         }
     }),
 

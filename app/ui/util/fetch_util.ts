@@ -1,22 +1,36 @@
-export function getSetting(mode: string, callback: (response: any) => (void)) {
-    fetch(`/api/setting?type=${mode}`, {
+export async function getSetting<T>(mode: string): Promise<T> {
+    return fetch(`/api/setting?type=${mode}`, {
         method: "GET",
         headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
         cache: "no-cache"
-    }).then((response) => response.json())
+    })
+        .then((response) => response.json())
         .then((response) => {
-            if (response.code == 200) {
-                callback(response)
-            } else {
+            if (response.code != 200) {
                 throw new Error("Error Setting")
             }
-        }).catch((e) => {
-        console.error(e);
-    });
+            return response.data
+        });
 }
 
-export function setSetting(body: any, callback: (response: any) => (void)) {
-    fetch('/api/setting', {
+export async function setSetting<T>(body: any): Promise<T> {
+    return fetch(`/api/setting`, {
+        method: "POST",
+        headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+        cache: "no-cache",
+        body: JSON.stringify(body)
+    })
+        .then((response) => response.json())
+        .then((response) => {
+            if (response.code != 200) {
+                throw new Error("Error Setting")
+            }
+            return response.data
+        });
+}
+
+export async function sendMsg(body: any) {
+    fetch('/api/chat', {
         method: "POST",
         headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
         cache: "no-cache",
@@ -24,9 +38,9 @@ export function setSetting(body: any, callback: (response: any) => (void)) {
     }).then((response) => response.json())
         .then((response) => {
             if (response.code == 200) {
-                callback(response)
+                return response
             } else {
-                throw new Error("Error Setting")
+                throw new Error("Error Chat")
             }
         }).catch((e) => {
         console.error(e);

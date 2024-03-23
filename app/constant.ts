@@ -27,9 +27,7 @@ export const createEmptyChatGpt = () => ({
 export const createEmptyMask = (id: string, date: number) => ({
     id: id,
     avatar: "gpt-bot",
-    name: "新的聊天",
     context: [],
-    modelConfig: createEmptyChatGpt(),
     lang: "en",
     builtin: false,
     createdAt: date,

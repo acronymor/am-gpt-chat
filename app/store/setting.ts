@@ -1,5 +1,5 @@
 import {createPersistStore} from "@/app/store/store";
-import {AppConfig, SubmitKey, Theme} from "@/app/proto/setting";
+import {AppConfig, GenericConfig, SubmitKey, Theme} from "@/app/proto/setting";
 import {getSetting} from "@/app/ui/util/fetch_util";
 import {StoreKey} from "@/app/constant";
 
@@ -15,13 +15,10 @@ const createDefaultSetting = function (): AppConfig {
 export const useAppConfigStore = createPersistStore(
     createDefaultSetting(),
     (set, _get) => ({
-        get: () => {
-            getSetting("generic", (response) => {
-                let data = response?.data
-                let config = data?.config
-                set({..._get(), theme: config.theme, submitKey: config.submitKey})
-                _get().markUpdate()
-            })
+        get: async () => {
+            const data = await getSetting<GenericConfig>("generic")
+            set({..._get(), theme: data.theme, submitKey: data.submitKey})
+            _get().markUpdate()
         }
     }),
     {

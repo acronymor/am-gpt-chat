@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useDebouncedCallback} from "use-debounce";
 
-import {GenericConfig, SubmitKey, Theme} from "@/app/proto/setting";
+import {GenericConfig, SettingRequest, SubmitKey, Theme} from "@/app/proto/setting";
 import {getSetting, setSetting} from "@/app/ui/util/fetch_util";
 import {useAppConfigStore} from "@/app/store/setting";
 
@@ -20,18 +20,16 @@ export function General() {
     const store = useAppConfigStore()
 
     useEffect(() => {
-        getSetting("generic", (response) => {
-            let data = response?.data
-            setState(data.config)
-        })
+        async function go() {
+            const data = await getSetting<GenericConfig>("generic")
+            setState(data)
+        }
 
+        go().catch(console.error)
     }, []);
 
-    const update = useDebouncedCallback((config: GenericConfig) => {
-        const body = {"generic": {"config": config}}
-        setSetting(body, (response) => {
-            console.log(response.data)
-        })
+    const update = useDebouncedCallback(async (config: GenericConfig) => {
+        await setSetting({generic: config} as SettingRequest)
     }, 500);
 
     return (

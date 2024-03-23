@@ -26,6 +26,7 @@ function HeaderTitle(props: { session: ChatSession, callback: (topic: string) =>
                         defaultValue={props.session.topic}
                         onChangeCapture={(e) => {
                             const topic = e.currentTarget.value
+                            setTopic(topic)
                             props.callback(topic)
                         }}
                         onKeyDown={(e) => {
