@@ -11,11 +11,13 @@ import PinIcon from "@/app/icons/pin.svg";
 import CopyIcon from "@/app/icons/copy.svg";
 import BotIcon from "@/app/icons/bot.svg"
 import AvatarIcon from "@/app/icons/avatar.svg"
-import {ChatMessage} from "@/app/proto/chat";
+import {Message} from "ai";
 
 export function ChatMsg(props: {
-    chat: ChatMessage
+    chat: Message
 }) {
+    const time: string = new Date(props.chat.createdAt ?? Date.now()).toLocaleTimeString()
+
     return (
         <div
             className={props.chat.role == "user" ? chat_msg_style["chat-message-user"] : chat_msg_style["chat-message"]}>
@@ -41,15 +43,11 @@ export function ChatMsg(props: {
                     </div>
                 </div>
 
-                <div className={chat_msg_style["chat-message-status"]}>
-                    Typing
-                </div>
-
                 <div className={chat_msg_style["chat-message-item"]}>
                     {props.chat.content}
                 </div>
                 <div className={chat_msg_style["chat-message-action-date"]}>
-                    {props.chat.date}
+                    {time}
                 </div>
             </div>
         </div>

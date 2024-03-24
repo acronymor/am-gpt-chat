@@ -3,6 +3,7 @@ import button_style from "@/app/ui/lib/button.module.scss"
 export function IconButton(props: {
     onClick?: () => void,
     className?: string,
+    disabled?: boolean,
     icon?: JSX.Element
     title?: string
     text?: string
@@ -12,6 +13,7 @@ export function IconButton(props: {
                 title={props.title}
                 role={"button"}
                 onClick={props.onClick}
+                disabled={props.disabled ?? false}
         >
             {
                 props.icon && (

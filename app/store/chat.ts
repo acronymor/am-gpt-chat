@@ -1,9 +1,8 @@
 import {nanoid} from "nanoid";
 import {createEmptyMask, StoreKey} from "@/app/constant";
 import {createPersistStore} from "@/app/store/store";
-import {ChatGptApi} from "@/app/ui/util/openai";
 import {MaskConfig} from "@/app/proto/setting";
-import {ChatMessage} from "@/app/proto/chat";
+import {Message} from "ai";
 
 export interface ChatStat {
     tokenCount: number;
@@ -17,7 +16,7 @@ export interface ChatSession {
     topic: string;
 
     memoryPrompt: string;
-    messages: ChatMessage[];
+    messages: Message[];
     stat: ChatStat;
     lastUpdate: number;
     lastSummarizeIndex: number;
@@ -26,15 +25,6 @@ export interface ChatSession {
     mask: MaskConfig;
 }
 
-export function createMessage(override: Partial<ChatMessage>): ChatMessage {
-    return {
-        id: nanoid(),
-        date: new Date().toLocaleString(),
-        role: "user",
-        content: "",
-        ...override,
-    };
-}
 
 function createEmptySession(id: string, lastUpdate: number): ChatSession {
     return {
@@ -59,7 +49,6 @@ const DEFAULT_CHAT_STATE = {
     currentSessionIndex: 0,
 };
 
-const client = new ChatGptApi()
 
 export const useChatStore = createPersistStore(
     DEFAULT_CHAT_STATE,
@@ -154,50 +143,6 @@ export const useChatStore = createPersistStore(
             }))
             get().markUpdate()
         },
-
-        onInput: (content: string) => {
-            const userMessage: ChatMessage = createMessage({
-                role: "user",
-                content: content,
-            });
-
-            const botMessage: ChatMessage = createMessage({
-                role: "assistant",
-                content: "pong",
-                streaming: true,
-            });
-
-            const index = get().currentSessionIndex
-            const session = get().sessions[index]
-            session.messages.push(userMessage)
-
-            const newSession = [...get().sessions]
-            newSession[index] = session
-            get().markUpdate()
-
-            return client.chat({
-                options: {
-                    messages: session.messages,
-                    config: session.mask
-                },
-
-                onController(controller: AbortController): void {
-                    console.log(controller)
-                },
-
-                onError(err: Error): void {
-                    console.error(err)
-                },
-
-                onFinish(message: string): void {
-                    console.error(message)
-                },
-
-                onUpdate(message: string, chunk: string): void {
-                    console.log(message)
-                },
-            })
-        }
     }),
 
     {

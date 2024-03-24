@@ -28,21 +28,3 @@ export async function setSetting<T>(body: any): Promise<T> {
             return response.data
         });
 }
-
-export async function sendMsg(body: any) {
-    fetch('/api/chat', {
-        method: "POST",
-        headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
-        cache: "no-cache",
-        body: JSON.stringify(body)
-    }).then((response) => response.json())
-        .then((response) => {
-            if (response.code == 200) {
-                return response
-            } else {
-                throw new Error("Error Chat")
-            }
-        }).catch((e) => {
-        console.error(e);
-    });
-}
