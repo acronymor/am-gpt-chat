@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useChat} from 'ai/react';
 
 import {ChatMsg} from "@/app/ui/unit/chat/[id]/chat-msg";
@@ -49,10 +49,23 @@ export function ChatBody() {
         changeSession(tmp);
     }, [messages[messages.length - 1]]);
 
+    const scrollRef = useRef<HTMLDivElement>(null);
+    function scrollToBottom() {
+        const dom = scrollRef.current;
+        if (dom) {
+            requestAnimationFrame(() => {
+                dom.scrollTo(0, dom.scrollHeight);
+            });
+        }
+    }
+
+    useEffect(() => {
+        scrollToBottom()
+    }, [last]);
 
     return (
         <>
-            <div className={chat_style["chat-body"]}>
+            <div className={chat_style["chat-body"]} ref={scrollRef}>
                 {
                     session?.messages.map(m => (
                         <ChatMsg key={m.id} chat={m}/>
@@ -77,6 +90,8 @@ export function ChatBody() {
                         rows={8}
                         value={input}
                         autoFocus={false}
+                        onFocus={scrollToBottom}
+                        onClick={scrollToBottom}
                         onChange={handleInputChange}
                         onKeyDown={(event) => {
                             if (event.key === "Enter" && event.ctrlKey && !isLoading) {
