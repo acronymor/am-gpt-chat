@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {useChat} from 'ai/react';
 
 import {ChatMsg} from "@/app/ui/unit/chat/[id]/chat-msg";
@@ -23,33 +23,37 @@ export function ChatBody() {
         ],
     );
     const [session, setSession] = useState<ChatSession>()
-    const {messages, input, isLoading, handleInputChange, handleSubmit, stop} = useChat({
-        api: "/api/chat",
-    });
-    const [last, setLast] = useState<number>(-1)
     useEffect(() => {
         setSession(currentSession())
-        if (last + 1 == messages.length || messages[messages.length - 1] == undefined) {
+    }, []);
+
+    const {messages, input, isLoading, handleInputChange, handleSubmit, stop} = useChat({
+        api: "/api/chat",
+        initialMessages: currentSession().messages
+    });
+
+    useLayoutEffect(() => {
+        if (messages.length === 0) {
             return
         }
 
         let tmp = session ?? currentSession()
-        tmp.messages.push(messages[messages.length - 1])
-        setLast(last + 1)
-        changeSession(tmp);
-    }, [messages.length]);
-
-    useEffect(() => {
-        if (messages[messages.length - 1] == null) {
+        if (tmp.messages.length === 0 && messages.length != 0) {
+            tmp.messages.push(messages[messages.length - 1]);
+            changeSession(tmp);
             return
         }
 
-        let tmp = session ?? currentSession()
-        tmp.messages[tmp.messages.length - 1] = messages[messages.length - 1]
+        if (tmp.messages[tmp.messages.length - 1].id === messages[messages.length - 1].id) {
+            tmp.messages[tmp.messages.length - 1] = messages[messages.length - 1];
+        } else {
+            tmp.messages.push(messages[messages.length - 1]);
+        }
         changeSession(tmp);
-    }, [messages[messages.length - 1]]);
+    }, [messages.length, messages[messages.length - 1]]);
 
     const scrollRef = useRef<HTMLDivElement>(null);
+
     function scrollToBottom() {
         const dom = scrollRef.current;
         if (dom) {
@@ -61,7 +65,7 @@ export function ChatBody() {
 
     useEffect(() => {
         scrollToBottom()
-    }, [last]);
+    }, [messages]);
 
     return (
         <>
