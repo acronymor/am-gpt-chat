@@ -1,7 +1,7 @@
 import {open} from "sqlite";
 import sqlite3 from "sqlite3";
 
-const sqlite_db: string = '/tmp/data.db'
+const sqlite_db: string = '/home/li-pc/Workspace/am-gpt-chat/data.db'
 
 const database = open({
     filename: sqlite_db,

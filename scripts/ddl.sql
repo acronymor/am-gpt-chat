@@ -5,7 +5,7 @@ CREATE TABLE t_user
     PASSWORD    TEXT NOT NULL,
     CREATE_TIME DATETIME DEFAULT CURRENT_TIMESTAMP,
     UPDATE_TIME DATETIME,
-    NODE        TEXT
+    NOTE        TEXT
 );
 
 CREATE TRIGGER update_t_user
@@ -25,7 +25,7 @@ CREATE TABLE t_setting_default
     CONTENT     TEXT NOT NULL,
     CREATE_TIME DATETIME DEFAULT CURRENT_TIMESTAMP,
     UPDATE_TIME DATETIME,
-    NODE        TEXT
+    NOTE        TEXT
 );
 
 CREATE TRIGGER update_t_setting_default
@@ -46,7 +46,7 @@ CREATE TABLE t_setting
     CONTENT     TEXT NOT NULL,
     CREATE_TIME DATETIME DEFAULT CURRENT_TIMESTAMP,
     UPDATE_TIME DATETIME,
-    NODE        TEXT,
+    NOTE        TEXT,
     foreign key (USER_ID) references t_user (ID)
 );
 
@@ -69,7 +69,7 @@ CREATE TABLE t_template_default
     CONFIG      TEXT NOT NULL,
     CREATE_TIME DATETIME DEFAULT CURRENT_TIMESTAMP,
     UPDATE_TIME DATETIME,
-    NODE        TEXT
+    NOTE        TEXT
 );
 
 CREATE TRIGGER update_t_template_default
@@ -86,12 +86,13 @@ END;
 CREATE TABLE t_template
 (
     ID          INTEGER PRIMARY KEY AUTOINCREMENT,
+    USER_ID     INTEGER,
     NAME        TEXT NOT NULL,
     CONTEXT     TEXT NOT NULL,
     CONFIG      TEXT NOT NULL,
     CREATE_TIME DATETIME DEFAULT CURRENT_TIMESTAMP,
     UPDATE_TIME DATETIME,
-    NODE        TEXT
+    NOTE        TEXT
 );
 
 CREATE TRIGGER update_t_template

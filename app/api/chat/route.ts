@@ -1,9 +1,10 @@
 import {NextRequest} from "next/server";
 import {ChatRequest} from "@/app/proto/chat";
 import {SettingHandler} from "@/app/api/util/handler";
-import {ChatGptConfig, SettingRequest} from "@/app/proto/setting";
+import {SettingRequest} from "@/app/proto/setting";
+import {ChatGptConfig} from "@/app/proto/llm";
 import {ChatGptApi} from "@/app/api/chat/chatgpt";
-import {ChatOptions} from "@/app/proto/llm";
+import {ChatOptions} from "@/app/api/chat/llm";
 import {StreamingTextResponse} from 'ai'
 
 async function handle(req: NextRequest) {

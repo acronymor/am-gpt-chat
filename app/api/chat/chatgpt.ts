@@ -1,7 +1,7 @@
-import {ChatOptions, LlmApi} from "@/app/proto/llm";
-import {LlmModel, LlmUsage, RequestMessage} from "@/app/proto/chat";
+import {ChatOptions, LlmApi} from "@/app/api/chat/llm";
+import {RequestMessage} from "@/app/proto/chat";
 import {ChatOpenAI} from "@langchain/openai";
-import {ChatGptConfig} from "@/app/proto/setting";
+import {LlmModel, LlmUsage, ChatGptConfig} from "@/app/proto/llm";
 import {PromptTemplate} from "@langchain/core/prompts";
 import {BytesOutputParser} from "@langchain/core/output_parsers";
 

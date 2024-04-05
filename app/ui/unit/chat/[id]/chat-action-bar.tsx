@@ -4,7 +4,7 @@ import ResetIcon from "@/app/icons/reload.svg";
 import DeleteIcon from "@/app/icons/clear.svg";
 import PinIcon from "@/app/icons/pin.svg";
 import CopyIcon from "@/app/icons/copy.svg";
-import {copyToClipboard} from "@/app/ui/util/bar_util";
+import {copyToClipboard} from "@/app/ui/unit/chat/lib/bar_util";
 import {Message} from "ai";
 
 export function ChatActionBar(props: { message: Message }) {

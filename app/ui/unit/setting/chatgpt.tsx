@@ -2,7 +2,8 @@ import React, {useEffect, useState} from "react";
 
 import {useDebouncedCallback} from 'use-debounce';
 
-import {ChatGptConfig, SettingRequest} from "@/app/proto/setting";
+import {SettingRequest} from "@/app/proto/setting";
+import {ChatGptConfig} from "@/app/proto/llm";
 import {List, ListItem} from "@/app/ui/lib/list";
 import {InputNumber, InputRange, InputText} from "@/app/ui/lib/input";
 import {Select} from "@/app/ui/lib/select";

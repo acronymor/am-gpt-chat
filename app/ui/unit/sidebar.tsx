@@ -28,16 +28,26 @@ export function Sidebar(props: { className?: string }) {
             </IconLink>
 
             <div className={sidebar_style["sidebar-header-bar"]}>
-                <IconButton
-                    className={sidebar_style["sidebar-bar-button"]}
-                    icon={<MaskIcon/>}
-                    text={"面具"}
-                />
-                <IconButton
-                    className={sidebar_style["sidebar-bar-button"]}
-                    icon={<PluginIcon/>}
-                    text={"插件"}
-                />
+                <IconLink href={{pathname: `/ui/unit/mask`}}>
+                    <IconButton
+                        className={sidebar_style["sidebar-bar-button"]}
+                        icon={<MaskIcon/>}
+                        text={"Mask"}
+                        onClick={() => {
+                            console.log("mask")
+                        }}
+                    />
+                </IconLink>
+                <IconLink href={{pathname: `/ui/unit/mask`}}>
+                    <IconButton
+                        className={sidebar_style["sidebar-bar-button"]}
+                        icon={<PluginIcon/>}
+                        text={"Plugin"}
+                        onClick={() => {
+                            console.log("插件")
+                        }}
+                    />
+                </IconLink>
             </div>
 
             <div className={sidebar_style["sidebar-body"]}>

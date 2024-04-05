@@ -1,7 +1,7 @@
 import {nanoid} from "nanoid";
 import {createEmptyMask, StoreKey} from "@/app/constant";
 import {createPersistStore} from "@/app/store/store";
-import {MaskConfig} from "@/app/proto/setting";
+import {MaskConfig} from "@/app/proto/mask";
 import {Message} from "ai";
 
 export interface ChatStat {

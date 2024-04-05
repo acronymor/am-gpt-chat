@@ -1,5 +1,5 @@
 import {MessageRole, ModelType} from "@/app/constant";
-import {MaskConfig} from "@/app/proto/setting";
+import {MaskConfig} from "@/app/proto/mask";
 
 
 export interface RequestMessage {
@@ -14,16 +14,6 @@ export type ChatMessage = RequestMessage & {
     id: string;
     model?: ModelType;
 };
-
-export interface LlmUsage {
-    used: number;
-    total: number;
-}
-
-export interface LlmModel {
-    name: string;
-    available: boolean;
-}
 
 export type ChatRequest = {
     messages: RequestMessage[];

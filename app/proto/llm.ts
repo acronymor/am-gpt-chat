@@ -1,19 +1,27 @@
-import {ChatRequest, LlmModel, LlmUsage} from "@/app/proto/chat";
-
-
-export interface ChatOptions {
-    options: ChatRequest;
-
-    onUpdate?: (message: string, chunk: string) => void;
-    onFinish: (message: string) => void;
-    onError?: (err: Error) => void;
-    onController?: (controller: AbortController) => void;
+export interface LlmUsage {
+    used: number;
+    total: number;
 }
 
-export abstract class LlmApi {
-    abstract chat(msg: ChatOptions): Promise<any>;
+export interface LlmModel {
+    name: string;
+    available: boolean;
+}
 
-    abstract usage(): Promise<LlmUsage>;
+export enum LlmType {
+    CHATGPT = "chatgpt"
+}
 
-    abstract models(): Promise<LlmModel[]>;
+export type ChatGptConfig = {
+    openAIApiKey: string,
+    temperature: number,
+    topP: number,
+    timeout: number,
+    modelName: string,
+    n: number,
+    streaming: boolean,
+    configuration?: {
+        baseURL?: string,
+        organization?: string
+    }
 }

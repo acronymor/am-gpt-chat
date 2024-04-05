@@ -1,4 +1,5 @@
-import {ChatGptConfig, MaskConfig} from "@/app/proto/setting";
+import {ChatGptConfig} from "@/app/proto/llm";
+import {MaskConfig, MaskContext} from "@/app/proto/mask";
 
 export const ROLES = ["system", "user", "assistant"] as const;
 export type MessageRole = (typeof ROLES)[number];
@@ -27,10 +28,11 @@ export const createEmptyChatGpt = () => ({
 export const createEmptyMask = (id: string, date: number) => ({
     id: id,
     avatar: "gpt-bot",
-    context: [],
-    lang: "en",
-    builtin: false,
-    createdAt: date,
+    name: "demo",
+    context: [{}] as [MaskContext],
+    config: {} as ChatGptConfig,
+    created_time: date,
+    update_time: date,
 }) as MaskConfig
 
 export const DEFAULT_LLM_MODELS = [
