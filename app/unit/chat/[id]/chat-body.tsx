@@ -1,14 +1,14 @@
 import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {useChat} from 'ai/react';
 
-import {ChatMsg} from "@/app/ui/unit/chat/[id]/chat-msg";
+import {ChatMsg} from "@/app/unit/chat/[id]/chat-msg";
 import {IconButton} from "@/app/ui/lib/button";
 import SendWhiteIcon from "@/app/icons/send-white.svg";
 
-import chat_style from "@/app/ui/unit/chat/[id]/chat.module.scss"
-import chat_input_style from "@/app/ui/unit/chat/[id]/chat-input.module.scss";
+import chat_style from "@/app/unit/chat/[id]/chat.module.scss"
+import chat_input_style from "@/app/unit/chat/[id]/chat-input.module.scss";
 import {ChatSession, useChatStore} from "@/app/store/chat";
-import {ChatInputBar} from "@/app/ui/unit/chat/[id]/chat-input-bar";
+import {ChatInputBar} from "@/app/unit/chat/[id]/chat-input-bar";
 
 export function ChatBody() {
     const [currentSession, changeSession] = useChatStore(

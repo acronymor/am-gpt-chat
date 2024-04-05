@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from "react";
 
-import chat_item_style from "@/app/ui/unit/chat-item.module.scss"
+import chat_item_style from "@/app/unit/chat/chat-item.module.scss"
 import DeleteIcon from "@/app/icons/delete.svg";
 
 

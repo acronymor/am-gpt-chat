@@ -1,10 +1,10 @@
 import React from "react";
 
-import {getAllMask} from "@/app/ui/util/mask_util";
-import mask_style from "@/app/ui/unit/mask/mask.module.scss"
-import {MaskHeader} from "@/app/ui/unit/mask/mask-header";
-import {MaskBar} from "@/app/ui/unit/mask/mask-bar";
-import {MaskBody} from "@/app/ui/unit/mask/mask-body";
+import {getAllMask} from "@/app/unit/mask/lib/data";
+import mask_style from "@/app/unit/mask/mask.module.scss"
+import {MaskHeader} from "@/app/unit/mask/ui/mask-header";
+import {MaskBar} from "@/app/unit/mask/ui/mask-bar";
+import {MaskBody} from "@/app/unit/mask/ui/mask-body";
 
 export default async function Page({params}: { params?: { query?: string; page?: string; } }) {
     const masks = await getAllMask()

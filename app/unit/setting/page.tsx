@@ -1,12 +1,12 @@
 'use client'
 
 import React from "react";
-import set_style from "@/app/ui/unit/setting/set.module.scss";
+import set_style from "@/app/unit/setting/set.module.scss";
 
-import {SetHeader} from "@/app/ui/unit/setting/set-header";
-import {General} from "@/app/ui/unit/setting/general";
-import {ChatGpt} from "@/app/ui/unit/setting/chatgpt";
-import {Danger} from "@/app/ui/unit/setting/danger";
+import {SetHeader} from "@/app/unit/setting/set-header";
+import {General} from "@/app/unit/setting/general";
+import {ChatGpt} from "@/app/unit/setting/chatgpt";
+import {Danger} from "@/app/unit/setting/danger";
 
 
 export default function Page() {

@@ -1,12 +1,12 @@
 import {IconButton} from "@/app/ui/lib/button";
 
-import chat_msg_style from "@/app/ui/unit/chat/[id]/chat-msg.module.scss"
+import chat_msg_style from "@/app/unit/chat/[id]/chat-msg.module.scss"
 
 import EditIcon from "@/app/icons/rename.svg"
 import BotIcon from "@/app/icons/bot.svg"
 import AvatarIcon from "@/app/icons/avatar.svg"
 import {Message} from "ai";
-import {ChatActionBar} from "@/app/ui/unit/chat/[id]/chat-action-bar";
+import {ChatActionBar} from "@/app/unit/chat/[id]/chat-action-bar";
 
 export function ChatMsg(props: {
     chat: Message

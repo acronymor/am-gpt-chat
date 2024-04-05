@@ -4,10 +4,10 @@ import React from "react";
 
 import {IconButton} from "@/app/ui/lib/button";
 import {IconLink} from "@/app/ui/lib/link";
-import {ChatList} from "@/app/ui/unit/chat-list";
+import {ChatList} from "@/app/unit/chat/chat-list";
 import {useChatStore} from "@/app/store/chat";
 
-import sidebar_style from "@/app/ui/unit/sidebar.module.scss"
+import sidebar_style from "@/app/unit/chat/sidebar.module.scss"
 import ChatGptIcon from "@/app/icons/chatgpt.svg"
 import MaskIcon from "@/app/icons/mask.svg"
 import PluginIcon from "@/app/icons/plugin.svg"
@@ -19,7 +19,7 @@ export function Sidebar(props: { className?: string }) {
     const store = useChatStore()
     return (
         <div className={sidebar_style["sidebar"]}>
-            <IconLink href={{pathname: "/ui/unit"}}>
+            <IconLink href={{pathname: "/unit"}}>
                 <div className={sidebar_style["sidebar-header"]}>
                     <div className={sidebar_style["sidebar-title"]}>NextChat</div>
                     <div className={sidebar_style["sidebar-sub-title"]}>Build your own AI assistant.</div>
@@ -28,7 +28,7 @@ export function Sidebar(props: { className?: string }) {
             </IconLink>
 
             <div className={sidebar_style["sidebar-header-bar"]}>
-                <IconLink href={{pathname: `/ui/unit/mask`}}>
+                <IconLink href={{pathname: `/unit/mask`}}>
                     <IconButton
                         className={sidebar_style["sidebar-bar-button"]}
                         icon={<MaskIcon/>}
@@ -38,7 +38,7 @@ export function Sidebar(props: { className?: string }) {
                         }}
                     />
                 </IconLink>
-                <IconLink href={{pathname: `/ui/unit/mask`}}>
+                <IconLink href={{pathname: `/unit/mask`}}>
                     <IconButton
                         className={sidebar_style["sidebar-bar-button"]}
                         icon={<PluginIcon/>}
@@ -57,7 +57,7 @@ export function Sidebar(props: { className?: string }) {
             <div className={sidebar_style["sidebar-tail"]}>
                 <div className={sidebar_style["sidebar-actions"]}>
                     <div className={sidebar_style["sidebar-action"]}>
-                        <IconLink href={{pathname: "/ui/unit/setting"}}>
+                        <IconLink href={{pathname: "/unit/setting"}}>
                             <IconButton icon={<SettingsIcon/>}/>
                         </IconLink>
                     </div>
@@ -69,7 +69,7 @@ export function Sidebar(props: { className?: string }) {
                 </div>
                 <div>
                     <div className={sidebar_style["sidebar-action"]}>
-                        <IconLink href={{pathname: `/ui/unit/chat/${store.sessions.length}`}}>
+                        <IconLink href={{pathname: `/unit/chat/${store.sessions.length}`}}>
                             <IconButton
                                 icon={<AddIcon/>}
                                 text={"新的聊天"}

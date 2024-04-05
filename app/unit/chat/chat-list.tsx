@@ -1,6 +1,6 @@
 import {DragDropContext, Draggable, Droppable, OnDragEndResponder,} from "@hello-pangea/dnd";
 
-import {ChatItem} from "@/app/ui/unit/chat-item";
+import {ChatItem} from "@/app/unit/chat/chat-item";
 import {IconLink} from "@/app/ui/lib/link";
 import {useChatStore} from "@/app/store/chat";
 
@@ -39,7 +39,7 @@ export function ChatList(props: { narrow?: boolean }) {
                                 <div ref={provided.innerRef}
                                      {...provided.draggableProps}
                                      {...provided.dragHandleProps} >
-                                    <IconLink key={chat.id} href={{pathname: `/ui/unit/chat/${index}`}}>
+                                    <IconLink key={chat.id} href={{pathname: `/unit/chat/${index}`}}>
                                         <ChatItem key={chat.id}
                                                   id={chat.id}
                                                   index={index}

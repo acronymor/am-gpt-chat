@@ -1,6 +1,6 @@
 'use client'
 
-import mask_style from "@/app/ui/unit/mask/mask.module.scss";
+import mask_style from "@/app/unit/mask/mask.module.scss";
 import React from "react";
 import {MaskConfig} from "@/app/proto/mask";
 import {IconButton} from "@/app/ui/lib/button";

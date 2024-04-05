@@ -2,7 +2,7 @@
 
 import type {Viewport} from "next";
 import "@/app/styles/globals.scss"
-import {Sidebar} from "@/app/ui/unit/sidebar";
+import {Sidebar} from "@/app/unit/chat/sidebar";
 import style from "@/app/main.module.scss"
 import {useAppConfigStore} from "@/app/store/setting";
 import {useEffect} from "react";
