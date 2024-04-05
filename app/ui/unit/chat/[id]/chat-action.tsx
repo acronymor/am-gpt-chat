@@ -4,6 +4,7 @@ import chat_input_style from "@/app/ui/unit/chat/[id]/chat-input.module.scss"
 export function IconChatAction(props: {
     icon?: JSX.Element
     text?: string
+    onClick: () => void
 }) {
     const iconRef = useRef<HTMLDivElement>(null);
     const textRef = useRef<HTMLDivElement>(null);
@@ -22,6 +23,9 @@ export function IconChatAction(props: {
 
     return (
         <div className={chat_input_style["chat-input-action"] + " clickable"}
+             onClick={() => {
+                 props.onClick();
+             }}
              onMouseEnter={updateWidth}
              style={
                  {

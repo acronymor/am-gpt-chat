@@ -8,6 +8,7 @@ import {StreamingTextResponse} from 'ai'
 
 async function handle(req: NextRequest) {
     let body = await req.json() as ChatRequest
+    console.log(body)
 
     const settingHandler = new SettingHandler("admin")
     const config = JSON.parse(await settingHandler.select()) as SettingRequest
