@@ -1,15 +1,21 @@
 'use client'
 
-import mask_style from "@/app/unit/mask/mask.module.scss";
-import React from "react";
+import React, {useState} from "react";
 import {MaskConfig} from "@/app/proto/mask";
 import {IconButton} from "@/app/ui/lib/button";
 import AddIcon from "@/app/icons/add.svg"
 import EditIcon from "@/app/icons/edit.svg"
 import DeleteIcon from "@/app/icons/delete.svg"
+import DownloadIcon from "@/app/icons/download.svg"
+import CopyIcon from "@/app/icons/copy.svg"
 import BotIcon from "@/app/icons/bot.svg"
+import {Modal} from "@/app/ui/lib/modal";
+import {MaskSetting} from "@/app/unit/mask/ui/mask-setting";
+import mask_style from "@/app/unit/mask/mask.module.scss";
 
 export function MaskBody(props: { key: number, mask: MaskConfig }) {
+    const [editingMask, setEditingMask] = useState<boolean>(false)
+
     return (
         <div className={mask_style["mask-item"]} key={props.mask.id}>
             <div className={mask_style["mask-header"]}>
@@ -35,6 +41,7 @@ export function MaskBody(props: { key: number, mask: MaskConfig }) {
                     icon={<EditIcon/>}
                     text={"编辑"}
                     onClick={() => {
+                        setEditingMask(true)
                         console.log("edit")
                     }}
                 />
@@ -46,6 +53,37 @@ export function MaskBody(props: { key: number, mask: MaskConfig }) {
                     }}
                 />
             </div>
+
+            {
+                editingMask && (
+                    <div className="modal-mask">
+                        <Modal
+                            title={"编辑预设面具"}
+                            onClose={() => setEditingMask(false)}
+                            actions={[
+                                <IconButton
+                                    key={"export"}
+                                    icon={<DownloadIcon/>}
+                                    text={"下载"}
+                                    onClick={() => {
+                                        console.log("下载")
+                                    }}
+                                />,
+                                <IconButton
+                                    key={"copy"}
+                                    icon={<CopyIcon/>}
+                                    text={"克隆"}
+                                    onClick={() => {
+                                        console.log("克隆")
+                                    }}
+                                />
+                            ]}
+                        >
+                            <MaskSetting/>
+                        </Modal>
+                    </div>
+                )
+            }
         </div>
     )
 }

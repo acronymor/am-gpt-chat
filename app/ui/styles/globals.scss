@@ -199,3 +199,20 @@ input[type="password"] {
     filter: brightness(0.95);
   }
 }
+
+.modal-mask {
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: var(--full-height);
+  width: 100vw;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (max-width: 600px) {
+    align-items: flex-end;
+  }
+}

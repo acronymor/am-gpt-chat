@@ -1,3 +1,19 @@
+.show {
+  opacity: 1;
+  transition: all ease 0.3s;
+  transform: translateY(0);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  animation: slide-in ease 0.6s;
+  z-index: 99999;
+}
+
+.hide {
+  opacity: 0;
+  transition: all ease 0.3s;
+  transform: translateY(20px);
+}
 
 .toast-container {
   position: fixed;
