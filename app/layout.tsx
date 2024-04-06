@@ -1,7 +1,5 @@
 import type {Viewport} from "next";
 import "@/app/ui/styles/globals.scss"
-import style from "@/app/main.module.scss"
-import {Sidebar} from "@/app/unit/chat/sidebar";
 import {getGenericSetting} from "@/app/unit/setting/lib/data";
 
 
@@ -22,10 +20,7 @@ export default async function RootLayout({children,}: Readonly<{ children: React
     return (
         <html lang="en">
         <body className={config.theme}>
-        <div className={style["container"]}>
-            <Sidebar/>
-            {children}
-        </div>
+        {children}
         </body>
         </html>
     );

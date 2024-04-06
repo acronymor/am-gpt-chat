@@ -8,7 +8,7 @@ import {IconLink} from "@/app/ui/lib/link";
 import {ChatList} from "@/app/unit/chat/chat-list";
 import {useChatStore} from "@/app/store/chat";
 
-import sidebar_style from "@/app/unit/chat/sidebar.module.scss"
+import sidebar_style from "@/app/unit/sidebar.module.scss"
 import ChatGptIcon from "@/app/icons/chatgpt.svg"
 import MaskIcon from "@/app/icons/mask.svg"
 import PluginIcon from "@/app/icons/plugin.svg"
