@@ -23,3 +23,9 @@ export const getAllTemplateByUserNameSql = (name: string) => {
                      LEFT JOIN t_user AS q ON p.USER_ID == q.ID
             WHERE q.NAME = '${name}';`
 }
+
+export const deleteMaskByIdSql = (id: number) => {
+    return `DELETE
+            FROM t_template
+            WHERE ID = ${id}`
+}

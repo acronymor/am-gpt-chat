@@ -7,7 +7,7 @@ export type MaskContext = {
 }
 
 export type MaskConfig = {
-    id: string,
+    id: number,
     avatar: string,
     name: string,
     context: [MaskContext],

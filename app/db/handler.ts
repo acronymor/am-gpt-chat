@@ -1,4 +1,9 @@
-import {getAllTemplateByUserNameSql, selectSettingByUserNameSql, updateSettingSql} from "@/app/db/sql";
+import {
+    deleteMaskByIdSql,
+    getAllTemplateByUserNameSql,
+    selectSettingByUserNameSql,
+    updateSettingSql
+} from "@/app/db/sql";
 import {exec, selectAll, selectOne} from "@/app/db/sqlite";
 
 export class SettingHandler {
@@ -64,6 +69,21 @@ export class TemplateHandler {
                 console.error(err)
             }).finally(() => {
                 console.debug(`select end, user=${this.user}`);
+            });
+        return res;
+    }
+
+    async delete(id: number): Promise<any> {
+        let res = Promise.resolve()
+            .then(() => {
+                console.debug(`delete start, user=${this.user}`);
+                return this.user
+            }).then((user) => {
+                return exec(deleteMaskByIdSql(id))
+            }).catch((err) => {
+                console.error(err)
+            }).finally(() => {
+                console.debug(`delete end, user=${this.user}`);
             });
         return res;
     }

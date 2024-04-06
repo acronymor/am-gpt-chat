@@ -13,19 +13,19 @@ import {Modal} from "@/app/ui/lib/modal";
 import {MaskSetting} from "@/app/unit/mask/ui/mask-setting";
 import mask_style from "@/app/unit/mask/mask.module.scss";
 
-export function MaskBody(props: { key: number, mask: MaskConfig }) {
+export function MaskBody({mask, drop}: { mask: MaskConfig, drop: (id: number) => Promise<void> }) {
     const [editingMask, setEditingMask] = useState<boolean>(false)
 
     return (
-        <div className={mask_style["mask-item"]} key={props.mask.id}>
+        <div className={mask_style["mask-item"]} key={mask.id}>
             <div className={mask_style["mask-header"]}>
                 <div className={mask_style["mask-icon"]}>
                     <BotIcon/>
                 </div>
                 <div className={mask_style["mask-title"]}>
-                    <div className={mask_style["mask-name"]}>{props.mask.name}</div>
+                    <div className={mask_style["mask-name"]}>{mask.name}</div>
                     <div className={mask_style["mask-info"] + " one-line"}>
-                        {props.mask.config.modelName}
+                        {mask.config.modelName}
                     </div>
                 </div>
             </div>
@@ -48,8 +48,8 @@ export function MaskBody(props: { key: number, mask: MaskConfig }) {
                 <IconButton
                     icon={<DeleteIcon/>}
                     text={"删除"}
-                    onClick={() => {
-                        console.log("delete")
+                    onClick={async () => {
+                        await drop(mask.id)
                     }}
                 />
             </div>
