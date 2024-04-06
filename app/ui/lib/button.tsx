@@ -1,4 +1,5 @@
 import button_style from "@/app/ui/lib/button.module.scss"
+import {JSX} from "react"
 
 export function IconButton(props: {
     onClick?: () => void,

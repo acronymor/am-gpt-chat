@@ -1,4 +1,4 @@
-import {useRef, useState} from "react";
+import {useRef, useState, JSX} from "react";
 import chat_input_style from "@/app/unit/chat/[id]/chat-input.module.scss"
 
 export function IconChatAction(props: {
