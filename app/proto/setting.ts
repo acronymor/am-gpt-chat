@@ -14,6 +14,10 @@ export enum SubmitKey {
     MetaEnter = "Meta + Enter",
 }
 
+export enum OpenAiModel {
+    GPT35= "gpt-3.5-turbo"
+}
+
 export type  GenericConfig = {
     theme: Theme
     submitKey: SubmitKey

@@ -1,4 +1,4 @@
-import {exec} from "@/app/api/util/sqlite";
+import {exec} from "@/app/db/sqlite";
 
 describe("#exec", () => {
     it("db.all(sql)", async () => {

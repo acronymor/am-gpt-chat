@@ -1,11 +1,8 @@
-'use client'
-
 import type {Viewport} from "next";
-import "@/app/styles/globals.scss"
-import {Sidebar} from "@/app/unit/chat/sidebar";
+import "@/app/ui/styles/globals.scss"
 import style from "@/app/main.module.scss"
-import {useAppConfigStore} from "@/app/store/setting";
-import {useEffect} from "react";
+import {Sidebar} from "@/app/unit/chat/sidebar";
+import {getGenericSetting} from "@/app/unit/setting/lib/data";
 
 
 export const viewport: Viewport = {
@@ -19,18 +16,12 @@ export const viewport: Viewport = {
     ],
 }
 
-export default function RootLayout({children,}: Readonly<{ children: React.ReactNode; }>) {
-    const store = useAppConfigStore()
-    useEffect(() => {
-        async function go() {
-            await store.get()
-        }
+export default async function RootLayout({children,}: Readonly<{ children: React.ReactNode; }>) {
+    const config = await getGenericSetting()
 
-        go().catch(console.error)
-    }, []);
     return (
         <html lang="en">
-        <body className={store.theme}>
+        <body className={config.theme}>
         <div className={style["container"]}>
             <Sidebar/>
             {children}

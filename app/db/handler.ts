@@ -1,5 +1,5 @@
-import {getAllTemplateByUserNameSql, selectSettingByUserNameSql, updateSettingSql} from "@/app/api/util/sql";
-import {exec, selectAll, selectOne} from "@/app/api/util/sqlite";
+import {getAllTemplateByUserNameSql, selectSettingByUserNameSql, updateSettingSql} from "@/app/db/sql";
+import {exec, selectAll, selectOne} from "@/app/db/sqlite";
 
 export class SettingHandler {
     private readonly user: string

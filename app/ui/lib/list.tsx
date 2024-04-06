@@ -1,4 +1,5 @@
 import list_style from "@/app/ui/lib/list.module.scss"
+import {JSX} from "react"
 
 export function List(props: { children: React.ReactNode; id?: string }) {
     return (

@@ -1,4 +1,4 @@
-import {update_setting_sql} from "@/app/api/util/sql";
+import {update_setting_sql} from "@/app/db/sql";
 
 describe("#sql", () => {
     it("update_setting", async () => {

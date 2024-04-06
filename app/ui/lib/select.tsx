@@ -1,18 +1,28 @@
+'use client'
+
+import select_style from "@/app/ui/lib/select.module.scss";
 import DownIcon from "@/app/icons/down.svg";
+import React, {useState} from "react";
 
-import select_style from "@/app/ui/lib/select.module.scss"
+export function Select({uKey, uValue, update, children}: {
+    uKey: string,
+    uValue: string,
+    update: (key: string, value: string) => Promise<void>,
+    children: React.ReactNode
+}) {
+    const [state, setState] = useState<string>(uValue)
 
-
-export function Select(
-    props: React.DetailedHTMLProps<React.SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>,
-) {
-    const {className, children, ...otherProps} = props;
     return (
-        <div className={`${select_style["select-with-icon"]} ${className}`}>
-            <select className={select_style["select-with-icon-select"]} {...otherProps}>
+        <div className={`${select_style["select-with-icon"]}`}>
+            <select className={select_style["select-with-icon-select"]}
+                    value={state ?? uValue}
+                    onChange={async (e) => {
+                        setState(e.currentTarget.value)
+                        await update(uKey, e.currentTarget.value)
+                    }}>
                 {children}
             </select>
             <DownIcon className={select_style["select-with-icon-icon"]}/>
         </div>
-    );
+    )
 }

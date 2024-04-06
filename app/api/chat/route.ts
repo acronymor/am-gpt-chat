@@ -1,6 +1,6 @@
 import {NextRequest} from "next/server";
 import {ChatRequest} from "@/app/proto/chat";
-import {SettingHandler} from "@/app/api/util/handler";
+import {SettingHandler} from "@/app/db/handler";
 import {SettingRequest} from "@/app/proto/setting";
 import {ChatGptConfig} from "@/app/proto/llm";
 import {ChatGptApi} from "@/app/api/chat/chatgpt";

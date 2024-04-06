@@ -1,6 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
 import {ResponseResult} from "@/app/api/util/response";
-import {TemplateHandler} from "@/app/api/util/handler";
+import {TemplateHandler} from "@/app/db/handler";
 import {MaskConfig} from "@/app/proto/mask";
 
 async function handlePost(request: NextRequest) {

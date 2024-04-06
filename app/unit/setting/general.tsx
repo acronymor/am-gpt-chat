@@ -1,36 +1,13 @@
-import React, {useEffect, useState} from "react";
-import {useDebouncedCallback} from "use-debounce";
-
-import {GenericConfig, SettingRequest, SubmitKey, Theme} from "@/app/proto/setting";
-import {getSetting, setSetting} from "@/app/ui/util/fetch_util";
-import {useAppConfigStore} from "@/app/store/setting";
+import React from "react";
 
 import {List, ListItem} from "@/app/ui/lib/list";
 import {IconButton} from "@/app/ui/lib/button";
 import {Select} from "@/app/ui/lib/select";
+import {SubmitKey, Theme} from "@/app/proto/setting";
+import {getGenericSetting, setGenericSetting} from "@/app/unit/setting/lib/data";
 
-const DEFAULT_CONFIG: GenericConfig = {
-    theme: Theme.Auto,
-    submitKey: SubmitKey.Enter
-}
-
-
-export function General() {
-    const [state, setState] = useState<GenericConfig>(DEFAULT_CONFIG)
-    const store = useAppConfigStore()
-
-    useEffect(() => {
-        async function go() {
-            const data = await getSetting<GenericConfig>("generic")
-            setState(data)
-        }
-
-        go().catch(console.error)
-    }, []);
-
-    const update = useDebouncedCallback(async (config: GenericConfig) => {
-        await setSetting({generic: config} as SettingRequest)
-    }, 500);
+export async function General() {
+    const config = await getGenericSetting()
 
     return (
         <List>
@@ -43,12 +20,7 @@ export function General() {
             </ListItem>
 
             <ListItem title={"发送键"}>
-                <Select value={state.submitKey} onChange={(e) => {
-                    const config = {...state, submitKey: e.currentTarget.value as SubmitKey};
-                    store.update((cfg) => cfg.submitKey = config.submitKey)
-                    setState(config);
-                    update(config)
-                }}>
+                <Select uKey={"submitKey"} uValue={config["submitKey"]} update={setGenericSetting}>
                     {
                         Object.values(SubmitKey).map((v) => (
                             <option value={v} key={v}>
@@ -60,13 +32,7 @@ export function General() {
             </ListItem>
 
             <ListItem title={"主题"}>
-                <Select value={state.theme} onChange={(e) => {
-                    const config = {...state, theme: e.currentTarget.value as Theme};
-                    document.body.className = config.theme;
-                    store.update((cfg) => cfg.theme = config.theme)
-                    setState(config);
-                    update(config)
-                }}>
+                <Select uKey={"theme"} uValue={config["theme"]} update={setGenericSetting}>
                     {
                         Object.values(Theme).map((v) => (
                             <option value={v} key={v}>
@@ -77,6 +43,5 @@ export function General() {
                 </Select>
             </ListItem>
         </List>
-
     )
 }
