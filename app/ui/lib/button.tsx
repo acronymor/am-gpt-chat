@@ -8,9 +8,14 @@ export function IconButton(props: {
     icon?: JSX.Element
     title?: string
     text?: string
+    type?: string
 }) {
     return (
-        <button className={button_style["icon-button"] + " " + button_style["shadow"] + ` ${props.className} clickable`}
+        <button className={`${button_style["icon-button"]} 
+        ${button_style["shadow"] ?? ""}
+         ${button_style[props.type ?? ""]} 
+         ${props.className}
+         clickable`}
                 title={props.title}
                 role={"button"}
                 onClick={props.onClick}

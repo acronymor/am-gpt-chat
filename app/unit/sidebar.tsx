@@ -43,9 +43,9 @@ export function Sidebar(props: { className?: string }) {
                 <IconButton
                     className={sidebar_style["sidebar-bar-button"]}
                     icon={<PluginIcon/>}
-                    text={"Plugin"}
+                    text={"Canvas"}
                     onClick={() => {
-                        router.push('/unit/mask')
+                        router.push('/unit/canvas')
                     }}
                 />
             </div>
