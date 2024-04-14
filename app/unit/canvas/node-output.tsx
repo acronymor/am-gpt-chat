@@ -1,6 +1,7 @@
 import {Handle, Position} from "reactflow";
+import {OutputParam} from "@/app/proto/node";
 
-export function NodeOutputHandler({data}: { data: string }) {
+export function NodeOutputHandler({data}: { data: OutputParam}) {
     return (
         <div>
             <div>
@@ -10,7 +11,7 @@ export function NodeOutputHandler({data}: { data: string }) {
                 />
             </div>
 
-            <div>{data}</div>
+            <div>{data.label}</div>
         </div>
     )
 }

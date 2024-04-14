@@ -1,6 +1,7 @@
 import {Handle, Position} from "reactflow";
+import {InputParam} from "@/app/proto/node";
 
-export function NodeInputHandler({data}: { data: string }) {
+export function NodeInputHandler({data}: { data: InputParam }) {
     return (
         <div>
             <div>
@@ -10,7 +11,7 @@ export function NodeInputHandler({data}: { data: string }) {
                 />
             </div>
 
-            <div>{data}</div>
+            <div>{data.label}</div>
         </div>
     )
 }
