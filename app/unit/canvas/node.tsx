@@ -1,37 +1,25 @@
-import React, {memo} from 'react';
-import {Handle, Position} from 'reactflow';
+import React from 'react';
+import {NodeInputHandler} from "@/app/unit/canvas/node-input";
+import {NodeOutputHandler} from "@/app/unit/canvas/node-output";
+import {IconButton} from "@/app/ui/lib/button";
 
-export default memo(function CanvasNodeComponent({data, isConnectable}: {
-    data: { color: string, onChange: (event: any) => void },
-    isConnectable: boolean
+export default function CanvasNode({data}: {
+    data: { inputAnchors: string[], inputParams: string[], outputAnchors: string[] }
 }) {
-    return (
-        <>
-            <Handle
-                type="target"
-                position={Position.Left}
-                style={{background: '#555'}}
-                onConnect={(params) => console.log('handle onConnect', params)}
-                isConnectable={isConnectable}
-            />
-            <div>
-                Custom Color Picker Node: <strong>{data.color}</strong>
-            </div>
-            <input className="nodrag" type="color" onChange={data.onChange} defaultValue={data.color}/>
-            <Handle
-                type="source"
-                position={Position.Right}
-                id="a"
-                style={{top: 10, background: '#555'}}
-                isConnectable={isConnectable}
-            />
-            <Handle
-                type="source"
-                position={Position.Right}
-                id="b"
-                style={{bottom: 10, top: 'auto', background: '#555'}}
-                isConnectable={isConnectable}
-            />
-        </>
-    );
-});
+    return <div>
+        <IconButton title={"Duplicate"} text={"复制"}/>
+        <IconButton title={"Delete"} text={"删除"}/>
+        <IconButton title={"Info"} text={"详情"}/>
+
+        {
+            data.inputAnchors?.map((param: string, index) => (<NodeInputHandler key={index} data={param}/>))
+        }
+        {
+            data.inputParams?.map((param: string, index) => (<NodeInputHandler key={index} data={param}/>))
+        }
+        {
+            data.outputAnchors?.map((param: string, index) => (<NodeOutputHandler key={index} data={param}/>))
+        }
+
+    </div>;
+};
