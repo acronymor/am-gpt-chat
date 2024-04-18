@@ -1,6 +1,7 @@
-import WorkFlow from "@/app/unit/canvas/flow";
 import data from "@/app/unit/canvas/data"
+import React from "react";
+import WorkflowContainer from "@/app/unit/canvas/flow";
 
 export default async function Page() {
-    return (<WorkFlow graph={data}/>)
+    return (<WorkflowContainer nodes={data.nodes} edges={data.edges} viewport={data.viewport}/>)
 }

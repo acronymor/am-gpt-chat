@@ -1,16 +1,17 @@
 import {BaseEdge, EdgeLabelRenderer, EdgeProps, getBezierPath, useReactFlow} from 'reactflow';
+import React from "react";
 
-export default function CanvasEdge({
-                                       id,
-                                       sourceX,
-                                       sourceY,
-                                       targetX,
-                                       targetY,
-                                       sourcePosition,
-                                       targetPosition,
-                                       style = {},
-                                       markerEnd,
-                                   }: EdgeProps) {
+const CanvasEdge = ({
+                        id,
+                        sourceX,
+                        sourceY,
+                        targetX,
+                        targetY,
+                        sourcePosition,
+                        targetPosition,
+                        style = {},
+                        markerEnd,
+                    }: EdgeProps) => {
     const {setEdges} = useReactFlow();
     const [edgePath, labelX, labelY] = getBezierPath({
         sourceX,
@@ -47,3 +48,5 @@ export default function CanvasEdge({
         </>
     );
 };
+
+export default React.memo(CanvasEdge)

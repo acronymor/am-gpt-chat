@@ -1,15 +1,12 @@
-import {Node} from "@/app/proto/node";
-import {Edge} from "@/app/proto/edge";
+import {Viewport} from "reactflow";
 
-export interface Graph {
-    id: string;
-    nodes: Node[];
-    edges: Edge[];
-    viewPort: ViewPort;
-}
-
-export interface ViewPort {
-    x: number;
-    y: number;
-    zoom: number;
+export type FlowResponse = {
+    id: number,
+    graph: {
+        nodes: any[],
+        edges: any[],
+        viewport?: Viewport
+    }
+    create_time: number,
+    update_time: number
 }

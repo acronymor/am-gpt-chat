@@ -1,37 +1,33 @@
-import React from 'react';
-import {NodeInputHandler} from "@/app/unit/canvas/node-input";
-import {NodeOutputHandler} from "@/app/unit/canvas/node-output";
-import {Data, InputParam, OutputParam} from "@/app/proto/node";
+import type {ComponentType} from 'react'
+import React from 'react'
+import {NodeProps} from "reactflow";
+import BaseNode from "@/app/unit/canvas/node/base/node";
+import {NodeEnum} from "@/app/unit/canvas/node/base/types";
+import StartNode from "@/app/unit/canvas/node/start/node"
+import EndNode from "@/app/unit/canvas/node/end/node"
+import LLMNode from "@/app/unit/canvas/node/llm/node"
+import AnswerMNode from "@/app/unit/canvas/node/answer/node"
+import IfElseNode from "@/app/unit/canvas/node/if-else/node"
 
-export default function CanvasNode({data}: { data: Data }
-) {
-    return (<div>
+const NodeComponentMap: Record<string, ComponentType<any>> = {
+    [NodeEnum.Start]: StartNode,
+    [NodeEnum.End]: EndNode,
+    [NodeEnum.LLM]: LLMNode,
+    [NodeEnum.IfElse]: IfElseNode,
+    [NodeEnum.Answer]: AnswerMNode,
+}
 
-        {/*
-        <IconButton title={"Duplicate"} text={"复制"}/>
-        <IconButton title={"Delete"} text={"删除"}/>
-        <IconButton title={"Info"} text={"详情"}/>
-        */}
 
-        {
-            data.inputAnchors.map((param: InputParam, index) => {
-                return (
-                    <div key={index}>
-                        <div>{param.name}</div>
-                        <NodeInputHandler data={param}/>
-                    </div>
-                )
-            })
-        }
-        {
-            data.inputParams.map((param: InputParam, index) => (<NodeInputHandler key={index} data={param}/>))
-        }
-        {
-            data.outputAnchors.map((param: OutputParam, index) => (<NodeOutputHandler key={index} data={param}/>))
-        }
-        {
-            data.outputParams.map((param: OutputParam, index) => (<NodeOutputHandler key={index} data={param}/>))
-        }
+const CanvasNode = (props: NodeProps) => {
+    const nodeData = props.data
+    const NodeComponent = NodeComponentMap[nodeData.type]
 
-    </div>);
-};
+    return (
+        <BaseNode {...props}>
+            <NodeComponent/>
+        </BaseNode>
+    )
+}
+CanvasNode.displayName = 'CanvasNode'
+
+export default React.memo(CanvasNode)

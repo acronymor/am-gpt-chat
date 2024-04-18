@@ -2,45 +2,28 @@
 
 import 'reactflow/dist/style.css';
 
-import React, {memo, useCallback, useEffect} from 'react';
-import ReactFlow, {
-    addEdge,
-    Connection,
-    Controls,
-    Edge,
-    MiniMap,
-    Node,
-    ReactFlowProvider,
-    useEdgesState,
-    useNodesState
-} from 'reactflow';
+import React, {memo, useEffect} from 'react';
+import ReactFlow, {Controls, MiniMap, ReactFlowProvider, useEdgesState, useNodesState, Viewport} from 'reactflow';
 
-import CanvasNode from '@/app/unit/canvas/node';
-import CanvasEdge from "@/app/unit/canvas/edge";
-import {Graph} from "@/app/proto/flow"
+import CustomNode from '@/app/unit/canvas/node';
+import CustomEdge from "@/app/unit/canvas/edge";
 
-const nodeTypes = {node: CanvasNode}
-const edgeTypes = {edge: CanvasEdge}
+const nodeTypes = {custom: CustomNode}
+const edgeTypes = {custom: CustomEdge}
 
-function WorkFlow({graph}: { graph: Graph }) {
+function WorkFlow({canvas_node, canvas_edge, viewport}: {
+    canvas_node: any[],
+    canvas_edge: any[],
+    viewport: Viewport
+}) {
     const [nodes, setNodes, onNodesChange] = useNodesState([]);
     const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
     useEffect(() => {
-        setNodes(graph.nodes as Node[])
-        setEdges(graph.edges as Edge[]);
+        setNodes(canvas_node)
+        setEdges(canvas_edge)
     }, []);
 
-    const onConnect = useCallback(
-        (params: Connection) => {
-            const newEdge = {
-                ...params,
-                id: `${params.source}-${params.sourceHandle}-${params.target}-${params.targetHandle}`
-            }
-
-            setEdges((edge) => addEdge({...newEdge, animated: true}, edge));
-        }, []
-    );
 
     return (
         <ReactFlow
@@ -48,7 +31,6 @@ function WorkFlow({graph}: { graph: Graph }) {
             edges={edges}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
             nodeTypes={nodeTypes}
             edgeTypes={edgeTypes}
             snapToGrid={true}
@@ -62,13 +44,17 @@ function WorkFlow({graph}: { graph: Graph }) {
 };
 
 
-const WorkflowContainer = memo(({graph}: { graph: Graph }) => {
+const WorkflowContainer = ({nodes, edges, viewport}: {
+    nodes: any[],
+    edges: any[],
+    viewport: Viewport
+}) => {
     return (
         <ReactFlowProvider>
-            <WorkFlow graph={graph}/>
+            <WorkFlow canvas_node={nodes} canvas_edge={edges} viewport={viewport}/>
         </ReactFlowProvider>
     )
-})
+}
 WorkflowContainer.displayName = "Graph"
 
 export default memo(WorkflowContainer)
