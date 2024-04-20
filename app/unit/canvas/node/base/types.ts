@@ -3,6 +3,11 @@ import type {Node as ReactFlowNode} from "reactflow";
 export type Node<T = {}> = ReactFlowNode<CommonNodeType<T>>
 export type NodeProps<T = unknown> = { id: string; data: CommonNodeType<T> }
 
+export type NodePanelProps<T> = {
+    id: string
+    data: CommonNodeType<T>
+}
+
 
 export type CommonNodeType<T = {}> = {
     selected?: boolean,
@@ -12,6 +17,14 @@ export type CommonNodeType<T = {}> = {
 } & T
 
 export enum NodeEnum {
+    Start = 'start',
+    End = 'end',
+    Answer = 'answer',
+    LLM = 'llm',
+    IfElse = 'if-else',
+}
+
+export enum PanelEnum {
     Start = 'start',
     End = 'end',
     Answer = 'answer',

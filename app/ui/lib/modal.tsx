@@ -33,36 +33,38 @@ export function Modal(props: ModalProps) {
     const [isMax, setMax] = useState(false)
 
     return (
-        <div className={modal_style["modal-container"] + ` ${isMax && modal_style["modal-container-max"]}`}>
-            <div className={modal_style["modal-header"]}>
-                <div className={modal_style["modal-title"]}>{props.title}</div>
+        <div className={modal_style["modal-mask"]}>
+            <div className={modal_style["modal-container"] + ` ${isMax && modal_style["modal-container-max"]}`}>
+                <div className={modal_style["modal-header"]}>
+                    <div className={modal_style["modal-title"]}>{props.title}</div>
 
-                <div className={modal_style["modal-header-actions"]}>
-                    <div
-                        className={modal_style["modal-header-action"]}
-                        onClick={() => setMax(!isMax)}
-                    >
-                        {isMax ? <MinIcon/> : <MaxIcon/>}
-                    </div>
-                    <div
-                        className={modal_style["modal-header-action"]}
-                        onClick={props.onClose}
-                    >
-                        <CloseIcon/>
+                    <div className={modal_style["modal-header-actions"]}>
+                        <div
+                            className={modal_style["modal-header-action"]}
+                            onClick={() => setMax(!isMax)}
+                        >
+                            {isMax ? <MinIcon/> : <MaxIcon/>}
+                        </div>
+                        <div
+                            className={modal_style["modal-header-action"]}
+                            onClick={props.onClose}
+                        >
+                            <CloseIcon/>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div className={modal_style["modal-content"]}>{props.children}</div>
+                <div className={modal_style["modal-content"]}>{props.children}</div>
 
-            <div className={modal_style["modal-footer"]}>
-                {props.footer}
-                <div className={modal_style["modal-actions"]}>
-                    {props.actions?.map((action, i) => (
-                        <div key={i} className={modal_style["modal-action"]}>
-                            {action}
-                        </div>
-                    ))}
+                <div className={modal_style["modal-footer"]}>
+                    {props.footer}
+                    <div className={modal_style["modal-actions"]}>
+                        {props.actions?.map((action, i) => (
+                            <div key={i} className={modal_style["modal-action"]}>
+                                {action}
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

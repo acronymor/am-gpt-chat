@@ -12,7 +12,7 @@ export function IconNode(props: {
     desc?: string,
 }) {
     return (
-        <div className={node_style["icon-node"]}>
+        <div className={node_style["icon-node"]} onClick={props.onClick}>
             <div style={{display: "block", position: "absolute", top: "-20px", right: "0px"}}>
                 <RunIcon/>
                 <DotsIcon/>

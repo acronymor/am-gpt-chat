@@ -8,6 +8,7 @@ export type ModelType = (typeof DEFAULT_LLM_MODELS)[number]["name"];
 export enum StoreKey {
     Config = "app-setting",
     CHAT = "app-chat",
+    CANVAS = "app-canvas",
     Mask = "app-mask",
 }
 
@@ -25,7 +26,7 @@ export const createEmptyChatGpt = () => ({
     }
 }) as ChatGptConfig
 
-export const createEmptyMask = (id: string, date: number) => ({
+export const createEmptyMask = (id: number, date: number) => ({
     id: id,
     avatar: "gpt-bot",
     name: "demo",

@@ -40,7 +40,7 @@ function createEmptySession(id: string, lastUpdate: number): ChatSession {
         lastUpdate: lastUpdate,
         lastSummarizeIndex: 0,
 
-        mask: createEmptyMask(id, lastUpdate),
+        mask: createEmptyMask(0, lastUpdate),
     };
 }
 

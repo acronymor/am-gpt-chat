@@ -15,6 +15,7 @@ import ReactFlow, {
 
 import CanvasNode from '@/app/unit/canvas/node';
 import CanvasEdge from "@/app/unit/canvas/edge";
+import CanvasPanel from "@/app/unit/canvas/panel";
 import {useNodesInteractions} from "@/app/unit/canvas/hooks/use-nodes-interactions";
 
 const nodeTypes = {custom: CanvasNode}
@@ -33,7 +34,7 @@ function WorkFlow({canvas_node, canvas_edge, viewport}: {
         setEdges(canvas_edge)
     }, []);
 
-    const {handleNodeConnect} = useNodesInteractions()
+    const {handleNodeConnect, handleNodeClick} = useNodesInteractions()
 
     return (
         <ReactFlow
@@ -41,6 +42,7 @@ function WorkFlow({canvas_node, canvas_edge, viewport}: {
             edges={edges}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
+            onNodeClick={handleNodeClick}
             onConnect={handleNodeConnect}
             nodeTypes={nodeTypes}
             edgeTypes={edgeTypes}
@@ -54,6 +56,7 @@ function WorkFlow({canvas_node, canvas_edge, viewport}: {
                 flexDirection: 'row',
             }}/>
             <Background color={"#aaa"} gap={16}/>
+            <CanvasPanel/>
         </ReactFlow>
     );
 };

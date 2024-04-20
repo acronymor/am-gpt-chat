@@ -56,32 +56,30 @@ export function MaskBody({mask, drop}: { mask: MaskConfig, drop: (id: number) =>
 
             {
                 editingMask && (
-                    <div className="modal-mask">
-                        <Modal
-                            title={"编辑预设面具"}
-                            onClose={() => setEditingMask(false)}
-                            actions={[
-                                <IconButton
-                                    key={"export"}
-                                    icon={<DownloadIcon/>}
-                                    text={"下载"}
-                                    onClick={() => {
-                                        console.log("下载")
-                                    }}
-                                />,
-                                <IconButton
-                                    key={"copy"}
-                                    icon={<CopyIcon/>}
-                                    text={"克隆"}
-                                    onClick={() => {
-                                        console.log("克隆")
-                                    }}
-                                />
-                            ]}
-                        >
-                            <MaskSetting/>
-                        </Modal>
-                    </div>
+                    <Modal
+                        title={"编辑预设面具"}
+                        onClose={() => setEditingMask(false)}
+                        actions={[
+                            <IconButton
+                                key={"export"}
+                                icon={<DownloadIcon/>}
+                                text={"下载"}
+                                onClick={() => {
+                                    console.log("下载")
+                                }}
+                            />,
+                            <IconButton
+                                key={"copy"}
+                                icon={<CopyIcon/>}
+                                text={"克隆"}
+                                onClick={() => {
+                                    console.log("克隆")
+                                }}
+                            />
+                        ]}
+                    >
+                        <MaskSetting/>
+                    </Modal>
                 )
             }
         </div>

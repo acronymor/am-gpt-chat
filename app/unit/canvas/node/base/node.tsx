@@ -6,25 +6,26 @@ type BaseNodeProps = {
     children: ReactElement
 } & NodeProps
 const BaseNode = ({id, data, children}: BaseNodeProps) => {
-    return (<div className={"node-control"}>
-        {
-            <NodeTargetHandle
-                id={id}
-                data={data}
-                handleId="target"
-            />
-        }
-        {
-            data.type !== NodeEnum.IfElse && (
-                <NodeSourceHandle
+    return (
+        <div>
+            {
+                <NodeTargetHandle
                     id={id}
                     data={data}
-                    handleId="source"
+                    handleId="target"
                 />
-            )
-        }
-        {cloneElement(children, {id, data})}
-    </div>)
+            }
+            {
+                data.type !== NodeEnum.IfElse && (
+                    <NodeSourceHandle
+                        id={id}
+                        data={data}
+                        handleId="source"
+                    />
+                )
+            }
+            {cloneElement(children, {id, data})}
+        </div>)
 }
 
 export default React.memo(BaseNode)
