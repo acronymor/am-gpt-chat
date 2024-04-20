@@ -23,7 +23,7 @@ export function IconButton(props: {
         >
             {
                 props.icon && (
-                    <div className={button_style["icon-button-icon"]}>{props.icon}</div>
+                    <div className={`${button_style["icon-button-icon"]} ${props.type === "primary" && "no-dark"}`}>{props.icon}</div>
                 )
             }
 

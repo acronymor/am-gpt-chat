@@ -3,13 +3,22 @@
 import 'reactflow/dist/style.css';
 
 import React, {memo, useEffect} from 'react';
-import ReactFlow, {Controls, MiniMap, ReactFlowProvider, useEdgesState, useNodesState, Viewport} from 'reactflow';
+import ReactFlow, {
+    Background,
+    Controls,
+    MiniMap,
+    ReactFlowProvider,
+    useEdgesState,
+    useNodesState,
+    Viewport
+} from 'reactflow';
 
-import CustomNode from '@/app/unit/canvas/node';
-import CustomEdge from "@/app/unit/canvas/edge";
+import CanvasNode from '@/app/unit/canvas/node';
+import CanvasEdge from "@/app/unit/canvas/edge";
+import {useNodesInteractions} from "@/app/unit/canvas/hooks/use-nodes-interactions";
 
-const nodeTypes = {custom: CustomNode}
-const edgeTypes = {custom: CustomEdge}
+const nodeTypes = {custom: CanvasNode}
+const edgeTypes = {custom: CanvasEdge}
 
 function WorkFlow({canvas_node, canvas_edge, viewport}: {
     canvas_node: any[],
@@ -24,6 +33,7 @@ function WorkFlow({canvas_node, canvas_edge, viewport}: {
         setEdges(canvas_edge)
     }, []);
 
+    const {handleNodeConnect} = useNodesInteractions()
 
     return (
         <ReactFlow
@@ -31,6 +41,7 @@ function WorkFlow({canvas_node, canvas_edge, viewport}: {
             edges={edges}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
+            onConnect={handleNodeConnect}
             nodeTypes={nodeTypes}
             edgeTypes={edgeTypes}
             snapToGrid={true}
@@ -38,7 +49,11 @@ function WorkFlow({canvas_node, canvas_edge, viewport}: {
             attributionPosition="bottom-left"
         >
             <MiniMap style={{backgroundColor: '#363636'}}/>
-            <Controls/>
+            <Controls style={{
+                display: 'flex',
+                flexDirection: 'row',
+            }}/>
+            <Background color={"#aaa"} gap={16}/>
         </ReactFlow>
     );
 };

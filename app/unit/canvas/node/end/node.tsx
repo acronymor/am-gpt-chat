@@ -1,23 +1,18 @@
 import React from 'react'
 import {EndNodeType} from "@/app/unit/canvas/node/end/types";
 import {NodeProps} from "@/app/unit/canvas/node/base/types";
+import {IconNode} from "@/app/ui/lib/node";
+import LlmIcon from "@/app/icons/llm.svg";
+import node_style from "@/app/ui/lib/node.module.scss";
 
 
 const Node = ({data}: NodeProps<EndNodeType>) => {
     const {variables} = data
 
     return (
-        <div
-            style={{
-                height: "100px",
-                width: "200px",
-                border: "1px solid black",
-                textAlign: "center",
-                lineHeight: "100px"
-            }}
-        >
-            {variables.join(", ")}
-        </div>
+        <IconNode title={data.title} desc={data.desc} icon={<LlmIcon/>}>
+            <div className={node_style["icon-node-text"]}>{variables.join(", ")}</div>
+        </IconNode>
     )
 }
 export default React.memo(Node)

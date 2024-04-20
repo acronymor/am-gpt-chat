@@ -23,9 +23,6 @@ export const NodeSourceHandle = React.memo(({
                 position={Position.Right}
                 className={handleClassName}
             >
-                <div className={`absolute ${nodeSelectorClassName}`}>
-                    Source
-                </div>
             </Handle>
         </>
     )
@@ -47,9 +44,6 @@ export const NodeTargetHandle = React.memo(({
                 position={Position.Left}
                 className={handleClassName}
             >
-                <div className={`absolute ${nodeSelectorClassName}`}>
-                    Target
-                </div>
             </Handle>
         </>
     )
