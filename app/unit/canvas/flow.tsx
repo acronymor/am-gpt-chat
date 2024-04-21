@@ -1,12 +1,12 @@
 'use client'
 
 import 'reactflow/dist/style.css';
+import flow_style from "@/app/unit/canvas/flow.module.scss"
 
 import React, {memo, useEffect} from 'react';
 import ReactFlow, {
     Background,
     Controls,
-    MiniMap,
     ReactFlowProvider,
     useEdgesState,
     useNodesState,
@@ -37,27 +37,32 @@ function WorkFlow({canvas_node, canvas_edge, viewport}: {
     const {handleNodeConnect, handleNodeClick} = useNodesInteractions()
 
     return (
-        <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onNodeClick={handleNodeClick}
-            onConnect={handleNodeConnect}
-            nodeTypes={nodeTypes}
-            edgeTypes={edgeTypes}
-            snapToGrid={true}
-            fitView
-            attributionPosition="bottom-left"
-        >
-            <MiniMap style={{backgroundColor: '#363636'}}/>
-            <Controls style={{
-                display: 'flex',
-                flexDirection: 'row',
-            }}/>
-            <Background color={"#aaa"} gap={16}/>
-            <CanvasPanel/>
-        </ReactFlow>
+        <div className={flow_style["flow"]}>
+            <ReactFlow
+                nodes={nodes}
+                edges={edges}
+                onNodesChange={onNodesChange}
+                onEdgesChange={onEdgesChange}
+                onNodeClick={handleNodeClick}
+                onConnect={handleNodeConnect}
+                nodeTypes={nodeTypes}
+                edgeTypes={edgeTypes}
+                snapToGrid={true}
+                fitView
+                attributionPosition="bottom-left"
+            >
+                <Controls style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                }}/>
+                <Background
+                    gap={[16, 16]}
+                    size={2}
+                    color="#E4E5E7"
+                />
+                <CanvasPanel/>
+            </ReactFlow>
+        </div>
     );
 };
 
