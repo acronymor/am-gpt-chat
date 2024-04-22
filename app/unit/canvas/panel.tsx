@@ -17,7 +17,8 @@ const PanelComponentMap: Record<string, ComponentType<any>> = {
 }
 
 const CustomPanel = (props: Node) => {
-    const PanelComponent = PanelComponentMap[props.id]
+    const nodeData = props.data
+    const PanelComponent = PanelComponentMap[nodeData.type]
 
     return (
         <BasePanel {...props}>

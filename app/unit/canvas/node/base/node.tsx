@@ -9,14 +9,15 @@ const BaseNode = ({id, data, children}: BaseNodeProps) => {
     return (
         <div>
             {
-                <NodeTargetHandle
-                    id={id}
-                    data={data}
-                    handleId="target"
-                />
+                data.type !== NodeEnum.Start && (
+                    <NodeTargetHandle
+                        id={id}
+                        data={data}
+                        handleId="target"
+                    />)
             }
             {
-                data.type !== NodeEnum.IfElse && (
+                data.type !== NodeEnum.End && (
                     <NodeSourceHandle
                         id={id}
                         data={data}
