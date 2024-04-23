@@ -1,19 +1,20 @@
 import React from 'react'
 import {NodePanelProps} from "@/app/unit/canvas/node/base/types";
 import {LLMNodeType} from "@/app/unit/canvas/node/llm/types";
-import {useCanvasStore} from "@/app/store/canvas";
 import {Modal} from "@/app/ui/lib/modal";
 import {IconButton} from "@/app/ui/lib/button";
 import DownloadIcon from "@/app/icons/download.svg";
+import {useNodesInteractions} from "@/app/unit/canvas/hooks/use-nodes-interactions";
 
 
-const Panel = ({data}: NodePanelProps<LLMNodeType>) => {
-    const store = useCanvasStore()
+const Panel = ({id, data}: NodePanelProps<LLMNodeType>) => {
+    const {handleNodeSelect} = useNodesInteractions()
+
     return (
         <>
-            {store.showModal &&
+            {data.selected &&
                 <Modal title={"if/else"}
-                       onClose={() => store.setShowModal(false)}
+                       onClose={() => handleNodeSelect(id, true)}
                        actions={[
                            <IconButton
                                key={"OK"}

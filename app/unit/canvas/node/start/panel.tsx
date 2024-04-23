@@ -4,29 +4,30 @@ import {StartNodeType} from "@/app/unit/canvas/node/start/types";
 import {Modal} from "@/app/ui/lib/modal";
 import {IconButton} from "@/app/ui/lib/button";
 import DownloadIcon from "@/app/icons/download.svg";
-import {useCanvasStore} from "@/app/store/canvas";
+import {useNodesInteractions} from "@/app/unit/canvas/hooks/use-nodes-interactions";
 
 
-const Panel = ({data}: NodePanelProps<StartNodeType>) => {
-    const store = useCanvasStore()
+const Panel = ({id, data}: NodePanelProps<StartNodeType>) => {
+    const {handleNodeSelect} = useNodesInteractions()
+
     return (
         <>
-            {store.showModal &&
-                <Modal title={"start"}
-                       onClose={() => store.setShowModal(false)}
-                       actions={[
-                           <IconButton
-                               key={"OK"}
-                               icon={<DownloadIcon/>}
-                               text={"确认"}
-                               onClick={() => {
-                                   console.log("确认")
-                               }}
-                           />
-                       ]}
+            {data.selected &&
+                (<Modal title={"start"}
+                        onClose={() => (handleNodeSelect(id, true))}
+                        actions={[
+                            <IconButton
+                                key={"OK"}
+                                icon={<DownloadIcon/>}
+                                text={"确认"}
+                                onClick={() => {
+                                    console.log("确认")
+                                }}
+                            />
+                        ]}
                 >
                     <div>Hello World</div>
-                </Modal>
+                </Modal>)
             }
         </>
     )

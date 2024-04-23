@@ -1,20 +1,32 @@
-import type {Node as ReactFlowNode} from "reactflow";
+import type {Edge as ReactFlowEdge, Node as ReactFlowNode} from "reactflow";
 
 export type Node<T = {}> = ReactFlowNode<CommonNodeType<T>>
 export type NodeProps<T = unknown> = { id: string; data: CommonNodeType<T> }
+export type Edge = ReactFlowEdge<CommonEdgeType>
 
 export type NodePanelProps<T> = {
     id: string
     data: CommonNodeType<T>
 }
 
-
 export type CommonNodeType<T = {}> = {
+    _isInvalidConnection?: boolean
+    _connectedSourceHandleIds?: string[]
+    _connectedTargetHandleIds?: string[]
     selected?: boolean,
     title: string,
     desc: string,
     type: NodeEnum
 } & T
+
+export type CommonEdgeType = {
+    _hovering?: boolean
+    _connectedNodeIsHovering?: boolean
+    _connectedNodeIsSelected?: boolean
+    _runned?: boolean
+    sourceType: NodeEnum
+    targetType: NodeEnum
+}
 
 export enum NodeEnum {
     Start = 'start',

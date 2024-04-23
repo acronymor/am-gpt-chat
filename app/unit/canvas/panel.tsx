@@ -29,7 +29,7 @@ const CustomPanel = (props: Node) => {
 
 const CanvasPanel = () => {
     const nodes = useNodes<CommonNodeType>()
-    const selectedNode = nodes.find(node => node.selected)
+    const selectedNode = nodes.find(node => node.data.selected)
 
     const {showNodePanel} = useMemo(() => {
         return {
