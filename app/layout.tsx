@@ -1,6 +1,6 @@
 import type {Viewport} from "next";
 import "@/app/ui/styles/globals.scss"
-import {getGenericSetting} from "@/app/unit/setting/lib/data";
+import useSetting from "@/app/unit/setting/lib/data";
 
 
 export const viewport: Viewport = {
@@ -15,11 +15,12 @@ export const viewport: Viewport = {
 }
 
 export default async function RootLayout({children,}: Readonly<{ children: React.ReactNode; }>) {
-    const config = await getGenericSetting()
+    const {getSetting} = useSetting()
+    const theme = (await getSetting()).theme
 
     return (
         <html lang="en">
-        <body className={config.theme}>
+        <body className={theme}>
         {children}
         </body>
         </html>

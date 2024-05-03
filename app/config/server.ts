@@ -1,16 +1,12 @@
-import * as process from "process";
+import * as path from "path";
 
 export const getUserHome = (): string => {
-    let variableName = 'HOME'
-
-    if (process.env[variableName] === undefined) {
-        return process.cwd()
-    }
-    return process.env[variableName] as string
+    return process.cwd() as string
 }
 
 export const getServerSideConfig = () => {
     return {
-        DB_TYPE: process.env.DATABASE_TYPE,
+        DATABASE_TYPE: process.env.DATABASE_TYPE ?? 'sqlite',
+        DATABASE_PATH: process.env.DATABASE_PATH ?? path.join(getUserHome(), "data.sqlite")
     }
 }

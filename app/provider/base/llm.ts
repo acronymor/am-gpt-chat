@@ -1,6 +1,14 @@
 import {ChatRequest} from "@/app/proto/chat";
-import {LlmModel, LlmUsage} from "@/app/proto/llm";
 
+export interface LlmUsage {
+    used: number;
+    total: number;
+}
+
+export interface LlmModel {
+    name: string;
+    available: boolean;
+}
 
 export interface ChatOptions {
     options: ChatRequest;

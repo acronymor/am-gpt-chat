@@ -1,9 +1,10 @@
-import {ChatOptions, LlmApi} from "@/app/api/chat/llm";
+import {ChatOptions, LlmApi, LlmModel, LlmUsage} from "@/app/provider/base/llm";
 import {RequestMessage} from "@/app/proto/chat";
 import {ChatOpenAI} from "@langchain/openai";
-import {LlmModel, LlmUsage, ChatGptConfig} from "@/app/proto/llm";
 import {PromptTemplate} from "@langchain/core/prompts";
 import {BytesOutputParser} from "@langchain/core/output_parsers";
+import {OpenAILLmCredential} from "@/app/provider/openai/config.credential";
+import {OpenAILLm} from "@/app/provider/openai/config";
 
 function formattedMessage(messages: RequestMessage[]): string {
     let builder: string[] = []
@@ -22,10 +23,26 @@ Current conversation:
 User: {input}
 AI:`;
 
-export class ChatGptApi implements LlmApi {
+export type ChatGptConfig = {
+    openAIApiKey: string,
+    temperature: number,
+    topP: number,
+    timeout: number,
+    modelName: string,
+    n: number,
+    streaming: boolean,
+    configuration?: {
+        baseURL?: string,
+        organization?: string
+    }
+}
+
+export class OpenAIApi implements LlmApi {
     private readonly stub: ChatOpenAI;
 
-    constructor(cfg: ChatGptConfig) {
+    constructor(baseConfig: OpenAILLm, credConfig: OpenAILLmCredential) {
+        // TODO merge both baseConfig and credConfig
+        const cfg = {}
         this.stub = new ChatOpenAI(cfg);
     }
 

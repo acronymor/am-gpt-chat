@@ -1,7 +1,6 @@
 'use client'
 
 import React, {useState} from "react";
-import {MaskConfig} from "@/app/proto/mask";
 import {IconButton} from "@/app/ui/lib/button";
 import AddIcon from "@/app/icons/add.svg"
 import EditIcon from "@/app/icons/edit.svg"
@@ -13,7 +12,14 @@ import {Modal} from "@/app/ui/lib/modal";
 import {MaskSetting} from "@/app/unit/mask/ui/mask-setting";
 import mask_style from "@/app/unit/mask/mask.module.scss";
 
-export function MaskBody({mask, drop}: { mask: MaskConfig, drop: (id: number) => Promise<void> }) {
+type MaskBody = {
+    id: number,
+    name: string,
+    model: string,
+    drop: (id: number) => Promise<void>
+}
+
+export function MaskBody(mask: MaskBody) {
     const [editingMask, setEditingMask] = useState<boolean>(false)
 
     return (
@@ -25,7 +31,7 @@ export function MaskBody({mask, drop}: { mask: MaskConfig, drop: (id: number) =>
                 <div className={mask_style["mask-title"]}>
                     <div className={mask_style["mask-name"]}>{mask.name}</div>
                     <div className={mask_style["mask-info"] + " one-line"}>
-                        {mask.config.modelName}
+                        {mask.model}
                     </div>
                 </div>
             </div>
@@ -49,7 +55,7 @@ export function MaskBody({mask, drop}: { mask: MaskConfig, drop: (id: number) =>
                     icon={<DeleteIcon/>}
                     text={"删除"}
                     onClick={async () => {
-                        await drop(mask.id)
+                        await mask.drop(mask.id)
                     }}
                 />
             </div>

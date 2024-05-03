@@ -1,6 +1,6 @@
 import React from "react";
 
-import {deleteMaskById, getAllMask} from "@/app/unit/mask/lib/data";
+import useWorkflow from "@/app/unit/mask/lib/data";
 import mask_style from "@/app/unit/mask/mask.module.scss"
 import {MaskHeader} from "@/app/unit/mask/ui/mask-header";
 import {MaskBar} from "@/app/unit/mask/ui/mask-bar";
@@ -8,6 +8,7 @@ import {MaskBody} from "@/app/unit/mask/ui/mask-body";
 import {revalidatePath} from "next/cache";
 
 export default async function Page({params}: { params?: { query?: string; page?: string; } }) {
+    const {getAllMask, deleteMaskById} = useWorkflow()
     const masks = await getAllMask()
 
     const deleteById = async (id: number) => {
@@ -29,7 +30,9 @@ export default async function Page({params}: { params?: { query?: string; page?:
                             masks.map((mask, index) => (
                                 <MaskBody
                                     key={index}
-                                    mask={mask}
+                                    id={mask.id}
+                                    name={mask.name}
+                                    model={mask.config.name}
                                     drop={deleteById}
                                 />
                             ))

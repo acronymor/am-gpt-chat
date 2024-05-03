@@ -1,35 +1,49 @@
 import "reflect-metadata";
 
-import {getUserHome} from "@/app/config/server";
 import {DataSource} from "typeorm";
-import {ENTITIES} from "@/app/db/entities/entity";
+import {getServerSideConfig} from "@/app/config/server";
+import {ENTITIES} from "@/app/entities/entity";
 import {SqliteMigrations} from "@/app/db/migrations/sqlite";
-import path from "path";
+
+
+export const dbInit = (): DataSource => {
+    let db: DataSource
+    const {DATABASE_TYPE, DATABASE_PATH} = getServerSideConfig()
+
+    switch (DATABASE_TYPE) {
+        default:
+            db = new DataSource({
+                type: 'sqlite',
+                database: DATABASE_PATH,
+                synchronize: false,
+                migrationsRun: false,
+                entities: ENTITIES,
+                migrations: SqliteMigrations,
+                logging: true,
+            })
+
+            break
+    }
+
+    return db
+}
+
 
 let appDataSource: DataSource
 
-const DbInit = () => {
-    let homePath
-    let dbpath = path.join(getUserHome(), 'am-gpt-chat')
-
-    switch (process.env.DATABASE_TYPE) {
-        default:
-            homePath = process.env.DATABASE_PATH ?? dbpath
-            appDataSource = new DataSource({
-                type: 'sqlite',
-                database: path.resolve(homePath, 'data.sqlite'),
-                synchronize: false,
-                migrationsRun: false,
-                entities: Object.values(ENTITIES),
-                migrations: SqliteMigrations
-            })
-            break
-    }
-}
-
-export function getDataSource(): DataSource {
+export async function getDataSource(): Promise<DataSource> {
     if (appDataSource === undefined) {
-        DbInit()
+        appDataSource = dbInit()
     }
+
+    if (!appDataSource.isInitialized) {
+        await appDataSource.initialize()
+            .then(() => {
+                console.log('Database initialized')
+            }).catch((e) => {
+                console.error('Database initialization error: ', e)
+            })
+    }
+
     return appDataSource
 }

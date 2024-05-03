@@ -1,12 +1,59 @@
-import {TemplateHandler} from "@/app/db/handler";
-import {MaskConfig} from "@/app/proto/mask";
+import {Repository} from "typeorm";
+import {getDataSource} from "@/app/db/datasource";
+import {WorkflowImpl} from "@/app/entities/workflow-impl";
 
-export async function getAllMask(): Promise<MaskConfig[]> {
-    const templateHandler = new TemplateHandler("admin")
-    return await templateHandler.select() as MaskConfig[]
+class WorkflowHandler {
+    id: number
+    repository: Repository<WorkflowImpl>
+
+
+    constructor() {
+        this.id = 1
+    }
+
+    async initialize() {
+        this.repository = (await getDataSource()).getRepository(WorkflowImpl)
+        return this
+    }
+
+    public async get() {
+        const res = await this.repository.find()
+        return res
+    }
+
+    public async set(key: string, value: any) {
+        let res = await this.repository.findOneBy({id: 1})
+        const tmp = {
+            ...res,
+            context: {...res?.context, [key]: value}
+        }
+        await this.repository.update(res?.id ?? 1, tmp)
+    }
+
+    public async delete(id: number) {
+        await this.repository.delete({id: id})
+    }
 }
 
-export async function deleteMaskById(id: number): Promise<void> {
-    const templateHandler = new TemplateHandler("admin")
-    return await templateHandler.delete(id)
+const useWorkflow = () => {
+    const getAllMask = async () => {
+        'use server'
+
+        const handler = await new WorkflowHandler().initialize()
+        return handler.get()
+    }
+
+    const deleteMaskById = async (id: number) => {
+        'use server'
+
+        const handler = await new WorkflowHandler().initialize()
+        return handler.delete(id)
+    }
+
+    return {
+        getAllMask,
+        deleteMaskById
+    }
 }
+
+export default useWorkflow

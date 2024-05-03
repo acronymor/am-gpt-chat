@@ -10,8 +10,13 @@ const nextConfig = {
     },
 
     experimental: {
-        instrumentationHook: true
+        instrumentationHook: true,
+        turbotrace: {
+            logLevel: 'bug',
+            logDetail: true,
+            logAll: true,
+        },
     }
-};
+}
 
 export default nextConfig;
