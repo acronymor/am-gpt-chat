@@ -1,5 +1,4 @@
-import {MessageRole, ModelType} from "@/app/constant";
-import {MaskConfig} from "@/app/proto/mask";
+import {MessageRole} from "@/app/constant";
 
 
 export interface RequestMessage {
@@ -12,10 +11,8 @@ export type ChatMessage = RequestMessage & {
     streaming?: boolean;
     isError?: boolean;
     id: string;
-    model?: ModelType;
 };
 
 export type ChatRequest = {
     messages: RequestMessage[];
-    config: MaskConfig;
 }

@@ -4,6 +4,6 @@ export type MessageRole = (typeof ROLES)[number];
 export enum StoreKey {
     Config = "app-setting",
     CHAT = "app-chat",
-    CANVAS = "app-canvas",
+    Workflow = "app-workflow",
     Mask = "app-mask",
 }

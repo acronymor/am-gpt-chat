@@ -32,7 +32,7 @@ export default async function Page({params}: { params?: { query?: string; page?:
                                     key={index}
                                     id={mask.id}
                                     name={mask.name}
-                                    model={mask.config.name}
+                                    model={mask.name}
                                     drop={deleteById}
                                 />
                             ))

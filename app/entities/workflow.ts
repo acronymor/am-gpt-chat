@@ -1,17 +1,13 @@
-export type Context = {
-    id: string
-    role: string
-    content: string
-}
+import {Viewport} from "reactflow";
+import {Edge, Node} from "@/app/unit/canvas/node/base/types";
 
 export type Config = {
-    id: number
-    name: string
-    content: string
+    nodes: Node[]
+    edges: Edge[]
+    viewport: Viewport
 };
 
 export interface IWorkflow {
     name: string
-    context: Context
     config: Config
 }
