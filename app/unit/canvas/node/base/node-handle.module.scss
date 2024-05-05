@@ -1,0 +1,32 @@
+
+.node-handle {
+  outline: none;
+  box-shadow: var(--shadow);
+
+  @mixin dot {
+    position: absolute;
+    background-color: var(--black);
+
+    &:hover,
+    &:active {
+      background-color: var(--primary);
+      border-color: var(--hover-color);
+      cursor: pointer;
+    }
+  }
+
+  .source-dot {
+    @include dot;
+
+    top: 5%;
+    transform: translateX(-100%);
+  }
+
+  .target-dot {
+    @include dot;
+
+    top: 80%;
+    transform: translateX(100%);
+  }
+}
+

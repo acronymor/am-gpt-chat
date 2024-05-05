@@ -9,10 +9,16 @@ export type NodePanelProps<T> = {
     data: CommonNodeType<T>
 }
 
+export type Branch = {
+    id: string
+    name: string
+}
+
 export type CommonNodeType<T = {}> = {
     _isInvalidConnection?: boolean
     _connectedSourceHandleIds?: string[]
     _connectedTargetHandleIds?: string[]
+    _targetBranches?: Branch[]
     selected?: boolean,
     title: string,
     desc: string,
@@ -34,6 +40,8 @@ export enum NodeEnum {
     Answer = 'answer',
     LLM = 'llm',
     IfElse = 'if-else',
+    QuestionClassifier = 'question-classifier',
+    VariableAssigner = 'variable-assigner',
 }
 
 export enum PanelEnum {
@@ -45,7 +53,6 @@ export enum PanelEnum {
 }
 
 export type ValueSelector = string[] // [nodeId, key | obj key path]
-
 
 export type Variable = {
     variable: string
@@ -87,3 +94,48 @@ export type InputVar = {
     hint?: string
     options?: string[]
 }
+
+export type OnNodeAdd = (
+    newNodePayload: {
+        nodeType: NodeEnum
+        sourceHandle?: string
+        targetHandle?: string
+        toolDefaultValue?: ToolDefaultValue
+    },
+    oldNodesPayload: {
+        prevNodeId?: string
+        prevNodeSourceHandle?: string
+        nextNodeId?: string
+        nextNodeTargetHandle?: string
+    }
+) => void
+
+export type ToolDefaultValue = {
+    provider_id: string
+    provider_type: string
+    provider_name: string
+    tool_name: string
+    tool_label: string
+    title: string
+}
+
+export type NodeDefault<T> = {
+    defaultValue: Partial<T>
+    getAvailablePrevNodes: (isChatMode: boolean) => NodeEnum[]
+    getAvailableNextNodes: (isChatMode: boolean) => NodeEnum[]
+    checkValid: (payload: T, t: any, moreDataForCheckValid?: any) => { isValid: boolean; errorMessage?: string }
+}
+
+export enum VarType {
+    string = 'string',
+    number = 'number',
+    boolean = 'boolean',
+    object = 'object',
+    array = 'array',
+    arrayString = 'array[string]',
+    arrayNumber = 'array[number]',
+    arrayObject = 'array[object]',
+    arrayFile = 'array[file]',
+}
+
+export type OnSelectBlock = (type: NodeEnum, toolDefaultValue?: ToolDefaultValue) => void

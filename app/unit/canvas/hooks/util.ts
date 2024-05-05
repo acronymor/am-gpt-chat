@@ -1,4 +1,5 @@
 import {Edge, Node} from "@/app/unit/canvas/node/base/types";
+import {Position} from "reactflow";
 
 type ConnectedSourceOrTargetNodesChange = {
     type: string
@@ -44,4 +45,17 @@ export const getNodesConnectedSourceOrTargetHandleIdsMap = (changes: ConnectedSo
     })
 
     return nodesConnectedSourceOrTargetHandleIdsMap
+}
+
+export const generateNewNode = ({ data, position, id }: Pick<Node, 'data' | 'position'> & { id?: string }) => {
+    return {
+        width: 142,
+        height: 56,
+        id: id || `${Date.now()}`,
+        type: 'custom',
+        data,
+        position,
+        targetPosition: Position.Left,
+        sourcePosition: Position.Right,
+    } as Node
 }

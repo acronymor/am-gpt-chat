@@ -8,8 +8,8 @@ import node_style from "@/app/ui/lib/node.module.scss";
 
 const Node = ({data}: NodeProps<StartNodeType>) => {
     return (
-        <IconNode title={data.title} desc={data.desc} icon={<StartIcon/>}>
-            <div className={node_style["icon-node-text"]}>{data.desc}</div>
+        <IconNode title={data.title} desc={data.desc} icon={<StartIcon/>} className={"clickable"}>
+            <div className={`${node_style["icon-node-text"]}`}>{data.desc}</div>
         </IconNode>
     )
 }

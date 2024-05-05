@@ -11,14 +11,10 @@ const Node = ({data}: NodeProps<LLMNodeType>) => {
     const {provider, name: modelId} = data.model || {}
     const hasSetModel = provider && modelId
 
-    if (!hasSetModel) {
-        return <></>
-    }
-
     return (
         <IconNode title={data.title} desc={data.desc} icon={<LlmIcon/>}>
             <div style={{display: "flex"}}>
-                <div className={node_style["icon-node-icon"]}><Gpt4Icon/></div>
+                <div className={node_style["icon-node-icon"]}><Gpt4Icon fill='var(--black)'/></div>
                 <div className={node_style["icon-node-text"]}>{modelId}</div>
             </div>
         </IconNode>

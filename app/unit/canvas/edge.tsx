@@ -1,52 +1,92 @@
-import {BaseEdge, EdgeLabelRenderer, EdgeProps, getBezierPath, useReactFlow} from 'reactflow';
-import React from "react";
+import React, {useCallback, useState} from "react";
+import {BaseEdge, EdgeLabelRenderer, EdgeProps, getSimpleBezierPath, Position} from 'reactflow';
+import BlockSelector from "@/app/unit/canvas/block/blocks";
+import {useNodesInteractions} from "@/app/unit/canvas/hooks/use-nodes-interactions";
+import {useNodesExtraData} from "@/app/unit/canvas/hooks/use-nodes-data";
+import {Edge, OnSelectBlock} from "@/app/unit/canvas/node/base/types";
 
 const CanvasEdge = ({
                         id,
+                        data,
+                        source,
+                        sourceHandleId,
+                        target,
+                        targetHandleId,
                         sourceX,
                         sourceY,
                         targetX,
                         targetY,
-                        sourcePosition,
-                        targetPosition,
-                        style = {},
-                        markerEnd,
+                        selected,
                     }: EdgeProps) => {
-    const {setEdges} = useReactFlow();
-    const [edgePath, labelX, labelY] = getBezierPath({
-        sourceX,
+    const [
+        edgePath,
+        labelX,
+        labelY,
+    ] = getSimpleBezierPath({
+        sourceX: sourceX - 8,
         sourceY,
-        sourcePosition,
-        targetX,
+        sourcePosition: Position.Right,
+        targetX: targetX + 8,
         targetY,
-        targetPosition,
-    });
+        targetPosition: Position.Left,
+    })
+
+    const [open, setOpen] = useState(false)
+    const {handleNodeAdd} = useNodesInteractions()
+    const nodesExtraData = useNodesExtraData()
+    const availablePrevNodes = nodesExtraData[(data as Edge['data'])!.targetType]?.availablePrevNodes || []
+    const availableNextNodes = nodesExtraData[(data as Edge['data'])!.sourceType]?.availableNextNodes || []
+    const handleOpenChange = useCallback((v: boolean) => {
+        setOpen(v)
+    }, [])
 
 
-    const onEdgeClick = () => {
-        setEdges((edges) => edges.filter((edge) => edge.id !== id));
-    };
+    const handleInsert = useCallback<OnSelectBlock>((nodeType, toolDefaultValue) => {
+        handleNodeAdd(
+            {
+                nodeType,
+                toolDefaultValue,
+            },
+            {
+                prevNodeId: source,
+                prevNodeSourceHandle: sourceHandleId || 'source',
+                nextNodeId: target,
+                nextNodeTargetHandle: targetHandleId || 'target',
+            },
+        )
+    }, [handleNodeAdd, source, sourceHandleId, target, targetHandleId])
 
     return (
         <>
-            <BaseEdge path={edgePath} markerEnd={markerEnd} style={style}/>
+            <BaseEdge
+                id={id}
+                path={edgePath}
+                style={{
+                    stroke: (selected || data?._connectedNodeIsHovering || data?._runned) ? 'var(--primary)' : 'var(--black)',
+                    strokeWidth: 1,
+                }}
+            />
             <EdgeLabelRenderer>
                 <div
                     style={{
+                        visibility: data?._hovering ? 'visible' : 'hidden',
                         position: 'absolute',
-                        transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
-                        fontSize: 12,
+                        transform: `translate(-50%, -50%) translate(${labelX}px, ${labelY}px)`,
                         pointerEvents: 'all',
                     }}
-                    className="nodrag nopan"
                 >
-                    <button className="edgebutton" onClick={onEdgeClick}>
-                        ×
-                    </button>
+                    <BlockSelector
+                        open={open}
+                        onOpenChange={handleOpenChange}
+                        asChild
+                        onSelect={handleInsert}
+                        availableBlocksTypes={availablePrevNodes.filter(x => availableNextNodes.includes(x))}
+                        showIcon={true}
+                    />
                 </div>
             </EdgeLabelRenderer>
         </>
-    );
+    )
 };
 
 export default React.memo(CanvasEdge)

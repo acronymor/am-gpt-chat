@@ -3,8 +3,8 @@
 import 'reactflow/dist/style.css';
 import flow_style from "@/app/unit/canvas/flow.module.scss"
 
-import React, {memo, useEffect} from 'react';
-import ReactFlow, {Background, Controls, ReactFlowProvider, useEdgesState, useNodesState, Viewport} from 'reactflow';
+import React, {memo} from 'react';
+import ReactFlow, {Background, Controls, ReactFlowProvider, Viewport} from 'reactflow';
 import {useKeyPress,} from 'ahooks'
 
 import CanvasNode from '@/app/unit/canvas/node';
@@ -12,6 +12,8 @@ import CanvasEdge from "@/app/unit/canvas/edge";
 import CanvasPanel from "@/app/unit/canvas/panel";
 import {useNodesInteractions} from "@/app/unit/canvas/hooks/use-nodes-interactions";
 import {useEdgesInteractions} from "@/app/unit/canvas/hooks/use-edges-interactions";
+import {WorkflowContextProvider} from "@/app/unit/canvas/context";
+import {useWorkflowInit} from "@/app/unit/canvas/hooks/use-workflow";
 
 const nodeTypes = {custom: CanvasNode}
 const edgeTypes = {custom: CanvasEdge}
@@ -21,20 +23,13 @@ function WorkFlow({canvas_node, canvas_edge, viewport}: {
     canvas_edge: any[],
     viewport: Viewport
 }) {
-    const [nodes, setNodes, onNodesChange] = useNodesState([]);
-    const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-
-    useEffect(() => {
-        setNodes(canvas_node)
-        setEdges(canvas_edge)
-    }, []);
-
     const {
         handleNodeConnect,
         handleNodeConnectStart,
         handleNodeConnectEnd,
         handleNodeClick
     } = useNodesInteractions()
+
     const {
         handleEdgeEnter,
         handleEdgeDelete,
@@ -44,13 +39,11 @@ function WorkFlow({canvas_node, canvas_edge, viewport}: {
 
     useKeyPress(['delete'], handleEdgeDelete)
 
-
     return (
         <div className={flow_style["flow"]}>
             <ReactFlow
-                nodes={nodes}
-                edges={edges}
-                onNodesChange={onNodesChange}
+                nodes={canvas_node}
+                edges={canvas_edge}
                 onNodeClick={handleNodeClick}
                 onConnect={handleNodeConnect}
                 onConnectStart={handleNodeConnectStart}
@@ -77,20 +70,28 @@ function WorkFlow({canvas_node, canvas_edge, viewport}: {
             </ReactFlow>
         </div>
     );
-};
+}
 
 
-const WorkflowContainer = ({nodes, edges, viewport}: {
-    nodes: any[],
-    edges: any[],
-    viewport: Viewport
-}) => {
+const WorkflowWrapper = () => {
+    const {id, name, config} = useWorkflowInit()
+    const {nodes, edges, viewport} = config
+
     return (
         <ReactFlowProvider>
             <WorkFlow canvas_node={nodes} canvas_edge={edges} viewport={viewport}/>
         </ReactFlowProvider>
     )
 }
-WorkflowContainer.displayName = "Graph"
+WorkflowWrapper.displayName = "Graph"
+
+const WorkflowContainer = () => {
+    return (
+        <WorkflowContextProvider>
+            <WorkflowWrapper/>
+        </WorkflowContextProvider>
+    )
+}
+
 
 export default memo(WorkflowContainer)
