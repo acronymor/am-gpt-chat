@@ -7,8 +7,9 @@ import {VariableAssignerNodeType} from "@/app/unit/canvas/node/variable-assigner
 
 
 const Node = ({data}: NodeProps<VariableAssignerNodeType>) => {
+    const {selected} = data
     return (
-        <IconNode title={data.title} desc={data.desc} icon={<StartIcon/>}>
+        <IconNode title={data.title} desc={data.desc} icon={<StartIcon/>} selected={selected ?? false}>
             <div className={`${node_style["icon-node-text"]} clickable`}>{data.desc}</div>
         </IconNode>
     )

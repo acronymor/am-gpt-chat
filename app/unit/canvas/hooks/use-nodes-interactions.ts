@@ -4,6 +4,7 @@ import {
     getConnectedEdges,
     getOutgoers,
     HandleType,
+    NodeDragHandler,
     NodeMouseHandler,
     OnConnect,
     OnConnectStart,
@@ -30,10 +31,7 @@ export const useNodesInteractions = () => {
 
         const newNodes = produce(nodes, (draft) => {
             draft.forEach((node) => {
-                if (node.id === nodeId)
-                    node.data.selected = !cancelSelection
-                else
-                    node.data.selected = false
+                node.data.selected = node.id === nodeId ? !cancelSelection : false
             })
         })
         setNodes(newNodes)
@@ -41,16 +39,9 @@ export const useNodesInteractions = () => {
         const connectedEdges = getConnectedEdges([{id: nodeId} as Node], edges).map(edge => edge.id)
         const newEdges = produce(edges, (draft) => {
             draft.forEach((edge) => {
-                if (connectedEdges.includes(edge.id)) {
-                    edge.data = {
-                        ...edge.data,
-                        _connectedNodeIsSelected: !cancelSelection,
-                    }
-                } else {
-                    edge.data = {
-                        ...edge.data,
-                        _connectedNodeIsSelected: false,
-                    }
+                edge.data = {
+                    ...edge.data,
+                    _connectedNodeIsSelected: connectedEdges.includes(edge.id) ? !cancelSelection : false
                 }
             })
         })
@@ -62,13 +53,24 @@ export const useNodesInteractions = () => {
         handleNodeSelect(node.id)
     }, [handleNodeSelect])
 
+    const handleNodeDrag = useCallback<NodeDragHandler>((e, node: Node) => {
+        const {getNodes, setNodes} = store.getState()
+        const nodes = getNodes()
+        nodes.forEach((n: Node) => {
+            if (n.id === node.id) {
+                n.position = node.position
+            }
+        })
+        setNodes(nodes)
+    }, [])
+
     const handleNodeConnect = useCallback<OnConnect>(({
                                                           source,
                                                           sourceHandle,
                                                           target,
                                                           targetHandle,
                                                       }) => {
-        console.log("handleNodeConnect")
+        console.log("---->| HandleNodeConnect")
         if (source === target)
             return
 
@@ -138,6 +140,7 @@ export const useNodesInteractions = () => {
     }, [store])
 
     const handleNodeConnectStart = useCallback<OnConnectStart>((_, {nodeId, handleType}) => {
+        console.log("---->| HandleNodeConnectStart")
         if (nodeId && handleType) {
             connectingNodeRef.current = {
                 nodeId,
@@ -147,17 +150,12 @@ export const useNodesInteractions = () => {
     }, [])
 
     const handleNodeConnectEnd = useCallback(() => {
+        console.log("---->| HandleNodeConnectEnd")
         connectingNodeRef.current = null
     }, [])
 
     const handleNodeDelete = useCallback((nodeId: string) => {
-        const {
-            getNodes,
-            setNodes,
-            edges,
-            setEdges,
-        } = store.getState()
-
+        const {getNodes, setNodes, edges, setEdges,} = store.getState()
         const nodes = getNodes()
         const currentNodeIndex = nodes.findIndex(node => node.id === nodeId)
         const connectedEdges = getConnectedEdges([{id: nodeId} as Node], edges)
@@ -181,6 +179,21 @@ export const useNodesInteractions = () => {
             return draft.filter(edge => !connectedEdges.find(connectedEdge => connectedEdge.id === edge.id))
         })
         setEdges(newEdges)
+    }, [store])
+
+
+    const handleNodeDeleteSelected = useCallback(() => {
+        const {getNodes,} = store.getState()
+
+        const nodes = getNodes()
+        const nodesToDelete = nodes.filter(node => node.data.selected)
+
+        if (!nodesToDelete)
+            return
+
+        for (const node of nodesToDelete) {
+            handleNodeDelete(node.id)
+        }
     }, [store])
 
     const handleNodeAdd = useCallback<OnNodeAdd>((
@@ -406,9 +419,11 @@ export const useNodesInteractions = () => {
         handleNodeSelect,
         handleNodeAdd,
         handleNodeClick,
+        handleNodeDrag,
         handleNodeConnect,
         handleNodeConnectStart,
         handleNodeConnectEnd,
         handleNodeDelete,
+        handleNodeDeleteSelected,
     }
 }

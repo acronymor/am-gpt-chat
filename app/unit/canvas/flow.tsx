@@ -4,7 +4,14 @@ import 'reactflow/dist/style.css';
 import flow_style from "@/app/unit/canvas/flow.module.scss"
 
 import React, {memo} from 'react';
-import ReactFlow, {Background, Controls, ReactFlowProvider, Viewport} from 'reactflow';
+import ReactFlow, {
+    Background,
+    Controls,
+    Edge as EdgeType,
+    Node as NodeType,
+    ReactFlowProvider,
+    Viewport
+} from 'reactflow';
 import {useKeyPress,} from 'ahooks'
 
 import CanvasNode from '@/app/unit/canvas/node';
@@ -19,14 +26,16 @@ const nodeTypes = {custom: CanvasNode}
 const edgeTypes = {custom: CanvasEdge}
 
 function WorkFlow({canvas_node, canvas_edge, viewport}: {
-    canvas_node: any[],
-    canvas_edge: any[],
+    canvas_node: NodeType[],
+    canvas_edge: EdgeType[],
     viewport: Viewport
 }) {
     const {
+        handleNodeDrag,
         handleNodeConnect,
         handleNodeConnectStart,
         handleNodeConnectEnd,
+        handleNodeDeleteSelected,
         handleNodeClick
     } = useNodesInteractions()
 
@@ -38,6 +47,7 @@ function WorkFlow({canvas_node, canvas_edge, viewport}: {
     } = useEdgesInteractions()
 
     useKeyPress(['delete'], handleEdgeDelete)
+    useKeyPress(['delete'], handleNodeDeleteSelected)
 
     return (
         <div className={flow_style["flow"]}>
@@ -45,6 +55,7 @@ function WorkFlow({canvas_node, canvas_edge, viewport}: {
                 nodes={canvas_node}
                 edges={canvas_edge}
                 onNodeClick={handleNodeClick}
+                onNodeDrag={handleNodeDrag}
                 onConnect={handleNodeConnect}
                 onConnectStart={handleNodeConnectStart}
                 onConnectEnd={handleNodeConnectEnd}

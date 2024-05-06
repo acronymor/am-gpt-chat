@@ -1,18 +1,4 @@
-import type {Edge as ReactFlowEdge, Node as ReactFlowNode} from "reactflow";
-
-export type Node<T = {}> = ReactFlowNode<CommonNodeType<T>>
-export type NodeProps<T = unknown> = { id: string; data: CommonNodeType<T> }
-export type Edge = ReactFlowEdge<CommonEdgeType>
-
-export type NodePanelProps<T> = {
-    id: string
-    data: CommonNodeType<T>
-}
-
-export type Branch = {
-    id: string
-    name: string
-}
+import type {Edge as ReactFlowEdge, Node as ReactFlowNode, NodeProps as ReactFlowNodeProps} from "reactflow";
 
 export type CommonNodeType<T = {}> = {
     _isInvalidConnection?: boolean
@@ -32,6 +18,17 @@ export type CommonEdgeType = {
     _runned?: boolean
     sourceType: NodeEnum
     targetType: NodeEnum
+}
+
+
+export type Node<T = {}> = ReactFlowNode<CommonNodeType<T>>
+export type NodeProps<T = unknown> = { id: string; data: CommonNodeType<T> }
+export type Edge = ReactFlowEdge<CommonEdgeType>
+export type NodePanelProps<T> = { id: string; data: CommonNodeType<T> }
+
+export type Branch = {
+    id: string
+    name: string
 }
 
 export enum NodeEnum {

@@ -54,28 +54,26 @@ export const NodeSourceHandle = React.memo(({
     }, [data.type])
 
     return (
-        <>
-            <Handle
-                id={handleId}
-                type="source"
-                position={Position.Right}
-                className={handleClassName}
-                isConnectable={isConnectable}
-                onClick={handleHandleClick}
-            >
-                {
-                    !connected && isConnectable && !data._isInvalidConnection &&
-                    <BlockSelector
-                        open={open}
-                        onOpenChange={handleOpenChange}
-                        onSelect={handleSelect}
-                        asChild
-                        placement='right'
-                        availableBlocksTypes={availableNextNodes}
-                    />
-                }
-            </Handle>
-        </>
+        <Handle
+            id={handleId}
+            type="source"
+            position={Position.Right}
+            className={handleClassName}
+            isConnectable={isConnectable}
+            onClick={handleHandleClick}
+        >
+            {
+                !connected && isConnectable && !data._isInvalidConnection &&
+                <BlockSelector
+                    open={open}
+                    onOpenChange={handleOpenChange}
+                    onSelect={handleSelect}
+                    asChild
+                    placement='right'
+                    availableBlocksTypes={availableNextNodes}
+                />
+            }
+        </Handle>
     )
 })
 NodeSourceHandle.displayName = "NodeSourceHandle"
@@ -116,28 +114,26 @@ export const NodeTargetHandle = React.memo(({
     }, [handleNodeAdd, id, handleId])
 
     return (
-        <>
-            <Handle
-                id={handleId}
-                type="target"
-                position={Position.Left}
-                className={handleClassName}
-                isConnectable={isConnectable}
-                onClick={handleHandleClick}
-            >
-                {
-                    !connected && isConnectable && !data._isInvalidConnection &&
-                    <BlockSelector
-                        open={open}
-                        onOpenChange={handleOpenChange}
-                        onSelect={handleSelect}
-                        asChild
-                        placement='left'
-                        availableBlocksTypes={availablePrevNodes}
-                    />
-                }
-            </Handle>
-        </>
+        <Handle
+            id={handleId}
+            type="target"
+            position={Position.Left}
+            className={handleClassName}
+            isConnectable={isConnectable}
+            onClick={handleHandleClick}
+        >
+            {
+                !connected && isConnectable && !data._isInvalidConnection &&
+                <BlockSelector
+                    open={open}
+                    onOpenChange={handleOpenChange}
+                    onSelect={handleSelect}
+                    asChild
+                    placement='left'
+                    availableBlocksTypes={availablePrevNodes}
+                />
+            }
+        </Handle>
     )
 })
 NodeTargetHandle.displayName = "NodeTargetHandle"

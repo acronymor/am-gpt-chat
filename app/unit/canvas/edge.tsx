@@ -54,7 +54,7 @@ const CanvasEdge = ({
                 nextNodeTargetHandle: targetHandleId || 'target',
             },
         )
-    }, [handleNodeAdd, source, sourceHandleId, target, targetHandleId])
+    }, [source, sourceHandleId, target, targetHandleId])
 
     return (
         <>
@@ -69,7 +69,6 @@ const CanvasEdge = ({
             <EdgeLabelRenderer>
                 <div
                     style={{
-                        visibility: data?._hovering ? 'visible' : 'hidden',
                         position: 'absolute',
                         transform: `translate(-50%, -50%) translate(${labelX}px, ${labelY}px)`,
                         pointerEvents: 'all',
@@ -81,7 +80,7 @@ const CanvasEdge = ({
                         asChild
                         onSelect={handleInsert}
                         availableBlocksTypes={availablePrevNodes.filter(x => availableNextNodes.includes(x))}
-                        showIcon={true}
+                        showIcon={data?._hovering}
                     />
                 </div>
             </EdgeLabelRenderer>

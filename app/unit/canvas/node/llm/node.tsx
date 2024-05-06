@@ -8,11 +8,12 @@ import {IconNode} from "@/app/ui/lib/node";
 
 
 const Node = ({data}: NodeProps<LLMNodeType>) => {
-    const {provider, name: modelId} = data.model || {}
+    const {selected, model} = data
+    const {provider, name: modelId} = model || {}
     const hasSetModel = provider && modelId
 
     return (
-        <IconNode title={data.title} desc={data.desc} icon={<LlmIcon/>}>
+        <IconNode title={data.title} desc={data.desc} icon={<LlmIcon/>} selected={selected ?? false}>
             <div style={{display: "flex"}}>
                 <div className={node_style["icon-node-icon"]}><Gpt4Icon fill='var(--black)'/></div>
                 <div className={node_style["icon-node-text"]}>{modelId}</div>

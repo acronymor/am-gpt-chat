@@ -10,9 +10,11 @@ export function IconNode(props: {
     className?: string,
     title?: string,
     desc?: string,
+    selected: boolean,
 }) {
     return (
-        <div className={node_style["icon-node"]} onClick={props.onClick}>
+        <div className={`${node_style["icon-node"]}  ${props.selected && node_style["icon-node-selected"]}`}
+             onClick={props.onClick}>
             <div style={{display: "block", position: "absolute", top: "-20px", right: "0px"}}>
                 <RunIcon/>
                 <DotsIcon/>

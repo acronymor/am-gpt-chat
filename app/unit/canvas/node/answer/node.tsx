@@ -7,10 +7,10 @@ import node_style from "@/app/ui/lib/node.module.scss";
 
 
 const Node = ({data}: NodeProps<AnswerNodeType>) => {
-    const {answer} = data
+    const {answer, selected} = data
 
     return (
-        <IconNode title={data.title} desc={data.desc} icon={<AnswerIcon/>}>
+        <IconNode title={data.title} desc={data.desc} icon={<AnswerIcon/>} selected={selected ?? false}>
             <div className={node_style["icon-node-text"]}>{answer}</div>
         </IconNode>
     )

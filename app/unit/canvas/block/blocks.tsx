@@ -18,7 +18,6 @@ type NodeSelectorProps = {
     placement?: Placement
     offset?: OffsetOptions
     showIcon?: boolean
-    triggerInnerClassName?: string
     asChild?: boolean
     availableBlocksTypes?: NodeEnum[]
 }
@@ -30,7 +29,6 @@ const Blocks = ({
                     placement = 'right',
                     offset = 6,
                     showIcon = false,
-                    triggerInnerClassName,
                     asChild,
                     availableBlocksTypes,
                 }: NodeSelectorProps) => {
@@ -62,20 +60,19 @@ const Blocks = ({
             <PortalToFollowElemTrigger
                 asChild={asChild}
                 onClick={handleTrigger}
-                className={triggerInnerClassName}
             >
                 <div
                     style={{
+                        visibility: showIcon ? "visible" : "hidden",
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         width: '16px',
                         height: '16px',
-                        cursor: 'pointer',
-                        zIndex: 10,
+                        cursor: 'crosshair',
                     }}
                 >
-                    {showIcon && <PlusIcon fill='var(--theme-color)' stroke='var(--primary)'/>}
+                    <PlusIcon fill='var(--theme-color)' stroke='var(--primary)'/>
                 </div>
             </PortalToFollowElemTrigger>
             <PortalToFollowElemContent style={{zIndex: 9}}>

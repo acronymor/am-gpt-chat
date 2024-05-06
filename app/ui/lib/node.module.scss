@@ -41,6 +41,10 @@
   align-items: center;
 }
 
+.icon-node-selected {
+  border-color: var(--primary);
+}
+
 @media only screen and (max-width: 600px) {
   .icon-node {
     padding: 16px;

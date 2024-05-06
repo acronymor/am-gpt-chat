@@ -7,11 +7,11 @@ import node_style from "@/app/ui/lib/node.module.scss";
 
 
 const Node = ({data}: NodeProps<EndNodeType>) => {
-    const {variables} = data
+    const {selected} = data
 
     return (
-        <IconNode title={data.title} desc={data.desc} icon={<LlmIcon/>}>
-            <div className={node_style["icon-node-text"]}>{variables.join(", ")}</div>
+        <IconNode title={data.title} desc={data.desc} icon={<LlmIcon/>} selected={selected ?? false}>
+            <div className={node_style["icon-node-text"]}>{["a", "b"].join(", ")}</div>
         </IconNode>
     )
 }
