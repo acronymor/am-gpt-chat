@@ -9,6 +9,7 @@ import ReactFlow, {
     Controls,
     Edge as EdgeType,
     Node as NodeType,
+    Panel,
     ReactFlowProvider,
     Viewport
 } from 'reactflow';
@@ -20,6 +21,7 @@ import CanvasPanel from "@/app/unit/canvas/panel";
 import {useNodesInteractions} from "@/app/unit/canvas/hooks/use-nodes-interactions";
 import {useEdgesInteractions} from "@/app/unit/canvas/hooks/use-edges-interactions";
 import {useWorkflowInit} from "@/app/unit/canvas/hooks/use-workflow";
+import {CanvasHeader} from "@/app/unit/canvas/header";
 
 const nodeTypes = {custom: CanvasNode}
 const edgeTypes = {custom: CanvasEdge}
@@ -78,6 +80,9 @@ function WorkFlow({canvas_node, canvas_edge, viewport}: {
                     size={2}
                     color="#E4E5E7"
                 />
+                <Panel position={"top-left"} style={{width: "100%", left: "-1.9%", top: "-15px", backgroundColor: 'var(--white)'}}>
+                    <CanvasHeader/>
+                </Panel>
                 <CanvasPanel/>
             </ReactFlow>
         </div>

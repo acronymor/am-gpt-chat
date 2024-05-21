@@ -61,7 +61,13 @@ export const useWorkflow = () => {
         return list
     }, [store])
 
+    const saveWorkflow = useCallback((workflow: any) => {
+        console.log("--->| save workflow", workflow)
+        return true
+    }, [store])
+
     return {
-        getAfterNodesInSameBranch
+        getAfterNodesInSameBranch,
+        saveWorkflow
     }
 }
