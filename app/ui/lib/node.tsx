@@ -6,6 +6,7 @@ import DotsIcon from "@/app/icons/dots.svg";
 export function IconNode(props: {
     children?: JSX.Element,
     onClick?: () => void,
+    onDoubleClick?: () => void,
     icon?: JSX.Element,
     className?: string,
     title?: string,
@@ -14,7 +15,7 @@ export function IconNode(props: {
 }) {
     return (
         <div className={`${node_style["icon-node"]}  ${props.selected && node_style["icon-node-selected"]}`}
-             onClick={props.onClick}>
+             onClick={props.onClick} onDoubleClick={props.onDoubleClick}>
             <div style={{display: "block", position: "absolute", top: "-20px", right: "0px"}}>
                 <RunIcon/>
                 <DotsIcon/>

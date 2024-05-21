@@ -5,16 +5,21 @@ import {Modal} from "@/app/ui/lib/modal";
 import {IconButton} from "@/app/ui/lib/button";
 import DownloadIcon from "@/app/icons/download.svg";
 import {useNodesInteractions} from "@/app/unit/canvas/hooks/use-nodes-interactions";
+import {useWorkflowStore} from "@/app/store/workflow";
 
 
 const Panel = ({id, data}: NodePanelProps<EndNodeType>) => {
     const {handleNodeSelect} = useNodesInteractions()
+    const {updateModal} = useWorkflowStore()
 
     return (
         <>
             {data.selected &&
                 <Modal title={"end"}
-                       onClose={() => handleNodeSelect(id, true)}
+                       onClose={() => {
+                           updateModal("")
+                           handleNodeSelect(id, true)
+                       }}
                        actions={[
                            <IconButton
                                key={"OK"}

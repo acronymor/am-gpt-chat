@@ -14,8 +14,10 @@ import {Edge, Node, NodeEnum, OnNodeAdd} from "@/app/unit/canvas/node/base/types
 import {generateNewNode, getNodesConnectedSourceOrTargetHandleIdsMap} from "@/app/unit/canvas/hooks/util";
 import {NODE_WIDTH_X_OFFSET, NODES_INITIAL_DATA, Y_OFFSET} from "@/app/unit/canvas/hooks/constants";
 import {useWorkflow} from "@/app/unit/canvas/hooks/use-workflow";
+import {useWorkflowStore} from "@/app/store/workflow";
 
 export const useNodesInteractions = () => {
+    const workflowStore = useWorkflowStore()
     const store = useStoreApi()
     const connectingNodeRef = useRef<{ nodeId: string; handleType: HandleType } | null>(null)
     const {getAfterNodesInSameBranch,} = useWorkflow()
@@ -51,6 +53,10 @@ export const useNodesInteractions = () => {
 
     const handleNodeClick = useCallback<NodeMouseHandler>((_, node) => {
         handleNodeSelect(node.id)
+    }, [handleNodeSelect])
+
+    const handleNodeDoubleClick = useCallback<NodeMouseHandler>((_, node) => {
+        workflowStore.updateModal(node.id)
     }, [handleNodeSelect])
 
     const handleNodeDrag = useCallback<NodeDragHandler>((e, node: Node) => {
@@ -419,6 +425,7 @@ export const useNodesInteractions = () => {
         handleNodeSelect,
         handleNodeAdd,
         handleNodeClick,
+        handleNodeDoubleClick,
         handleNodeDrag,
         handleNodeConnect,
         handleNodeConnectStart,

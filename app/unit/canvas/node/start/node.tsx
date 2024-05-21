@@ -6,7 +6,8 @@ import {IconNode} from "@/app/ui/lib/node";
 import node_style from "@/app/ui/lib/node.module.scss";
 
 
-const Node = ({data}: NodeProps<StartNodeType>) => {
+const Node = ({id, data}: NodeProps<StartNodeType>) => {
+
     const {selected} = data
     return (
         <IconNode title={data.title} desc={data.desc} icon={<StartIcon/>} className={"clickable"}

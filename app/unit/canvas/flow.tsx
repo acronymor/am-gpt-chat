@@ -19,7 +19,6 @@ import CanvasEdge from "@/app/unit/canvas/edge";
 import CanvasPanel from "@/app/unit/canvas/panel";
 import {useNodesInteractions} from "@/app/unit/canvas/hooks/use-nodes-interactions";
 import {useEdgesInteractions} from "@/app/unit/canvas/hooks/use-edges-interactions";
-import {WorkflowContextProvider} from "@/app/unit/canvas/context";
 import {useWorkflowInit} from "@/app/unit/canvas/hooks/use-workflow";
 
 const nodeTypes = {custom: CanvasNode}
@@ -36,7 +35,8 @@ function WorkFlow({canvas_node, canvas_edge, viewport}: {
         handleNodeConnectStart,
         handleNodeConnectEnd,
         handleNodeDeleteSelected,
-        handleNodeClick
+        handleNodeClick,
+        handleNodeDoubleClick
     } = useNodesInteractions()
 
     const {
@@ -55,6 +55,7 @@ function WorkFlow({canvas_node, canvas_edge, viewport}: {
                 nodes={canvas_node}
                 edges={canvas_edge}
                 onNodeClick={handleNodeClick}
+                onNodeDoubleClick={handleNodeDoubleClick}
                 onNodeDrag={handleNodeDrag}
                 onConnect={handleNodeConnect}
                 onConnectStart={handleNodeConnectStart}
@@ -96,13 +97,4 @@ const WorkflowWrapper = () => {
 }
 WorkflowWrapper.displayName = "Graph"
 
-const WorkflowContainer = () => {
-    return (
-        <WorkflowContextProvider>
-            <WorkflowWrapper/>
-        </WorkflowContextProvider>
-    )
-}
-
-
-export default memo(WorkflowContainer)
+export default memo(WorkflowWrapper)

@@ -7,6 +7,7 @@ import StartPanel from "@/app/unit/canvas/node/start/panel"
 import EndPanel from "@/app/unit/canvas/node/end/panel"
 import BasePanel from "@/app/unit/canvas/node/base/panel";
 import {useNodes} from "reactflow";
+import {useWorkflowStore} from "@/app/store/workflow";
 
 const PanelComponentMap: Record<string, ComponentType<any>> = {
     [PanelEnum.Start]: StartPanel,
@@ -28,15 +29,17 @@ const CustomPanel = (props: Node) => {
 }
 
 const CanvasPanel = () => {
+    const workflowStore = useWorkflowStore()
+    const modal = workflowStore.getModal()
+
     const nodes = useNodes<CommonNodeType>()
-    const selectedNode = nodes.find(node => node.data.selected)
+    const selectedNode = nodes.find(node => node.id === modal)
 
     const {showNodePanel} = useMemo(() => {
         return {
             showNodePanel: !!selectedNode
         }
     }, [selectedNode])
-
     return (
         <>
             {showNodePanel && <CustomPanel {...selectedNode!}/>}
