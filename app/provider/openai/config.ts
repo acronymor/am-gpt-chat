@@ -22,7 +22,8 @@ export class OpenAILLm implements INodeProperties {
                 label: 'OpenAI Temperature',
                 name: 'OpenAITemperature',
                 type: 'number',
-                placeholder: "OpenAI API Temperature",
+                option: {min: 0, max: 1},
+                placeholder: 1,
                 required: false
             },
             {
@@ -36,7 +37,8 @@ export class OpenAILLm implements INodeProperties {
                 label: 'OpenAI TopP',
                 name: 'OpenAI TopP',
                 type: 'number',
-                placeholder: "OpenAI TopP",
+                option: {min: 0, max: 1},
+                placeholder: 0.5,
                 required: false
             },
         ]

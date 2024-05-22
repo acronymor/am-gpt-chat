@@ -1,7 +1,6 @@
 import {nanoid} from "nanoid";
-import {createEmptyMask, StoreKey} from "@/app/constant";
+import {StoreKey} from "@/app/constant";
 import {createPersistStore} from "@/app/store/store";
-import {MaskConfig} from "@/app/proto/mask";
 import {Message} from "ai";
 
 export interface ChatStat {
@@ -21,8 +20,6 @@ export interface ChatSession {
     lastUpdate: number;
     lastSummarizeIndex: number;
     clearContextIndex?: number;
-
-    mask: MaskConfig;
 }
 
 
@@ -39,8 +36,6 @@ function createEmptySession(id: string, lastUpdate: number): ChatSession {
         },
         lastUpdate: lastUpdate,
         lastSummarizeIndex: 0,
-
-        mask: createEmptyMask(0, lastUpdate),
     };
 }
 
@@ -53,10 +48,8 @@ const DEFAULT_CHAT_STATE = {
 export const useChatStore = createPersistStore(
     DEFAULT_CHAT_STATE,
     (set, get) => ({
-        newSession: (mask?: MaskConfig) => {
+        newSession: () => {
             const session = createEmptySession(nanoid(), Date.now());
-            if (mask) {
-            }
 
             set((state) => ({
                 currentSessionIndex: 0,

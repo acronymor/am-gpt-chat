@@ -7,12 +7,36 @@ import DownloadIcon from "@/app/icons/download.svg";
 import {useNodesInteractions} from "@/app/unit/canvas/hooks/use-nodes-interactions";
 import {useWorkflowStore} from "@/app/store/workflow";
 import {List, ListItem} from "@/app/ui/lib/list";
-import {InputRange, InputText} from "@/app/ui/lib/input";
+import {InputNumber, InputText} from "@/app/ui/lib/input";
+import {OpenAILLm} from "@/app/provider/openai/config";
+import {INodeParams} from "@/app/provider/base/interface";
+
+const to_element = (params: INodeParams) => {
+    let element = undefined
+    switch (params.type) {
+        case "number":
+            element =
+                <InputNumber onChange={(e) => console.log(e)} uKey={params.label} uValue={params.placeholder}
+                             min={params.option.min}
+                             max={params.option.max}/>
+            break
+        case "boolean":
+            element = <InputText onChange={(e) => console.log(e)} uKey={params.label} uValue={params.placeholder}/>
+            break
+        default:
+            element = <InputText onChange={(e) => console.log(e)} uKey={params.label} uValue={params.placeholder}/>
+            break
+    }
+
+    return element
+}
 
 
 const Panel = ({id, data}: NodePanelProps<LLMNodeType>) => {
     const {handleNodeSelect} = useNodesInteractions()
     const {updateModal} = useWorkflowStore()
+
+    const node = new OpenAILLm()
 
     return (
         <>
@@ -35,17 +59,7 @@ const Panel = ({id, data}: NodePanelProps<LLMNodeType>) => {
                        ]}
                 >
                     <List>
-                        <ListItem title={"Temperature"}>
-                            <InputText onChange={(e) => {
-                                console.log(e)
-                            }} uKey={"temperature"} uValue={"temperature"}/>
-                        </ListItem>
-                        <ListItem title={"TopP"}>
-                            <InputRange onChange={(e) => console.log(e)} uKey={"topP"} uValue={1} min={0} max={1} step={0.1}/>
-                        </ListItem>
-                        <ListItem title={"MaxTokens"}>
-                            <InputRange onChange={(e) => console.log(e)} uKey={"max tokens"} uValue={10240} min={1024} max={51200} step={1}/>
-                        </ListItem>
+                        {node.inputs.map(t => <ListItem key={t.name} title={t.label}>{to_element(t)}</ListItem>)}
                     </List>
                 </Modal>
             }
