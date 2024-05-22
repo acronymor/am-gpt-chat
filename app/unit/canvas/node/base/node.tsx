@@ -1,7 +1,10 @@
 import React, {cloneElement, ReactElement} from "react";
 import {NodeEnum, NodeProps} from "@/app/unit/canvas/node/base/types";
-import {NodeSourceHandle, NodeTargetHandle} from "@/app/unit/canvas/node/base/node-handle";
+import NodeSourceHandle from "@/app/unit/canvas/node/base/node-source-handle";
+import NodeTargetHandle from "@/app/unit/canvas/node/base/node-target-handle";
 import node_handle_style from "@/app/unit/canvas/node/base/node-handle.module.scss"
+import NodeControl from "@/app/unit/canvas/node/base/node-control";
+import NodePlay from "@/app/unit/canvas/node/base/node-play";
 
 type BaseNodeProps = {
     children: ReactElement
@@ -9,27 +12,13 @@ type BaseNodeProps = {
 const BaseNode = ({id, data, children}: BaseNodeProps) => {
     return (
         <div className={node_handle_style["node-handle"]}>
-            {
-                data.type !== NodeEnum.Start && (
-                    <NodeTargetHandle
-                        id={id}
-                        data={data}
-                        handleId="target"
-                        handleClassName={node_handle_style["target-dot"]}
-                    />)
-            }
-            {
-                data.type !== NodeEnum.End && (
-                    <NodeSourceHandle
-                        id={id}
-                        data={data}
-                        handleId="source"
-                        handleClassName={node_handle_style["source-dot"]}
-                    />
-                )
-            }
+            {data.type !== NodeEnum.Start && (<NodeTargetHandle id={id} data={data}/>)}
+            {data.type !== NodeEnum.End && (<NodeSourceHandle id={id} data={data}/>)}
+            <NodeControl id={id} data={data}/>
+            <NodePlay id={id} data={data}/>
             {cloneElement(children, {id, data})}
-        </div>)
+        </div>
+    )
 }
 
 export default React.memo(BaseNode)

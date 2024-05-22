@@ -16,11 +16,6 @@ export function IconNode(props: {
     return (
         <div className={`${node_style["icon-node"]}  ${props.selected && node_style["icon-node-selected"]}`}
              onClick={props.onClick} onDoubleClick={props.onDoubleClick}>
-            <div style={{display: "block", position: "absolute", top: "-20px", right: "0px"}}>
-                <RunIcon/>
-                <DotsIcon/>
-            </div>
-
             <div style={{display: "flex"}}>
                 {
                     props.icon && (
